@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="style.css" type="text/css" rel="stylesheet" />
+<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
+</style>
+<script src="js/jquery.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/dbtables.js"></script>
+<script src='js/responsivevoice.js'></script>
+<script>
+jQuery(document).ready(function(){
+    jQuery(".menu_box").click(function(){
+        jQuery(".menusection").toggle();
+    });
+});
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	
+	
+	jQuery( document ).on( "mobileinit", function() {
+		jQuery.mobile.allowCrossDomainPages = true;
+	});
+	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
+    if(window.XDomainRequest){contentType = "text/plain";}
+	jQuery.support.cors = true;
+	var location='';
+	db.transaction(function (tx) {
+		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
+			function(tx,results){
+				if(typeof results.rows.item(0).meta_value != 'undefined'){
+					location=results.rows.item(0).meta_value;
+				}
+			
+		}, errorCB);
+	});
+	
+
+	
+	//var device_id = device.uuid;
+	var device_id = 'localhost';
+	var url=siteurl+'/api/category.php';
+    var uid=gup('uid');
+	var cid=gup('cid');
+	checkloggedin(uid);
+	var page=1;
+	savenews=function(row){
+			db.transaction(function (tx) {
+		
+				tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
+				function(tx,results){
+					if(typeof results.rows.item(0).id == 'undefined'){
+						var sql="INSERT INTO NEWS (newid,title,summary,news_url,news_source,published_by,video,image,share_url,post_date,like,readed,bookmark) VALUES('"+row['id']+"','"+row['title']+"','"+row['summary']+"','"+row['news_url']+"','"+row['news_source']+"','"+row['published_by']+"','"+row['video']+"','"+row['image']+"','"+row['share_url']+"','"+row['post_date']+"','"+row['news_like']+"','"+row['readed']+"','0')";
+						tx.executeSql(sql,[],function(){},errorCB);
+					}
+					
+				}
+				, errorCB);
+				
+				
+			});
+			
+	},
+	savetobookmark=function(){
+		jQuery('.activenews a.bookmarks').click(function(){
+			var $this=jQuery(this);
+			var url2=siteurl+'/api/like.php';
+			var id=jQuery(this).attr('coords');
+			
+			db.transaction(function (tx) {
+		
+				tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
+				function(tx,results){
+					if(typeof results.rows.item(0).bookmark != 'undefined'){
+						if(results.rows.item(0).bookmark=='0')
+						{
+							var sql="UPDATE NEWS SET bookmark='1' WHERE newid='"+id+"'";
+							tx.executeSql(sql,[],function(){},errorCB);
+						}
+						else
+						{
+							var sql="UPDATE NEWS SET bookmark='0' WHERE newid='"+id+"'";
+							tx.executeSql(sql,[],function(){},errorCB);
+						}
+					}
+					
+				}
+				, errorCB);
+				
+				
+			});
+			
+		});
+	},
+	likenews=function(){
+		jQuery('.activenews a.likethis').click(function(){
+			var $this=jQuery(this);
+			var url2=siteurl+'/api/like.php';
+			var id=jQuery(this).attr('coords');
+			jQuery.ajax({ 
+			 type: 'POST',  
+			 url: url2,  
+			 dataType: 'json',  
+			 data: {device_id:device_id,id:id},  
+			 crossDomain: true,  
+			 beforeSend: function() {
+			 },		
+			 complete: function() {
+				
+			 },
+			 success: function(res) {  
+				if(res['total_like'][0]['count'])
+				{
+					if(res['total_like'][0]['news_like']){
+						jQuery($this).addClass('liked');
+					}else{jQuery($this).removeClass('liked');}
+					jQuery($this).html('<img src="images/like.png">'+res['total_like'][0]['count']+' Likes');
+				}
+				
+			 },  
+			 error: function(response, d, a){
+				
+			 } 
+		   });
+		});
+	},
+	swipnews=function(th){
+		jQuery(th).swipe( {
+			//Generic swipe handler for all directions
+			swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+				//console.log( direction );
+				if(direction=='up'){
+					if(jQuery(this).next('div').hasClass('newsection'))
+					{
+						jQuery(this).next('div').addClass('activenews')
+						jQuery(this).slideUp(500,function(){
+							jQuery('.newsection').removeAttr('style');jQuery(this).removeClass('activenews');
+							th=jQuery('.activenews');
+							swipnews(th);
+						});
+						
+					}
+				}
+				else if(direction=='down'){
+					if(jQuery(this).prev('div').hasClass('newsection'))
+					{
+						jQuery(this).prev('div').addClass('activenews')
+						jQuery(this).slideDown(500,function(){
+							jQuery('.newsection').removeAttr('style');jQuery(this).removeClass('activenews');
+							th=jQuery('.activenews');
+							swipnews(th);
+						});
+						
+					}
+				}
+				likenews();
+				savetobookmark();
+				jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+					jQuery("header").toggle();
+				});
+				jQuery('.activenews a.speakthis').click(function(){
+					var sptext=jQuery(this).attr('data');
+					if(jQuery(this).hasClass('activespeach'))
+					{
+						responsiveVoice.cancel();
+						jQuery(this).removeClass('activespeach');
+					}
+					else
+					{
+						responsiveVoice.speak(sptext);
+						jQuery(this).addClass('activespeach');
+					}
+					return false;
+				});
+			}
+			
+		});
+	},
+	
+	loadnews=function(cid,page){
+		jQuery.ajax({ 
+		 type: 'POST',  
+		 url: url,  
+		 dataType: 'json',  
+		 data: {cid:cid,location:location,device_id:device_id, page:page},  
+		 crossDomain: true,  
+		 beforeSend: function() {
+		 },		
+		 complete: function() {
+			
+			
+			page=parseInt(page)+1;	
+			if(page!='1'){
+			setTimeout(function(){
+			 loadnews(cid,page);
+			},2000);
+			}
+			
+		 },
+		 success: function(res) {  
+			if(res['news'][0])
+			{
+				var html='';
+				jQuery(res['news']).each(function(i){
+					
+					html+='<div class="newsection"><div class="container"><div class="new_detail_section">';
+					if(res['news'][i]['video']!='')
+					{
+						html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
+					}
+					else if(res['news'][i]['image']!='')
+					{
+						html+='<div class="new_video"><img src="'+res['news'][i]['image']+'"/></div>';
+					}
+					else
+					{
+						html+='<div class="new_video"><img src="images/aaa.png"/></div>';
+					}
+					
+					var mystring=res['news'][i]['summary'];
+					mystring = mystring.replace(/["']/g, "");
+					var liked='';
+					if(res['news'][i]['like_status']){
+						liked=' liked';
+					}
+
+					html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by '+res['news'][i]['published_by']+' | '+res['news'][i]['news_source']+'</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="#"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">Source: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+					if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
+					savenews(res['news'][i]);
+				});
+				jQuery('.allnews').append(html);
+				if(!jQuery('.newsection').hasClass('activenews'))
+				{
+					jQuery('.newsection:first').addClass('activenews');
+				}
+				
+				var th=jQuery('.activenews');
+				swipnews(th);
+				
+				
+				if(page==1){
+					jQuery('.activenews a.speakthis').click(function(){
+						var sptext=jQuery(this).attr('data');
+						if(jQuery(this).hasClass('activespeach'))
+						{
+							responsiveVoice.cancel();
+							jQuery(this).removeClass('activespeach');
+						}
+						else
+						{
+							responsiveVoice.speak(sptext);
+							jQuery(this).addClass('activespeach');
+						}
+						return false;
+					});
+					jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+						jQuery("header").toggle();
+					});
+					savetobookmark();
+					likenews();
+				}
+			}
+			else
+			{
+				page=0;
+			}
+			
+		 },  
+		 error: function(response, d, a){
+			
+		 } 
+	   });
+	   
+	}
+	
+	loadnews(cid,page);
+	var th=jQuery('.activenews');
+	swipnews(th);
+	   
+});		
+</script>
+<title>Synopsis</title>
+</head>
+<body>
+<div class="wrapper">
+  <header style="display:none;">
+    <div class="header_box">
+      <div class="header_logo_section">
+        <div class="menu_box"> <a href="#"><img class="mnu" src="images/menu.png"/>
+          <div class="logobox"> <img src="images/logo.png" /> </div>
+          </a></div>
+      </div>
+      <div class="header_right_news"> <!--1052 News <a href="#"><img src="images/imgtotlenews.png"/></a>--> </div>
+      <div class="clr"></div>
+      
+    </div>
+    <div class="container menusection">
+      <div class="category_section">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#home">Categories</a></li>
+          <li><a href="#menu1">Settings</a></li>
+        </ul>
+        <div class="tab-content">
+          <script type="text/javascript">document.write(sitemenus());</script>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="allnews"></div>
+  
+</div>
+<script>
+jQuery(document).ready(function(){
+    jQuery(".nav-tabs a").click(function(){
+        jQuery(this).tab('show');
+    });
+	jQuery('.new_detail_section, .new_des_content').click(function(){
+        jQuery("header").toggle();
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
+</style>
+<script src="js/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css"/>
+  <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script>
+jQuery(document).ready(function(){
+    jQuery(".menu_box").click(function(){
+        jQuery(".menusection").toggle();
+    });
+});
+</script>
+<title>Synopsis</title>
+</head>
+
+<body>
+<div class="wrapper">
+<header>
+<div class="header_box">
+<div class="header_logo_section">
+<div class="menu_box">
+<a href="#"><img class="mnu" src="images/menu.png"/>
+
+<div class="logobox">
+<img src="images/logo.png" />
+</div></a></div>
+</div>
+
+<div class="clr"></div>
+<!--<div class="menusection">
+<ul>
+
+<li><a href="#">My Events</a></li>
+<li><a href="#">Logout</a></li>
+</ul>
+</div>-->
+</div>
+
+<div class="container menusection">
+<div class="category_section">
+ <ul class="nav nav-tabs">
+    <li class="active"><a href="#home">Categories</a></li>
+    <li><a href="#menu1">Settings</a></li>
+
+  </ul>
+
+  <div class="tab-content"><script type="text/javascript">document.write(sitemenus());</script></div>
+  
+  
+
+</div>
+</div>
+</header>
+<div class="container">
+<div class="contactus">
+<h1>SYNOPSIS NEWS</h1>
+<ul>
+<li><a href="#"><img src="images/contactemail.png"/>aiwahannah@yahoo.com</a></li>
+<li><a href="#"><img src="images/contactnumber.png"/>+312425436546</a></li>
+</ul>
+</div>
+</div>
+<footer class="afterlogin">
+<div class="footer_section">
+<hr>
+<div class="ftr_logo"><img src="images/footerlogo.png"/></div>
+
+</div>
+</footer>
+</div>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery(".nav-tabs a").click(function(){
+        jQuery(this).tab('show');
+    });
+});
+</script>
+</body>
+</html>

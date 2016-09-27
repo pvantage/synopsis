@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/style.css" type="text/css" rel="stylesheet" />
+<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
+</style>
+<script src="js/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".menu_box").click(function(){
+        $(".menusection").toggle();
+    });
+});
+</script>
+<title>Synopsis</title>
+</head>
+
+<body>
+<div class="wrapper">
+<header>
+<div class="header_box">
+<div class="header_logo_section">
+<div class="menu_box">
+<a href="#"><img src="images/menu.png"/></a>
+</div>
+<div class="logobox">
+<img src="images/logo.png" />
+</div>
+</div>
+
+<div class="header_right_news">
+1052 News <a href="#"><img src="images/imgtotlenews.png"/></a>
+</div>
+<div class="clr"></div>
+<!--<div class="menusection">
+<ul>
+
+<li><a href="#">My Events</a></li>
+<li><a href="#">Logout</a></li>
+</ul>
+</div>-->
+</div>
+</header>
+<div class="container menusection">
+<div class="category_section">
+ <ul class="nav nav-tabs">
+    <li class="active"><a href="#home">Categories</a></li>
+    <li><a href="#menu1">Settings</a></li>
+
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+     <ul class="cat_links">
+     <li><a href="#"><img src="images/1.png"/>All News</a></li>
+     <li><a href="#"><img src="images/2.png"/>Trending</a></li>
+     <li><a href="#"><img src="images/3.png"/>Top Stories</a></li>
+     <li><a href="#"><img src="images/4.png"/>Saved Article/Bookmarks</a></li>
+     <li><a href="#"><img src="images/5.png"/>Unread</a></li>
+     <li><a href="#"><img src="images/6.png"/>Local</a></li>
+     <li><a href="#"><img src="images/7.png"/>International</a></li>
+     <li><a href="#"><img src="images/8.png"/>Business and  Finance </a></li>
+     <li><a href="#"><img src="images/9.png"/>Politics</a></li>
+     <li><a href="#"><img src="images/10.png"/>Sports</a></li>
+     <li><a href="#"><img src="images/11.png"/>Property </a></li>
+     <li><a href="#"><img src="images/12.png"/>Technology</a></li>
+     <li><a href="#"><img src="images/13.png"/>Entertainment & Gossip </a></li>
+     <li><a href="#"><img src="images/14.png"/>Movies and Series </a></li>
+     <li><a href="#"><img src="images/15.png"/>Health/Science </a></li>
+     <li><a href="#"><img src="images/16.png"/>Lifestyle</a></li>
+     <li><a href="#"><img src="images/17.png"/>Trivia</a></li>
+     <li><a href="#"><img src="images/18.png"/>Jobs</a></li>
+     <li><a href="#"><img src="images/19.png"/>Contact us</a></li>
+     </ul>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+    <ul class="cat_links">
+     <li><a href="#"><img src="images/accountimage.png"/>Account <span class="setting_right_icon"><img src="images/nextarrow.png"/></span></a></li>
+     <li><a href="#"><img src="images/languageimage.png"/>Language<span class="setting_right_icon lang">English<img src="images/nextarrow.png"/></span></a></li>
+     <li><a href="#"><img src="images/notificationimage.png"/>Notification<span class="setting_right_icon"><img src="images/notificationsetting.png"/></span></a></li>
+     <li><a href="#"><img src="images/hdimage.png"/>HD Image<span class="setting_right_icon"><img src="images/notificationsetting.png"/></span></a></li>
+     <li><a href="#"><img src="images/nightmode.png"/>Night Mode<span class="setting_right_icon"><img src="images/notificationsetting.png"/></span></a></li>
+     <li><a href="#"><img src="images/inviteimage.png"/>Invite Friends</a></li>
+     <li><a href="#"><img src="images/rateimage.png"/>Rate App</a></li>
+     <li><a href="#"><img src="images/feedbackimage.png"/>Feedback </a></li>
+
+     </ul>
+    
+    </div>
+ 
+    
+  </div>
+  
+  
+
+</div>
+</div>
+
+
+<div class="container">
+<div class="new_detail_section">
+
+<div class="new_video"><img src="images/new_img.png"/></div>
+<div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>
+</div>
+<div class="news_description">
+<div class="news_des_section">
+<div class="new_heading">
+Just Escaped Death': Passenger 
+Describes Ordeal After Plane 
+</div>
+<div class="volume_box">
+<img src="images/volume.png"/>
+Listen
+</div>
+</div>
+
+<div class="new_des_content">
+The airline said passengers would be transferred to another aircraft to depart for Milan later in the day and that it would "be cooperating fully with the authorities in their investigations".One passenger posted a harrowing account and a video of the engine fire on Facebook.The 49-second video clip, apparently shot from a window seat, showed tongues of flame and smoke engulfing the right engine before they were put out.
+
+<div class="shortby">Short by <a href="#">York Bansal | CNN</a></div>
+<div class="likebox">
+<ul>
+<li><a href="#"><img src="images/like.png"/>60 Likes</a></li>
+<li><a href="#"><img src="images/Share.png"/> Share</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<footer class="afterlogin">
+<div class="footer_section">
+<hr>
+<div class="ftr_logo"><img src="images/footerlogo.png"/></div>
+<div class="source">Source: <a href="#">Twitter</a></div>
+</div>
+</footer>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+});
+</script>
+</body>
+</html>
