@@ -19,10 +19,10 @@ function getcountrycode(tx){
 	  success: function(json)
 	  {
 		  var countrycode=json.countryCode;
-		  alert('start');
+		  
 		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
 			function(tx,results){
-				
+				alert('start');
 				if (results.rowsAffected) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
 					tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
@@ -46,12 +46,10 @@ function getcountrycode(tx){
 //setTimeout(function(){ getcountrycode();					var countrycode=jQuery('#countryCode').val();alert(countrycode);},2000);
 
 function populateDB(tx) {
-	alert('start1');
 	// tx.executeSql('DROP TABLE IF EXISTS NEWS');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
-	 alert('start2');
 	getcountrycode(tx);
 	/*setTimeout(function(){
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
@@ -76,7 +74,7 @@ function populateDB(tx) {
 // Transaction error callback
 //
 function errorCB(tx, err) {
-	//alert("Error processing SQL: "+err.code);
+	alert("Error processing SQL: "+err.code);
 }
 
 // Transaction success callback
