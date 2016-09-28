@@ -49,9 +49,7 @@ jQuery(document).ready(function(){
 	
 	
 	var device_id = 'localhost';
-	if(typeof window.plugins!= 'undefined'){
-		window.plugins.uniqueDeviceID.get(function(uuid){device_id = uuid;alert(device_id);}, function(){});
-	}
+	
 	if(typeof device!= 'undefined')
 	 device_id = device.uuid;
 	alert(device_id);

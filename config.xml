@@ -19,7 +19,7 @@
 	
 	<!--<gap:plugin name="nl.x-services.plugins.socialsharing" />-->
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
-	<gap:plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" source="pgb" />
+	<gap:plugin name="org.apache.cordova.device" />
 	
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
