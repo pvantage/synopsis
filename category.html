@@ -195,17 +195,7 @@ jQuery(document).ready(function(){
 			var title=jQuery(this).attr('data-title');
 			var durl=jQuery(this).attr('data-url');
 			var dtext=jQuery(this).attr('data-text');
-			window.plugins.SocialShare.share(
-				successCallback,
-				failureCallback,
-				{
-					dialogTitle : 'Share using:',         // Title of the native dialog
-					url : durl,          // Url to be shared
-					text : dtext, // Text to be shared where possible (not in Facebook)
-														  // {{url}} will be replaced by given url
-					mailSubject : title    // Subject of the email if users select a mail client
-				}
-			);
+			navigator.share(dtext,title,"plain/text");
 		});
 	},
 	loadnews=function(cid,page){
