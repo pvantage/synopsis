@@ -17,7 +17,8 @@
       Rinku Kamboj
     </author>
 	
-	<gap:plugin name="nl.x-services.plugins.socialsharing" />
+	<!--<gap:plugin name="nl.x-services.plugins.socialsharing" />-->
+	<gap:plugin name="nl.x-services.plugins.socialsharing" spec="4.3.8" source="pgb" />
 	 
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
