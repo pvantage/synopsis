@@ -26,10 +26,8 @@ jQuery(document).ready(function(){
 </script>
 <script type="text/javascript">
 var device_id = 'localhost';
-document.addEventListener("deviceready", onDeviceReadydevice, false);
-function onDeviceReadydevice() {
-    device_id = device.uuid;
-}
+document.addEventListener("deviceready", function(){device_id = device.uuid;}, false);
+
 jQuery(document).ready(function(){
 	
 	
