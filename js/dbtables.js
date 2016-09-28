@@ -24,11 +24,11 @@ function populateDB(tx) {
 	  type: 'GET',
 	  success: function(json)
 	  {
-			
+			if(tx){alert('tx exist');}else{alert('tx not exist');}
 			tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 			function(tx,results){
 				
-				if(typeof results.rows.item(0).meta_value != 'undefined'){
+				if (results.rowsAffected) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
 					tx.executeSql(sql,[],function(){},errorCB);
 					alert(json.countryCode);
@@ -44,6 +44,7 @@ function populateDB(tx) {
 	  },
 	  error: function(err)
 	  {
+		  
 		//console.log("Request failed, error= " + err);
 	  }
 	});
@@ -52,7 +53,7 @@ function populateDB(tx) {
 // Transaction error callback
 //
 function errorCB(tx, err) {
-	alert("Error processing SQL: "+err);
+	alert("Error processing SQL: "+err.code);
 }
 
 // Transaction success callback
