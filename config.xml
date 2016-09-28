@@ -18,8 +18,16 @@
     </author>
 	
 	<!--<gap:plugin name="nl.x-services.plugins.socialsharing" />-->
-	<plugin name="nl.x-services.plugins.socialsharing" spec="4.3.8" source="pgb" />
-	 
+	<feature name="SocialSharing">
+	  <param name="ios-package" value="SocialSharing" />
+	</feature>
+	 <feature name="SocialSharing">
+	  <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+	</feature>
+	<feature name="SocialSharing">
+	  <param name="wp-package" value="SocialSharing"/>
+	</feature>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="mdpi" />
