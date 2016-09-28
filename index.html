@@ -41,33 +41,24 @@ function populateDB(tx) {
 	  success: function(json)
 	  {
 			//if(tx){alert('tx exist');}else{alert('tx not exist');}
-			tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
-			function(tx,results){
-				alert('start execution');
-				if (results.rowsAffected) {
-					var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
-					tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
-					
-				}
-				else
-				{
-					var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+json.countryCode+"')";
-					tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
-					
-				}
-			}, function(err){
-				alert("Error processing SQL: "+err.code);
-			});
-			
-	  },
-	  error: function(err)
-	  {
-		  
-		
+			tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],Updatelocation,errorCB);
 	  }
 	});
 }
-
+function Updatelocation(tx,results){
+  alert('start execution');
+	if (results.rowsAffected) {
+		var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
+		tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
+		
+	}
+	else
+	{
+		var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+json.countryCode+"')";
+		tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
+		
+	}
+}
 // Transaction error callback
 //
 function errorCB(tx, err) {
