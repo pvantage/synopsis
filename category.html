@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
 
 
 jQuery(document).ready(function(){
-	document.addEventListener("deviceready", function(){jQuery('#device_id').val(device.uuid); alert('device: '+device.uuid);}, false);
+	document.addEventListener("deviceready", function(){jQuery('#device_id').val(device.uuid); }, false);
 	
 	jQuery( document ).on( "mobileinit", function() {
 		jQuery.mobile.allowCrossDomainPages = true;
@@ -54,7 +54,6 @@ jQuery(document).ready(function(){
 	setTimeout(function(){
 		var device_id=jQuery('#device_id').val();
 		
-		alert(device_id);
 		var url=siteurl+'/api/category.php';
 		var uid=gup('uid');
 		var cid=gup('cid');
