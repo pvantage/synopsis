@@ -124,12 +124,13 @@ jQuery('#notificationapp').change(function(){
 		{
 			var notificationapp='yes';
 		}
-	document.addEventListener("deviceready", function(){
-		var db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
-		db.transaction(function(){
+		//alert(notificationapp);
+		if(db){alert(notificationapp);
+			db.transaction(function(){
 			tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='notificationapp'", [],
 			function(tx,results){
 				var totalrecords=results.rows.length;
+				alert(totalrecords);
 				if (parseInt(totalrecords)>0) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+notificationapp+"' WHERE meta_key='notificationapp'";
 					tx.executeSql(sql,[],function(){alert('update:'+notificationapp);},errorCB);
@@ -143,6 +144,31 @@ jQuery('#notificationapp').change(function(){
 				}
 			});
 		}, errorCB, successCB);
-	}, false);
+		
+		}
+		else
+		{
+		document.addEventListener("deviceready", function(){
+			var db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
+			db.transaction(function(){
+				tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='notificationapp'", [],
+				function(tx,results){
+					var totalrecords=results.rows.length;
+					alert(totalrecords);
+					if (parseInt(totalrecords)>0) {
+						var sql="UPDATE NEWSSETTINGS SET meta_value='"+notificationapp+"' WHERE meta_key='notificationapp'";
+						tx.executeSql(sql,[],function(){alert('update:'+notificationapp);},errorCB);
+						//alert(json.countryCode);
+					}
+					else
+					{
+						var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('notificationapp','"+notificationapp+"')";
+						tx.executeSql(sql,[],function(){alert('insert:'+notificationapp);},errorCB);
+						//alert(json.countryCode);
+					}
+				});
+			}, errorCB, successCB);
+		}, false);
+		}
 		
 	});
