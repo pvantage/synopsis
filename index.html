@@ -50,16 +50,16 @@ function populateDB(tx) {
 }
 //alert(localn);
 function Updatelocation(tx,results){
-  alert('start execution');
+  
 	if (results.rowsAffected) {
 		var sql="UPDATE NEWSSETTINGS SET meta_value='"+localn+"' WHERE meta_key='countrycode'";
-		tx.executeSql(sql,[],function(){alert(localn);},errorCB);
+		tx.executeSql(sql,[],function(){alert('1');},errorCB);
 		
 	}
 	else
 	{
 		var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+localn+"')";
-		tx.executeSql(sql,[],function(){alert(localn);},errorCB);
+		tx.executeSql(sql,[],function(){alert('2');},errorCB);
 		
 	}
 }
