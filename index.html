@@ -42,24 +42,24 @@ function populateDB(tx) {
 	  success: function(json)
 	  {
 			localn=json.countryCode;
-			//tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],Updatelocation,errorCB);
+			tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],Updatelocation,errorCB);
 			alert(localn);
 	  }
 	});
 	
 }
-alert(localn);
+//alert(localn);
 function Updatelocation(tx,results){
   alert('start execution');
 	if (results.rowsAffected) {
-		var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
-		tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
+		var sql="UPDATE NEWSSETTINGS SET meta_value='"+localn+"' WHERE meta_key='countrycode'";
+		tx.executeSql(sql,[],function(){alert(localn);},errorCB);
 		
 	}
 	else
 	{
-		var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+json.countryCode+"')";
-		tx.executeSql(sql,[],function(){alert(json.countryCode);},errorCB);
+		var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+localn+"')";
+		tx.executeSql(sql,[],function(){alert(localn);},errorCB);
 		
 	}
 }
