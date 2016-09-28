@@ -1,11 +1,15 @@
 
-
+html, body {
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+}
 *{ margin:0px; padding:0px;}
 a{ text-decoration:none;}
 img{border:none;}
 .clr{ clear:both; margin:0px; padding:0px;}
 h1,h2,h3,h4,h5,h6,h7,p,span{ margin:0px; padding:0px;}
-body {margin: 0; padding: 0; background-color: #fff !important; font-family: 'Roboto', sans-serif !important; }
+body {margin: 0; padding: 0; background-color: #fff !important; }
 .wrapper{ max-width:768px; height:auto; margin:0 auto; background:#fff;}
 header {
   background: #fff;
@@ -298,8 +302,7 @@ span.setting_right_icon.lang img {
     float: left;
     width: 100%;
     font-size: 28px;
-    font-weight: 300;
-    color: #575759;
+    color: #000;
     margin-top: 10px;
 }
 .shortby {
@@ -333,12 +336,10 @@ span.setting_right_icon.lang img {
     top: 49%;
     padding-left: 14px;
     /* padding-bottom: 20px; */
-	font-size:28px;
 }
 .afterlogin{ padding-bottom:30px;}
 .source a {
     color: #00befd;
-    font-style: italic;
 }
 img.mnu {
     float: left;
@@ -481,7 +482,7 @@ header{ position:relative;}
 
 }
 header {
-  background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;
+  background: rgba(255, 255, 255, 0.8) none repeat scroll 0 0;
   position: fixed;
   z-index: 999;
   padding: 0px;
@@ -497,6 +498,28 @@ header .wrapper {
   padding: 10px 30px;
   background:none;
 }
+.speakthis {
+  background:url("../images/volume.png") no-repeat scroll center top / 66% auto;
+  float: left;
+  padding-top: 27px;
+}
+.speakthis.activespeach{
+  background:url("../images/audiostaop.png") no-repeat scroll center top / 52% auto;
+  float: left;
+  padding-top: 27px;	
+}
+.speakthis img {
+  display: none;
+}
+.likethis {
+  background:url("../images/like.png") no-repeat scroll left;
+  background-size: contain;
+  padding-left: 22px;
+}
+
+.likethis.liked{ background:url("../images/like1.png") no-repeat scroll left; background-size: contain;}
+.likethis img{ display:none;}
+
 @media (min-width: 300px) and (max-width: 480px) {
 .skip a {
   font-size: 20px;
@@ -559,11 +582,10 @@ header .wrapper {
   margin-top: 9px;
 }
 .likebox a {
-  font-size: 12px;
+  font-size: 13px;
+  color:#a9a9a9;
 }
-.source {
-  font-size: 15px;
-}
+
 .new_des_content {
   font-size: 14px;
   padding-bottom: 10px;
@@ -612,10 +634,7 @@ img.mnu {
     width: 50%;
 }
 .header_right_news{ margin-top:20px;}
-.source {
-  font-size: 14px;
-  margin-top: 10px;
-}
+
 .afterlogin {
   padding:0px;
 }
