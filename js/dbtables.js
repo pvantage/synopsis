@@ -40,6 +40,7 @@ jQuery.ajax({
 		
 		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 		function(tx,results){
+			alert(json.countryCode);
 			if(typeof results.rows.item(0).meta_value != 'undefined'){
 				var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
 				tx.executeSql(sql,[],function(){},errorCB);

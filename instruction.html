@@ -50,11 +50,9 @@ jQuery(document).ready(function(){
 
 	
 	var device_id = device.uuid;
-	//var device_id = 'localhost';
+	alert(device_id);
+	alert(location);
 	var url=siteurl+'/api/category.php';
-    var uid=gup('uid');
-	var cid=gup('cid');
-	checkloggedin(uid);
 	var page=1;
 	savenews=function(row){
 			db.transaction(function (tx) {
