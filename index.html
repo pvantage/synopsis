@@ -27,12 +27,13 @@ function onDeviceReady() {
 
 // Populate the database 
 //
-var localn='';
+var localn='IN';
 function populateDB(tx) {
 	 tx.executeSql('DROP TABLE IF EXISTS NEWS');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
+	 tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],Updatelocation,errorCB);
 	 //alert('start');
 	var requestUrl = "http://ip-api.com/json";
 	
@@ -42,8 +43,7 @@ function populateDB(tx) {
 	  success: function(json)
 	  {
 			localn=json.countryCode;
-			tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],Updatelocation,errorCB);
-			alert(localn);
+			
 	  }
 	});
 	
