@@ -15,7 +15,7 @@
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script src='js/responsivevoice.js'></script>
-<script type="text/javascript" src="js/dbtables.js"></script>
+<!--<script type="text/javascript" src="js/dbtables.js"></script>-->
 <script>
 jQuery(document).ready(function(){
     jQuery(".menu_box").click(function(){
@@ -34,7 +34,7 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	var location='';
-	db.transaction(function (tx) {
+	/*db.transaction(function (tx) {
 		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 			function(tx,results){
 				if(typeof results.rows.item(0).meta_value != 'undefined'){
@@ -42,13 +42,15 @@ jQuery(document).ready(function(){
 				}
 			
 		}, errorCB);
-	});
+	});*/
 	
 
 	
-	var device_id = device.uuid;
-	alert(device_id);
-	//var device_id = 'localhost';
+	
+	var device_id = 'localhost';
+	if(typeof device!= 'undefined')
+	 device_id = device.uuid;
+	
 	var url=siteurl+'/api/category.php';
     var uid=gup('uid');
 	var cid=gup('cid');
@@ -138,6 +140,7 @@ jQuery(document).ready(function(){
 		jQuery(th).swipe( {
 			//Generic swipe handler for all directions
 			swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+				responsiveVoice.cancel();
 				//console.log( direction );
 				if(direction=='up'){
 					if(jQuery(this).next('div').hasClass('newsection'))
@@ -236,7 +239,7 @@ jQuery(document).ready(function(){
 
 					html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by '+res['news'][i]['published_by']+' | '+res['news'][i]['news_source']+'</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="#"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">Source: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 					if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
-					savenews(res['news'][i]);
+					//savenews(res['news'][i]);
 				});
 				jQuery('.allnews').append(html);
 				if(!jQuery('.newsection').hasClass('activenews'))

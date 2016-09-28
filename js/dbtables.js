@@ -24,23 +24,23 @@ function populateDB(tx) {
 	  type: 'GET',
 	  success: function(json)
 	  {
-			if(tx){alert('tx exist');}else{alert('tx not exist');}
+			//if(tx){alert('tx exist');}else{alert('tx not exist');}
 			tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 			function(tx,results){
 				
 				if (results.rowsAffected) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+json.countryCode+"' WHERE meta_key='countrycode'";
 					tx.executeSql(sql,[],function(){},errorCB);
-					alert(json.countryCode);
+					//alert(json.countryCode);
 				}
 				else
 				{
 					var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+json.countryCode+"')";
 					tx.executeSql(sql,[],function(){},errorCB);
-					alert(json.countryCode);
+					//alert(json.countryCode);
 				}
 			}, errorCB);
-			alert(json.countryCode);
+			//alert(json.countryCode);
 	  },
 	  error: function(err)
 	  {
@@ -53,7 +53,7 @@ function populateDB(tx) {
 // Transaction error callback
 //
 function errorCB(tx, err) {
-	alert("Error processing SQL: "+err.code);
+	//alert("Error processing SQL: "+err.code);
 }
 
 // Transaction success callback

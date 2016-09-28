@@ -14,7 +14,7 @@
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script>
-document.addEventListener("deviceready", onDeviceReady, false);
+/*document.addEventListener("deviceready", onDeviceReady, false);
 
 // PhoneGap is ready
 //
@@ -53,13 +53,13 @@ function Updatelocation(tx,results){
   
 	if (results.rowsAffected) {
 		var sql="UPDATE NEWSSETTINGS SET meta_value='"+localn+"' WHERE meta_key='countrycode'";
-		tx.executeSql(sql,[],function(){alert('1');},errorCB);
+		tx.executeSql(sql,[],function(){},errorCB);
 		
 	}
 	else
 	{
 		var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+localn+"')";
-		tx.executeSql(sql,[],function(){alert('2');},errorCB);
+		tx.executeSql(sql,[],function(){},errorCB);
 		
 	}
 }
@@ -73,7 +73,7 @@ function errorCB(tx, err) {
 //
 function successCB() {
    // alert("success!");
-}
+}*/
 
 jQuery(document).ready(function(){
     jQuery(".menu_box").click(function(){
