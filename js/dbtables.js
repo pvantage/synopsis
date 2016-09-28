@@ -4,6 +4,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 //
 var db;
 function onDeviceReady() {
+	alert('test');
 	db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
 	db.transaction(populateDB, errorCB, successCB);
 }
@@ -26,7 +27,7 @@ function errorCB(tx, err) {
 // Transaction success callback
 //
 function successCB() {
-   // alert("success!");
+    alert("success!");
 }
 var requestUrl = "http://ip-api.com/json";
 
