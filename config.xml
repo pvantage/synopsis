@@ -17,7 +17,7 @@
       Rinku Kamboj
     </author>
 	
-	<plugin name="nl.madebymark.share" spec="0.1.1" source="pgb" />
+	<gap:plugin name="nl.x-services.plugins.socialsharing" />
 	 
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
