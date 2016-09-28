@@ -25,6 +25,11 @@ jQuery(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
+document.addEventListener("deviceready", onDeviceReadydevice, false);
+function onDeviceReadydevice() {
+    alert(device.cordova);
+	alert(device.uuid);
+}
 jQuery(document).ready(function(){
 	
 	
