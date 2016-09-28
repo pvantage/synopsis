@@ -126,11 +126,11 @@ jQuery('#notificationapp').change(function(){
 		}
 		//alert(notificationapp);
 		if(db){
-			db.transaction(function(){alert(notificationapp);
+			db.transaction(function(){//alert(notificationapp);
 			tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='notificationapp'", [],
 			function(tx,results){
 				var totalrecords=results.rows.length;
-				alert(totalrecords);
+				//alert(totalrecords);
 				if (parseInt(totalrecords)>0) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+notificationapp+"' WHERE meta_key='notificationapp'";
 					tx.executeSql(sql,[],function(){alert('update:'+notificationapp);},errorCB);
