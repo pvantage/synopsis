@@ -38,8 +38,7 @@ function populateDB(tx) {
 	navigator.globalization.getLocaleName(function(lk){
 												   alert(lk.value);
 												  }, function(){});
-	setTimeout(function(){
-	var countrycode=getcountrycode();alert(countrycode);
+	/*setTimeout(function(){
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 	function(tx,results){
 		
@@ -55,7 +54,7 @@ function populateDB(tx) {
 			//alert(json.countryCode);
 		}
 	}, errorCB);
-	},4000);
+	},4000);*/
 			
 }
 
