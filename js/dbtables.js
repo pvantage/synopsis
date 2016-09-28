@@ -11,15 +11,29 @@ function onDeviceReady() {
 
 // Populate the database 
 //
-function getcountrycode(){
+function getcountrycode(tx){
 	var requestUrl = "http://ip-api.com/json";
 	jQuery.ajax({
 	  url: requestUrl,
 	  type: 'GET',
 	  success: function(json)
 	  {
-		  	//alert(json.countryCode);
-		  jQuery('body').append('<input type="hidden" id="countryCode" value="'+json.countryCode+'">');
+		  var countrycode=json.countryCode;
+		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
+			function(tx,results){
+				
+				if (results.rowsAffected) {
+					var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
+					tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
+					//alert(json.countryCode);
+				}
+				else
+				{
+					var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+countrycode+"')";
+					tx.executeSql(sql,[],function(){alert('insert:'+countrycode);},errorCB);
+					//alert(json.countryCode);
+				}
+			}, errorCB);
 		
 	  },
 	  error: function(err)
@@ -35,9 +49,7 @@ function populateDB(tx) {
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
-	navigator.globalization.getLocaleName(function(lk){
-												   alert(lk.value);
-												  }, function(){});
+	getcountrycode(tx);
 	/*setTimeout(function(){
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 	function(tx,results){
