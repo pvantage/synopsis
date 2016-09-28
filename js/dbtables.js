@@ -54,23 +54,38 @@ function populateDB(tx) {
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
 	 //tx.executeSql('DROP TABLE IF EXISTS NEWSSETTINGS');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
-	var countrycode='IN';
 		  //alert(countrycode);
 		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
 			function(tx,results){
 				var totalrecords=results.rows.length;
 				alert(totalrecords);
-				if (parseInt(totalrecords)>0) {
-					var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
-					tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
-					//alert(json.countryCode);
-				}
-				else
-				{
-					var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+countrycode+"')";
-					tx.executeSql(sql,[],function(){alert('insert:'+countrycode);},errorCB);
-					//alert(json.countryCode);
-				}
+				var requestUrl = "http://ip-api.com/json";
+				jQuery.ajax({
+				  url: requestUrl,
+				  type: 'GET',
+				  success: function(json)
+				  {
+					  alert(totalrecords);
+					  var countrycode=json.countryCode;
+					  if (parseInt(totalrecords)>0) {
+							var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
+							tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
+							//alert(json.countryCode);
+						}
+						else
+						{
+							var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+countrycode+"')";
+							tx.executeSql(sql,[],function(){alert('insert:'+countrycode);},errorCB);
+							//alert(json.countryCode);
+						}
+					
+				  },
+				  error: function(err)
+				  {
+					  
+				  }
+				});
+				
 			}, errorCB);
 	/*setTimeout(function(){
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
