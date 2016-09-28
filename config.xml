@@ -21,6 +21,7 @@
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<gap:plugin name="org.apache.cordova.device" />
 	<gap:plugin name="org.apache.cordova.globalization" />
+	<gap:plugin name="cordova-plugin-screen-orientation" />
 	
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
