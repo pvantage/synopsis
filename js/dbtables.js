@@ -56,7 +56,7 @@ function populateDB(tx) {
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
 	var countrycode='IN';
 		  //alert(countrycode);
-		  tx.executeSql("SELECT * FROM NEWSSETTINGS", [],
+		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
 			function(tx,results){
 				var totalrecords=results.rows.length;
 				alert(totalrecords);
