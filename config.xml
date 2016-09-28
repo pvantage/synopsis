@@ -17,7 +17,7 @@
       Rinku Kamboj
     </author>
 	
-	
+	<plugin name="com.gestionaleauto.socialshare" />
 	 
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />

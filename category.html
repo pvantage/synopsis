@@ -168,6 +168,7 @@ jQuery(document).ready(function(){
 				}
 				likenews();
 				savetobookmark();
+				sharenews();
 				jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
 					jQuery("header").toggle();
 				});
@@ -189,7 +190,24 @@ jQuery(document).ready(function(){
 			
 		});
 	},
-	
+	sharenews=function(){
+		jQuery('.activenews a.sharenews').click(function(){
+			var title=jQuery(this).attr('data-title');
+			var durl=jQuery(this).attr('data-url');
+			var dtext=jQuery(this).attr('data-text');
+			window.plugins.SocialShare.share(
+				successCallback,
+				failureCallback,
+				{
+					dialogTitle : 'Share using:',         // Title of the native dialog
+					url : durl,          // Url to be shared
+					text : dtext, // Text to be shared where possible (not in Facebook)
+														  // {{url}} will be replaced by given url
+					mailSubject : title    // Subject of the email if users select a mail client
+				}
+			);
+		});
+	},
 	loadnews=function(cid,page){
 		jQuery.ajax({ 
 		 type: 'POST',  
@@ -237,7 +255,7 @@ jQuery(document).ready(function(){
 						liked=' liked';
 					}
 
-					html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by '+res['news'][i]['published_by']+' | '+res['news'][i]['news_source']+'</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="#"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">Source: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+					html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by '+res['news'][i]['published_by']+' | '+res['news'][i]['news_source']+'</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['news_url']+'" data-text="'+res['news'][i]['mystring']+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">Source: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 					if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
 					//savenews(res['news'][i]);
 				});
@@ -271,6 +289,7 @@ jQuery(document).ready(function(){
 					});
 					savetobookmark();
 					likenews();
+					sharenews();
 				}
 			}
 			else
