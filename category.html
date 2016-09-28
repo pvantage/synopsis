@@ -25,8 +25,7 @@ jQuery(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-var device_id = 'localhost';
-document.addEventListener("deviceready", function(){device_id = device.uuid;}, false);
+var device_id = document.addEventListener("deviceready", function(){return device.uuid;}, false);
 
 jQuery(document).ready(function(){
 	
