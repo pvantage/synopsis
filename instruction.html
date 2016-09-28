@@ -18,15 +18,16 @@ document.addEventListener("deviceready", onDeviceReadyInt, false);
 // PhoneGap is ready
 //
 var db;
+var location2='';
 function onDeviceReadyInt() {
 	//alert('test');
 	db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
-	var location='';
+	
 	db.transaction(function (tx) {
 		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 			function(tx,results){
 				if(typeof results.rows.item(0).meta_value != 'undefined'){
-					location=results.rows.item(0).meta_value;
+					location2=results.rows.item(0).meta_value;
 				}
 			
 		}, errorCB);
@@ -60,10 +61,10 @@ jQuery(document).ready(function(){
 	
 	
 
-	
+	alert(location2);
 	var device_id = device.uuid;
 	alert(device_id);
-	alert(location);
+	
 	var url=siteurl+'/api/category.php';
 	var page=1;
 	savenews=function(row){
@@ -89,7 +90,7 @@ jQuery(document).ready(function(){
 		 type: 'POST',  
 		 url: url,  
 		 dataType: 'json',  
-		 data: {cid:cid,location:location,device_id:device_id, page:page},  
+		 data: {cid:cid,location:location2,device_id:device_id, page:page},  
 		 crossDomain: true,  
 		 beforeSend: function() {
 		 },		
