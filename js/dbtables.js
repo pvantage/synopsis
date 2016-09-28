@@ -18,7 +18,8 @@ function getcountrycode(){
 	  type: 'GET',
 	  success: function(json)
 	  {
-		  return json.countryCode;
+		  	//alert(json.countryCode);
+		  jQuery('body').append('<input type="hidden" id="countryCode" value="'+json.countryCode+'">');
 		
 	  },
 	  error: function(err)
@@ -27,28 +28,34 @@ function getcountrycode(){
 	  }
 	});
 }
+//setTimeout(function(){ getcountrycode();					var countrycode=jQuery('#countryCode').val();alert(countrycode);},2000);
+
 function populateDB(tx) {
 	// tx.executeSql('DROP TABLE IF EXISTS NEWS');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
-	
-	var countrycode=getcountrycode();
+	navigator.globalization.getLocaleName(function(lk){
+												   alert(lk.value);
+												  }, function(){});
+	setTimeout(function(){
+	var countrycode=getcountrycode();alert(countrycode);
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 	function(tx,results){
 		
 		if (results.rowsAffected) {
 			var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
-			tx.executeSql(sql,[],function(){alert('update':countrycode);},errorCB);
+			tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
 			//alert(json.countryCode);
 		}
 		else
 		{
 			var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+countrycode+"')";
-			tx.executeSql(sql,[],function(){alert('insert':countrycode);},errorCB);
+			tx.executeSql(sql,[],function(){alert('insert:'+countrycode);},errorCB);
 			//alert(json.countryCode);
 		}
 	}, errorCB);
+	},4000);
 			
 }
 
