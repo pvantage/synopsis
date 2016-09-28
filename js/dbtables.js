@@ -19,7 +19,10 @@ function getcountrycode(tx){
 	  success: function(json)
 	  {
 		  var countrycode=json.countryCode;
-		  
+		  alert(countrycode);
+		  if(typeof tx!= 'undefined'){
+			alert('starting');  
+		  }
 		  tx.executeSql("SELECT * FROM NEWSSETTINGS", [],
 			function(tx,results){
 				alert('start');
