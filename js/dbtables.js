@@ -1,9 +1,9 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReadydb, false);
 
 // PhoneGap is ready
 //
 var db;
-function onDeviceReady() {
+function onDeviceReadydb() {
 	//alert('test');
 	db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
 	db.transaction(populateDB, errorCB, successCB);
@@ -19,7 +19,7 @@ function getcountrycode(tx){
 	  success: function(json)
 	  {
 		  var countrycode=json.countryCode;
-		  alert(countrycode);
+		  //alert(countrycode);
 		  if(typeof tx!= 'undefined'){
 			alert('starting');  
 		  }
@@ -52,9 +52,25 @@ function populateDB(tx) {
 	// tx.executeSql('DROP TABLE IF EXISTS NEWS');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
-	 tx.executeSql('DROP TABLE IF EXISTS NEWSSETTINGS');
+	 //tx.executeSql('DROP TABLE IF EXISTS NEWSSETTINGS');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
-	getcountrycode(tx);
+	var countrycode='IN';
+		  //alert(countrycode);
+		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
+			function(tx,results){
+				alert('start');
+				if (results.rowsAffected) {
+					var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
+					tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
+					//alert(json.countryCode);
+				}
+				else
+				{
+					var sql="INSERT INTO NEWSSETTINGS (meta_key,meta_value) VALUES('countrycode','"+countrycode+"')";
+					tx.executeSql(sql,[],function(){alert('insert:'+countrycode);},errorCB);
+					//alert(json.countryCode);
+				}
+			}, errorCB);
 	/*setTimeout(function(){
 	tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 	function(tx,results){
