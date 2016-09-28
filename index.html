@@ -334,14 +334,7 @@ jQuery(document).ready(function(){
         jQuery("header").toggle();
     });
 	
-	jQuery('#notificationapp').change(function(){
-		if(jQuery(this).is(':checked'))
-		{
-			document.addEventListener("deviceready", function(){
-				var db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
-			}, false);
-		}
-	});
+	
 });
 </script>
 </body>
