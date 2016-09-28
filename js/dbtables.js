@@ -58,7 +58,8 @@ function populateDB(tx) {
 		  //alert(countrycode);
 		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
 			function(tx,results){
-				alert('start');
+				alert(results.rows.item(0).meta_key);
+				alert(results.rows.item(0).meta_value);
 				if (results.rowsAffected) {
 					var sql="UPDATE NEWSSETTINGS SET meta_value='"+countrycode+"' WHERE meta_key='countrycode'";
 					tx.executeSql(sql,[],function(){alert('update:'+countrycode);},errorCB);
