@@ -18,7 +18,7 @@
     </author>
 	
 	<!--<gap:plugin name="nl.x-services.plugins.socialsharing" />-->
-	<gap:plugin name="com.gestionaleauto.socialshare" spec="0.0.3" source="pgb" />
+	<gap:plugin name="com.gestionaleauto.socialshare" />
 	
 	<icon gap:platform="webos" src="images/mobi_icon.png" />
 	<icon src="images/mobi_icon.png" gap:platform="android" gap:density="ldpi" />
