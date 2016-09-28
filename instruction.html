@@ -13,6 +13,27 @@
   <script type="text/javascript" src="js/config.js"></script>
   <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
 <script>
+document.addEventListener("deviceready", onDeviceReadyInt, false);
+
+// PhoneGap is ready
+//
+var db;
+function onDeviceReadyInt() {
+	//alert('test');
+	db = window.openDatabase("synopsis", "1.0", "Synopsis", 2000000);
+	var location='';
+	db.transaction(function (tx) {
+		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
+			function(tx,results){
+				if(typeof results.rows.item(0).meta_value != 'undefined'){
+					location=results.rows.item(0).meta_value;
+				}
+			
+		}, errorCB);
+	});
+}
+
+
 jQuery(document).ready(function(){
 	 var uid=gup('uid');
    
@@ -36,16 +57,7 @@ jQuery(document).ready(function(){
 	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
-	var location='';
-	db.transaction(function (tx) {
-		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
-			function(tx,results){
-				if(typeof results.rows.item(0).meta_value != 'undefined'){
-					location=results.rows.item(0).meta_value;
-				}
-			
-		}, errorCB);
-	});
+	
 	
 
 	
