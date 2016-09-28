@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
 <link href="style.css" type="text/css" rel="stylesheet" />
+<link href="css/main.css" type="text/css" rel="stylesheet" />
 <style>
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
 </style>
@@ -50,12 +51,14 @@ jQuery(document).ready(function(){
 	var device_id = 'localhost';
 	if(typeof device!= 'undefined')
 	 device_id = device.uuid;
-	
+	alert(device_id);
 	var url=siteurl+'/api/category.php';
     var uid=gup('uid');
 	var cid=gup('cid');
 	checkloggedin(uid);
 	var page=1;
+	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+	jQuery('body').append(html);
 	savenews=function(row){
 			db.transaction(function (tx) {
 		
@@ -211,6 +214,8 @@ jQuery(document).ready(function(){
 		 },		
 		 complete: function() {
 			
+			jQuery('body .preloader').remove();
+			jQuery('body .bodyoverlay').remove();
 			
 			page=parseInt(page)+1;	
 			if(page!='1'){

@@ -121,9 +121,7 @@ input.pwd {
 	vertical-align: top;
 }
 
-.loginwith ul li img {
-    width: 100%;
-}
+
 .loginwith ul li {
     list-style: none;
     margin-top: 20px;
@@ -519,7 +517,51 @@ header .wrapper {
 
 .likethis.liked{ background:url("../images/like1.png") no-repeat scroll left; background-size: contain;}
 .likethis img{ display:none;}
+.login_boxes span {
+  float: left;
+  padding: 0;
+  width: 47px;
+}
+.l-fb {
+  background: #39589b;
+}
+.login_boxes a {
+  color: #fff;
+  float: left;
+  width: 100%;
+  font-size: 17px;
+}
+.login_boxes li{
+  float: left;
+  width: 100%;
+  padding: 5px ;
+ }
+ .login_boxes .l-fb  span {
+  border-right: 1px solid #2a4a7b;
+  float: left;
+  padding: 0 20px 0 0;
+}
+.login_boxes .l-g span {
+  border-right: 1px solid #b83c24;
+  float: left;
+  padding: 0 20px 0 0;
+}
+.login_boxes .l-tw span {
+  border-right: 1px solid #028ac1;
+  float: left;
+  padding: 0 20px 0 0;
+}
+.login_boxes .l-tw img {
+  width: 20px;
+}
 
+.login_boxes .l-g img {
+  width: 20px;
+}
+.l-fb { background: #39589b;}
+.l-g{background: #e14932;} 
+.l-tw{background: #00abf2;} 
+ 
 @media (min-width: 300px) and (max-width: 480px) {
 .skip a {
   font-size: 20px;
@@ -628,7 +670,7 @@ img.mnu {
   font-size: 16px;
 }
 .login_section {
-  padding: 12px;
+  padding: 52px 12px 12px;
 }
 .volume_box > img {
     width: 50%;
@@ -671,7 +713,8 @@ header {
   font-weight: 600;
 }
 .loginwith ul li {
-  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 .loginwith {
   padding: 0 15px 15px;
@@ -685,6 +728,9 @@ header {
 .login_section h1 {
   font-size: 20px;
   font-weight: normal;
+}
+.login_boxes .l-tw {
+  margin-bottom: 0px;
 }
 
 .login_section input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -701,7 +747,12 @@ header {
 }
 .loginwith {
   margin-top: 25px;
-
+  float: left;
+  width: 100%;
+}
+.login_boxes {
+  float: left;
+  width: 100%;
 }
 .backbtn img {
   width: 100%;

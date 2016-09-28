@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="css/main.css" type="text/css" rel="stylesheet" />
 <style>
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
 </style>
@@ -295,19 +296,24 @@ jQuery(document).ready(function(){
           <input type="text" class="required email" name="email" id="email" placeholder="Enter Your Email">
         </div>
         <div class="input_box">
-          <button class="sign_in">Sign In</button>
+          <button class="sign_in">Get Password</button>
         </div>
         <div class="input_box forgotpwd"> <a href="#" class="loginp">Login</a> </div>
 		</form>
       </div>
       <div class="loginwith">
         <h1>Log in with</h1>
-        <ul>
-          <li><a href="#"><img src="images/FB.png"/></a></li>
-          <li><a href="#"><img src="images/google.png"/></a></li>
-          <li><a href="#"><img src="images/twitter.png"/></a></li>
+       
+		<ul class="login_boxes">
+          <li class="l-fb"><a href="#"><span><img src="images/ac_fb.png"/></span>
+		  Connect with Facebook</a></li>
+          <li class="l-g"><a href="#"><span><img src="images/ac_gplush.png"/></span>
+		  Connect with Google</a></li>
+          <li class="l-tw"><a href="#"><span><img src="images/ac_twitter.png"/></span>
+		  Connect with Twitter</a></li>
         </ul>
       </div>
+	  
     </div>
     <div class="skip"><a href="instruction.html">Skip</a></div>
   </div>

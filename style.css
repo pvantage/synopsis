@@ -42,6 +42,21 @@ a:hover{text-decoration:none;}
 .speakthis{ color:#888888;}
 
 .speakthis img{ height:26px;}
+.bodyoverlay{position:fixed; height:100%; width:100%; background:#000000; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
+.preloader {
+   background: url(images/loading.gif) no-repeat #FFFFFF scroll 50px center;
+  margin: 0 auto;
+  width: 200px;
+  position:fixed;
+  left:50%;
+  margin-left:-100px;
+  top:50px;
+  height:200px;
+  z-index:999999;
+  text-align:center;
+  color:#0C5DC6;
+  border-radius:50%;
+}
  @media only screen and (max-width: 767px) {
 	.new_video img{ height:210px;} 
  }
