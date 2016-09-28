@@ -30,6 +30,92 @@ jQuery(document).ready(function(){
 			}
 			
 		});
+	jQuery( document ).on( "mobileinit", function() {
+		jQuery.mobile.allowCrossDomainPages = true;
+	});
+	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
+    if(window.XDomainRequest){contentType = "text/plain";}
+	jQuery.support.cors = true;
+	var location='';
+	db.transaction(function (tx) {
+		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
+			function(tx,results){
+				if(typeof results.rows.item(0).meta_value != 'undefined'){
+					location=results.rows.item(0).meta_value;
+				}
+			
+		}, errorCB);
+	});
+	
+
+	
+	var device_id = device.uuid;
+	//var device_id = 'localhost';
+	var url=siteurl+'/api/category.php';
+    var uid=gup('uid');
+	var cid=gup('cid');
+	checkloggedin(uid);
+	var page=1;
+	savenews=function(row){
+			db.transaction(function (tx) {
+		
+				tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
+				function(tx,results){
+					if(typeof results.rows.item(0).id == 'undefined'){
+						var sql="INSERT INTO NEWS (newid,title,summary,news_url,news_source,published_by,video,image,share_url,post_date,like,readed,bookmark) VALUES('"+row['id']+"','"+row['title']+"','"+row['summary']+"','"+row['news_url']+"','"+row['news_source']+"','"+row['published_by']+"','"+row['video']+"','"+row['image']+"','"+row['share_url']+"','"+row['post_date']+"','"+row['news_like']+"','"+row['readed']+"','0')";
+						tx.executeSql(sql,[],function(){alert('inserted');},errorCB);
+					}
+					
+				}
+				, errorCB);
+				
+				
+			});
+			
+	},
+	
+	loadnews=function(cid,page){
+		jQuery.ajax({ 
+		 type: 'POST',  
+		 url: url,  
+		 dataType: 'json',  
+		 data: {cid:cid,location:location,device_id:device_id, page:page},  
+		 crossDomain: true,  
+		 beforeSend: function() {
+		 },		
+		 complete: function() {
+			
+		 },
+		 success: function(res) {  
+			if(res['news'][0])
+			{
+				var html='';
+				jQuery(res['news']).each(function(i){
+					
+					
+					
+					var mystring=res['news'][i]['summary'];
+					mystring = mystring.replace(/["']/g, "");
+					res['news'][i]['summary']=mystring;
+					
+					if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
+					savenews(res['news'][i]);
+				});
+				
+			}
+			else
+			
+			
+		 },  
+		 error: function(response, d, a){
+			
+		 } 
+	   });
+	   
+	}
+	
+	loadnews(cid,page);
+	
 });
 </script>
 <title>Synopsis</title>
