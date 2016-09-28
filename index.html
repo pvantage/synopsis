@@ -332,6 +332,14 @@ jQuery(document).ready(function(){
 	jQuery('.new_detail_section, .new_des_content').click(function(){
         jQuery("header").toggle();
     });
+	jQuery('#notificationapp').change(function(){
+		if(jQuery(this).is(':checked'))
+		{
+			document.addEventListener("deviceready", function(){
+				alert('test');
+			}, false);
+		}
+	});
 });
 </script>
 </body>
