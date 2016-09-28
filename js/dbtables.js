@@ -20,7 +20,7 @@ function getcountrycode(tx){
 	  {
 		  var countrycode=json.countryCode;
 		  
-		  tx.executeSql("SELECT * FROM NEWSSETTINGS WHERE meta_key='countrycode'", [],
+		  tx.executeSql("SELECT * FROM NEWSSETTINGS", [],
 			function(tx,results){
 				alert('start');
 				if (results.rowsAffected) {
@@ -49,6 +49,7 @@ function populateDB(tx) {
 	// tx.executeSql('DROP TABLE IF EXISTS NEWS');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWS (newid INTEGER,title TEXT,summary LONGTEXT,news_url TEXT,news_source TEXT,published_by TEXT,video TEXT,image TEXT,share_url TEXT,post_date DATETIME,like INTEGER,readed INTEGER,bookmark INTEGER)');
 	 //tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSCATEGORY (newid INTEGER,category TEXT)');
+	 tx.executeSql('DROP TABLE IF EXISTS NEWSSETTINGS');
 	 tx.executeSql('CREATE TABLE IF NOT EXISTS NEWSSETTINGS (meta_key TEXT,meta_value TEXT)');
 	getcountrycode(tx);
 	/*setTimeout(function(){
