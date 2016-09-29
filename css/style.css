@@ -213,7 +213,7 @@ ul.cat_links {
 }
 .category_section .cat_links li a {
     font-size: 24px;
-    color: #4b4b4d;
+    color: #000;
     padding: 16px;
     float: left;
     width: 100%;
@@ -505,7 +505,9 @@ header {
 .cat_links {
   height: 420px;
   overflow: auto;
+  margin-bottom: 100px;
 }
+
 header .wrapper {
   padding: 10px 30px;
   background:none;
@@ -681,7 +683,7 @@ header .wrapper {
 }
 
 .category_section .cat_links li a {
-  font-size: 16px;
+  font-size: 17px;
   padding: 12px 16px;
 }	
 img.mnu {
