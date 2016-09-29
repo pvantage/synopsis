@@ -106,3 +106,4 @@ a:hover{text-decoration:none;}
  @media only screen and (max-width: 350px) {
 	.new_video img{ height:140px;} 
  }
+ header.opened{opacity:1; background:#FFFFFF;}

@@ -363,6 +363,7 @@ img.mnu {
     width: 100%;
     z-index: 9999;
     left: 0;
+	height: 700px;
 }
 .header_box {
     position: relative;
@@ -505,9 +506,7 @@ header {
 .cat_links {
   height: 420px;
   overflow: auto;
-  margin-bottom: 100px;
 }
-
 header .wrapper {
   padding: 10px 30px;
   background:none;
