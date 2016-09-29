@@ -52,10 +52,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-   <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
-		<param name="APP_ID" value="144342512690789" />
-		<param name="APP_NAME" value="synopsis" />
-	</plugin>
+   
 	
 	
 </widget>

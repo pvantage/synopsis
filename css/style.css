@@ -1,7 +1,11 @@
 
+
+@import 'https://fonts.googleapis.com/css?family=Roboto:100,400,500,700,700i';
+
+
 html, body {
     color: #000000;
-    font-family: Arial,Helvetica,sans-serif;
+	font-family: 'Roboto', sans-serif;
     font-size: 13px;
 }
 *{ margin:0px; padding:0px;}
@@ -17,6 +21,11 @@ header {
   padding: 10px 30px;
   width: 100%;
 }
+body {
+  margin-top: 20px !important;
+  background: transparent;
+}
+
 .header_box .menu_box {
     float: left;
     margin-top: 0px;
@@ -278,6 +287,7 @@ span.setting_right_icon.lang img {
     width: 100%;
     box-sizing: border-box;
 }
+
 .new_heading {
     float: left;
     font-size: 33px;
@@ -354,12 +364,12 @@ img.mnu {
     position: relative;
 }
 header{ position:relative;}
-.feedback  h1 {
-  text-align: center;
+.feedback h1 {
   color: red;
-  text-transform: uppercase;
   font-size: 27px;
-  font-weight: "Roboto",sans-serif !important;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
 }
 .feedback { text-align:center;}
 .feedback h2 {
@@ -368,13 +378,13 @@ header{ position:relative;}
   margin-bottom: 20px;
 }
 .feedback textarea {
-  border: 1px solid red;
-  border-radius: 5px;
+  border: 2px solid red;
+  border-radius: 8px;
+  box-sizing: border-box;
   float: none;
   min-height: 200px;
-  width: 96%;
-  box-sizing: border-box;
   padding: 10px;
+  width: 91%;
 }
 .instruction {
   width: 100%;
@@ -497,15 +507,24 @@ header .wrapper {
   background:none;
 }
 .speakthis {
-  background:url("../images/volume.png") no-repeat scroll center top / 66% auto;
+  background:url("../images/volume.png") no-repeat scroll center top / 48% auto;
   float: left;
-  padding-top: 27px;
+  font-size: 17px;
+  font-weight: 300;
+  padding-top: 25px;
+}
+.contactus {
+  padding-top: 64px;
+}
+.feedback {
+  padding-top: 64px;
 }
 .speakthis.activespeach{
-  background:url("../images/audiostaop.png") no-repeat scroll center top / 52% auto;
+  background:url("../images/audiostaop.png") no-repeat scroll center top / 40% auto;
   float: left;
   padding-top: 27px;	
 }
+
 .speakthis img {
   display: none;
 }
@@ -531,6 +550,7 @@ header .wrapper {
   width: 100%;
   font-size: 17px;
 }
+
 .login_boxes li{
   float: left;
   width: 100%;
@@ -562,7 +582,7 @@ header .wrapper {
 .l-g{background: #e14932;} 
 .l-tw{background: #00abf2;} 
  
-@media (min-width: 300px) and (max-width: 480px) {
+@media (min-width: 300px) and (max-width: 600px) {
 .skip a {
   font-size: 20px;
 }	
@@ -628,8 +648,11 @@ header .wrapper {
   color:#a9a9a9;
 }
 
-.new_des_content {
-  font-size: 14px;
+.news_des_section .new_des_content {
+  color: #575759;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 20px;
   padding-bottom: 10px;
 }
 .ftr_logo {
