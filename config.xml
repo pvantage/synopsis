@@ -16,7 +16,7 @@
     <author href="http://www.vantagewebtech.com" email="rinku.vantage@gmail.com">
       Rinku Kamboj
     </author>
-	<preference name="orientation" value="landscape" />
+	<preference name="orientation" value="portrait" />
 	<!--<gap:plugin name="nl.x-services.plugins.socialsharing" />-->
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<gap:plugin name="org.apache.cordova.device" />
