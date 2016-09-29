@@ -97,8 +97,7 @@ var fbLoginSuccess = function (userData) {
     });
 	facebookConnectPlugin.api('/me?fields=email,name,id', null,
 	 function(response) {
-		alert(response);
-		alert(response['email']);
+		
 		var url=siteurl+'/api/fb.php';
 		$.ajax({
 			type: "POST",
