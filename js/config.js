@@ -70,7 +70,7 @@ function checkloggedin(uid)
    });
 		
 }
-window.addEventListener("orientationchange", function(){
+/*window.addEventListener("orientationchange", function(){
     screen.lockOrientation('portrait');
-});
+});*/
 //screen.lockOrientation('landscape');
