@@ -4,12 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="css/main.css" type="text/css" rel="stylesheet" />
+<link href="style.css" type="text/css" rel="stylesheet" />
 <style>
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
 </style>
 <script src="js/jquery.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
   <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/validate.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
 <script>
 function onBackKeyDown() {
@@ -20,6 +23,68 @@ jQuery(document).ready(function(){
     jQuery(".menu_box").click(function(){
         jQuery(".menusection").toggle();
     });
+	
+	jQuery('#forgotusr').validate();
+	jQuery('#forgotusr').submit( function(){		
+		var feedback=jQuery('#feedback').val();
+		var url=siteurl+'/api/register.php';	
+		var error=false;
+		jQuery('#forgotusr input,#forgotusr textarea').each(function(){
+			if(jQuery(this).hasClass('error'))
+			{
+				error=true;
+			}
+		});
+		if(!error)
+		{
+			 jQuery.ajax({  
+			 type: 'POST',  
+			 url: url,           
+			 dataType: 'json',  
+			 data: {feedback:feedback}, 
+			 beforeSend: function() {
+				jQuery('body .bodyoverlay').remove();
+				jQuery('body .preloader').remove();
+				var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+				jQuery('body').append(html);					
+			 },		
+			 complete: function() {
+				//jQuery('body .bodyoverlay').remove();
+				jQuery('body .preloader').remove();				
+			 }, 
+			 crossDomain: true,  
+			 success: function(res) { 
+			 	if(res['feedback']) 
+				{
+					jQuery('#feedback').val('');
+					var html='<div class="bodyoverlay"></div><div class="popupbox"><div class="popupimg"></div><h1 class="success">Thanks for feedback.</h1><button class="okbox">OK</button></div>';
+					jQuery('body').append(html);
+					
+					jQuery('.okbox').click(function(){
+						jQuery('body .bodyoverlay').remove();
+						jQuery('body .popupbox').remove();
+					});
+				}
+				return false;
+			 } ,  
+			 error: function(response, d, a){
+				jQuery('body .bodyoverlay').remove();
+				jQuery('body .popupbox').remove();
+				
+				var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>Server Error.</h1><button class="okbox">OK</button></div>';
+				jQuery('body').append(html);
+				
+				jQuery('.okbox').click(function(){
+					jQuery('body .bodyoverlay').remove();
+					jQuery('body .popupbox').remove();
+				});
+				return false; 
+			 }
+			        
+		   });
+		 }	
+		 return false;   
+	});
 });
 </script>
 <title>Synopsis</title>
@@ -38,8 +103,10 @@ jQuery(document).ready(function(){
 <div class="feedback">
 <h1>Feedback</h1>
 <h2>What can we improve upon?</h2>
-<textarea></textarea>
-<button>Submit</button>
+<form name="forgotusr" id="forgotusr" action="" method="post">
+<textarea name="feedback" id="feedback" class="required"></textarea>
+<button type="submit">Submit</button>
+</form>
 </div>
 </div>
 

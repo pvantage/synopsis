@@ -6,7 +6,7 @@ a:hover{text-decoration:none;}
 .newsection.activenews{display:block;}
 
 
-.new_heading { line-height:normal; overflow:hidden; height:40px;}
+.new_heading { height: 38px; line-height: normal; overflow: hidden;}
 
 .newsection  { position:relative;}
 
@@ -35,13 +35,55 @@ a:hover{text-decoration:none;}
 .shortby{ margin-top:5px;}
 .new_des_content{ line-height:18px;}
 
-.new_heading a{ color:#000; text-decoration:none; font-weight:bold; font-size:16px;}
+.new_heading a{ color:#000; text-decoration:none; font-weight:bold; font-size:15px;}
 .shortby{ font-size:11px; color:#919191;}
 
 .shortby strong{ color:#000;}
 .speakthis{ color:#888888;}
 
 .speakthis img{ height:26px;}
+.popupimg{ text-align:center; width:100%;}
+.okbox {
+  background: #55cccc none repeat scroll 0 0;
+  border: medium none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 30px 0 0 0;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.popupbox h1 {
+  color: #000;
+  font-weight: normal;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.success{ color:#55cccc !important; font-weight:bold !important;   font-size: 20px !important;}
+.popupbox  h1 {
+  TEXT-ALIGN: CENTER;
+  
+}
+.popupbox {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #eee;
+  margin: 0 auto;
+  width: 230px;
+  padding: 30px 0px 0px 0px;
+  position:fixed;
+  left:50%;
+  margin-left:-115px;
+  top:50px;
+  z-index:999999;
+}
+.popupbox.errorbox button.okbox {
+   background: #ff0000 !important;
+}
+.popupbox.errorbox h1{color:#FF0000;}
 .bodyoverlay{position:fixed; height:100%; width:100%; background:#000000; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
 .preloader {
    background: url(images/loading.gif) no-repeat #FFFFFF scroll 50px center;
