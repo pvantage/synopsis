@@ -503,9 +503,12 @@ header {
 .wrapper.category_wrapper {
   padding: 0px;
 }
-.cat_links {
+
+.tab-content {
+  float: left;
   height: 420px;
   overflow: auto;
+  width: 100%;
 }
 header .wrapper {
   padding: 10px 30px;
