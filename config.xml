@@ -17,7 +17,7 @@
       Rinku Kamboj
     </author>
 	<preference name="orientation" value="portrait" />
-
+	<preference name="phonegap-version" value="cli-6.3.0" />
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<gap:plugin name="org.apache.cordova.device" />
 	
@@ -52,7 +52,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-   
+   <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
+		<param name="APP_ID" value="144342512690789" />
+		<param name="APP_NAME" value="synopsis" />
+	</plugin>
 	
 	
 </widget>

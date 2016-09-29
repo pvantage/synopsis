@@ -99,23 +99,37 @@ var fbLoginSuccess = function (userData) {
 	 function(response) {
 		alert(response);
 		alert(response['email']);
-		var url=siteurl+'/api/register.php';
+		var url=siteurl+'/api/fb.php';
 		$.ajax({
 			type: "POST",
 			 url: url,
 			data: response,
 			dataType: 'json',
-			success: function(msg){                            
-				/*if(msg['login']=='success'){ 
-					//alert(msg['user_id']);
-					localStorage.setItem('userInfo', msg['user_id']);
-					window.location='home.html';
+			success: function(res){                            
+				if(res['success'][0]['message']=='You have login successfully' || res['success'][0]['message']=='You have registered successfully')
+				{
+					
+					window.location ='category.html?uid='+res['success'][0]['user_id']+'&cid=0';
+				
+					//localStorage.setItem('userInfo', res['success']['userid']);
+					//window.location ='category.html';
+				}else if(res['success'][0]['message']=='Invalid email or password'){				
+					jQuery('body .bodyoverlay').remove();
+					jQuery('body .popupbox').remove();
+					var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
+					jQuery('body').append(html);
+					
+					jQuery('.okbox').click(function(){
+						jQuery('body .bodyoverlay').remove();
+						jQuery('body .popupbox').remove();
+					});
+					
 				}
 				else
 				{
-					jQuery('body .overlayproduct').remove();
-					alert(msg['msg']);
-				}*/
+					alert('Server error');
+				}
+				return false; 
 				
 			}
 		});
