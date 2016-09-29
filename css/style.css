@@ -25,6 +25,10 @@ body {
   padding-top: 20px !important;
   background: transparent;
 }
+footer {
+  bottom: 0;
+  position: fixed;
+}
 
 .header_box .menu_box {
     float: left;
@@ -499,7 +503,7 @@ header {
   padding: 0px;
 }
 .cat_links {
-  height: 470px;
+  height: 325px;
   overflow: auto;
 }
 header .wrapper {

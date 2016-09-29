@@ -150,7 +150,7 @@ jQuery(document).ready(function(){
 					if(direction=='up'){
 						if(jQuery(this).next('div').hasClass('newsection'))
 						{
-							jQuery(this).next('div').addClass('activenews')
+							jQuery(this).next('div').addClass('activenews');
 							jQuery(this).slideUp(500,function(){
 								jQuery('.newsection').removeAttr('style');jQuery(this).removeClass('activenews');
 								th=jQuery('.activenews');
@@ -162,8 +162,8 @@ jQuery(document).ready(function(){
 					else if(direction=='down'){
 						if(jQuery(this).prev('div').hasClass('newsection'))
 						{
-							jQuery(this).prev('div').addClass('activenews')
-							jQuery(this).slideDown(500,function(){
+							jQuery(this).prev('div').addClass('activenews');
+							jQuery(this).slideDown(1000,'swing',function(){
 								jQuery('.newsection').removeAttr('style');jQuery(this).removeClass('activenews');
 								th=jQuery('.activenews');
 								swipnews(th);
