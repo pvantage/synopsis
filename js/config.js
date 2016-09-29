@@ -74,3 +74,50 @@ function checkloggedin(uid)
     screen.lockOrientation('portrait');
 });*/
 //screen.lockOrientation('landscape');
+
+document.addEventListener("deviceready", init, false);
+function init() {
+	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
+}
+function startfblogin()
+{
+	
+	facebookConnectPlugin.login(["public_profile"],
+		fbLoginSuccess,
+		function (error) { 
+			alert("Error: " + JSON.stringify(error));
+		}
+	);
+}
+var fbLoginSuccess = function (userData) {
+    facebookConnectPlugin.getAccessToken(function(token) {
+        //alert("Token: " + token);
+    }, function(err) {
+        alert("Could not get access token: " + err);
+    });
+	facebookConnectPlugin.api('/me?fields=email,name,id', null,
+	 function(response) {
+		alert(response);
+		alert(response['email']);
+		var url=siteurl+'/api/register.php';
+		$.ajax({
+			type: "POST",
+			 url: url,
+			data: response,
+			dataType: 'json',
+			success: function(msg){                            
+				/*if(msg['login']=='success'){ 
+					//alert(msg['user_id']);
+					localStorage.setItem('userInfo', msg['user_id']);
+					window.location='home.html';
+				}
+				else
+				{
+					jQuery('body .overlayproduct').remove();
+					alert(msg['msg']);
+				}*/
+				
+			}
+		});
+	 });
+}
