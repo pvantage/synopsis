@@ -17,11 +17,11 @@
       Rinku Kamboj
     </author>
 	<preference name="orientation" value="portrait" />
+	<preference name="prerendered-icon" value="true" />
 	<!--<preference name="phonegap-version" value="3.5.0" />-->
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<gap:plugin name="org.apache.cordova.device" />
 	
-	<icon src="res/icon.png" />
 	<icon gap:platform="webos" src="images/mobi_icon.jpg" />
 	<icon src="images/mobi_icon.jpg" gap:platform="android" gap:density="ldpi" />
 	<icon src="images/mobi_icon.jpg" gap:platform="android" gap:density="mdpi" />
@@ -36,14 +36,11 @@
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" />
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" gap:role="background" />
 	<icon src="images/mobi_icon.jpg" platform="ios" width="57" height="57" density="mdpi" />
-	<icon src="images/mobi_icon.jpg" gap:platform="ios" width="57" height="57" density="mdpi" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="72" height="72" density="mdpi" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="114" height="114" density="mdpi" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="144" height="144" density="mdpi" />
-	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="50" height="50" density="mdpi" />
-	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="320" height="480" density="mdpi" />
-	<icon src="www/res/ios/icon.png" platform="ios" width="57" height="57" density="mdpi" />
-	<splash src="www/res/ios/icon.png" platform="ios" width="57" height="57" density="mdpi" />
+	
+	<gap:splash src="icons/ios/icon-120.png" gap:platform="ios" width="120" height="120" density="mdpi" />
+	<gap:splash src="icons/ios/icon-180.png" gap:platform="ios" width="180" height="180" density="mdpi" />
+	<icon src="icons/ios/icon-120.png" platform="ios" width="120" height="120" />
+	<icon src="icons/ios/icon-180.png" platform="ios" width="180" height="180" />
 	
     <access origin="*"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
