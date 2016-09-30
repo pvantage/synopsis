@@ -83,8 +83,48 @@ jQuery(document).ready(function(){
 				var $this=jQuery(this);
 				var url2=siteurl+'/api/like.php';
 				var id=jQuery(this).attr('coords');
+				var bookmarked = '';
+				if(localStorage.getItem('bookmarked') != null){	   
+				   bookmarked = localStorage.getItem('bookmarked');	
+				  // alert(bookmarked);	
+				}
+				if(!jQuery(this).hasClass('bookedmarked'))
+				{
+					if(localStorage.getItem('bookmarked') == null){	   
+					   var bookmarked = id;		
+					}else{		
+						var bookmarked = localStorage.getItem('bookmarked')+','+id;
+					}
+					jQuery(this).addClass('bookedmarked');
+				}
+				else
+				{
+					var bookmarked2=bookmarked.split(',');
+					var index=bookmarked2.indexOf(id);
+					if(parseInt(index)>=0)
+					{
+						bookmarked2.splice(index, 1);
+						if(parseInt(bookmarked2.length)>0){
+							var bookmarked='';
+							for(i=0;i<bookmarked2.length;i++)
+							{
+								if(i=='0')
+								{
+									bookmarked=bookmarked2[i];
+								}
+								else
+								{
+									bookmarked=bookmarked+','+bookmarked2[i];
+								}
+							}
+						}
+						//unreadnews = localStorage.getItem('bookmarked')+','+jQuery(this).next('div').attr('news-id');
+					}
+					jQuery(this).removeClass('bookedmarked');
+				}
+				localStorage.setItem('bookmarked', bookmarked);
 				
-				db.transaction(function (tx) {
+				/*db.transaction(function (tx) {
 			
 					tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
 					function(tx,results){
@@ -105,7 +145,7 @@ jQuery(document).ready(function(){
 					, errorCB);
 					
 					
-				});
+				});*/
 				
 			});
 		},
@@ -157,7 +197,7 @@ jQuery(document).ready(function(){
 						}
 						unreadnews2=unreadnews.split(',');
 						var newxtnewsid=jQuery(this).next('div').attr('news-id');
-						if(parseInt(unreadnews2.indexOf(newxtnewsid))>=0)
+						if(parseInt(unreadnews2.indexOf(newxtnewsid))<0)
 						{
 							unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).next('div').attr('news-id');
 						}
@@ -282,8 +322,19 @@ jQuery(document).ready(function(){
 						if(res['news'][i]['like_status']){
 							liked=' liked';
 						}
-	
-						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">More at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+						
+						bookmark = localStorage.getItem('bookmarked');
+						var bookmcls='';
+						if(bookmark!='null'){
+							var bookmark2=bookmark.split(',');
+							var index=bookmark2.indexOf(res['news'][i]['id']);
+							if(parseInt(index)>=0)
+							{
+								bookmcls=' bookedmarked';
+							}
+						}
+						
+						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">More at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 						if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
 						//savenews(res['news'][i]);
 						
