@@ -48,8 +48,8 @@ jQuery(document).ready(function(){
 	});*/
 	
 
-	//var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
-	//jQuery('body').append(html);
+	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+	jQuery('body').append(html);
 	var cid_array = localStorage.getItem('unreadnews');
 	//alert(cid_array);
 	setTimeout(function(){
@@ -172,7 +172,15 @@ jQuery(document).ready(function(){
 						if(res['total_like'][0]['news_like']){
 							jQuery($this).addClass('liked');
 						}else{jQuery($this).removeClass('liked');}
-						jQuery($this).html('<img src="images/like.png">'+res['total_like'][0]['count']+' Likes');
+						var likes=' Like';
+						if(parseInt(res['total_like'][0]['count'])>0){
+							likes=res['total_like'][0]['count']+' Like';
+							if(parseInt(res['total_like'][0]['count'])>1){
+								likes=res['total_like'][0]['count']+' Likes';
+							}
+						}
+						
+						jQuery($this).html('<img src="images/like.png"> '+likes);
 					}
 					
 				 },  
@@ -334,7 +342,15 @@ jQuery(document).ready(function(){
 							}
 						}
 						
-						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">More at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+						var likes=' Like';
+						if(parseInt(res['news'][i]['news_like'])>0){
+							likes=res['news'][i]['news_like']+' Like';
+							if(parseInt(res['news'][i]['news_like'])>1){
+								likes=res['news'][i]['news_like']+' Likes';
+							}
+						}
+						
+						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 						if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
 						//savenews(res['news'][i]);
 						
@@ -387,12 +403,14 @@ jQuery(document).ready(function(){
 		
 		
 		
-		if(cid_array!=null)
+		if(cid_array!=null && cid_array!='0')
 		{
 			loadnews(page);
 		}
 		else
 		{
+			jQuery('body .preloader').remove();
+			jQuery('body .bodyoverlay').remove();
 			jQuery("header").show();
 		}
 		var th=jQuery('.activenews');

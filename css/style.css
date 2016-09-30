@@ -3,6 +3,7 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto:100,400,500,700,700i';
 
 
+
 html, body {
     color: #000000;
 	font-family: 'Roboto', sans-serif;
@@ -29,6 +30,7 @@ body {
   text-decoration: none;
   color:#a9a9a9;
 }
+.speakthis:hover{ text-decoration: none; color:#888888;}
 .source a:hover{ text-decoration: none;
   color:#00befd;}
 .fixedfooter {
@@ -191,9 +193,7 @@ input.pwd {
     color: #9b9a9a; border:none;
 }
 .category_section .nav-tabs{ border:none;}
-.category_section {
-    padding-top: 10px;
-}
+
 .category_section .nav-tabs>li.active>a, .category_section .nav-tabs>li.active>a:focus, .category_section .nav-tabs>li.active>a:hover{    border: none;
     border-bottom: 2px solid #f00829 !important;
     color: #000;
@@ -512,7 +512,7 @@ header {
 
 .tab-content {
   float: left;
-  height: 420px;
+  height: 460px;
   overflow: auto;
   width: 100%;
 }
@@ -651,15 +651,16 @@ header .wrapper {
   font-size: 14px;
 }	
 .new_des_content {
-  font-size: 13px;
+  font-size: 14px;
 }
 .shortby {
   font-size: 13px;
   margin-top: 9px;
 }
 .likebox a {
+  color: #a9a9a9;
   font-size: 13px;
-  color:#a9a9a9;
+  font-weight: 600;
 }
 
 .news_des_section .new_des_content {
@@ -680,8 +681,11 @@ header .wrapper {
 .new_heading {
   font-size: 15px;
 }	
+.category_section .cat_links li .cat_img img {
+  margin-right: 0px;
+}
 .category_section .cat_links li img {
-  margin-right: 18px;
+  margin-right: 10px;
 }	
 .logobox > img {
   width: 50px;
@@ -707,7 +711,7 @@ img.mnu {
   font-size: 16px;
 }
 .login_section {
-  padding: 52px 12px 12px;
+  padding: 73px 12px 12px;
 }
 .volume_box > img {
     width: 50%;
@@ -798,4 +802,23 @@ header {
   float: left;
   width: 25px;
 }
+.container.menusection {
+  border-top: 2px solid #ddd;
+}
+.nav.nav-tabs li:last-child {
+  text-align: center;
+}
+.category_section .cat_links li a .cat_img {
+  float: left;
+  text-align: center;
+  width: 40px;
+  margin-right: 10px;
+}
+.bookmarks:hover {
+  color: #f00020 !important;
+}
+header {
+  border-bottom: 2px solid #ddd;
+}
+
 }

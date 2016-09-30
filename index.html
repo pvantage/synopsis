@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link href="css/style.css" type="text/css" rel="stylesheet" />
+<link href="style.css" type="text/css" rel="stylesheet" />
 <link href="css/main.css" type="text/css" rel="stylesheet" />
 <style>
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
@@ -75,7 +76,7 @@ function errorCB(tx, err) {
 function successCB() {
    // alert("success!");
 }*/
-//localStorage.clear();
+localStorage.clear();
 jQuery(document).ready(function(){
     jQuery(".menu_box").click(function(){
         jQuery(".menusection").toggle();
@@ -92,6 +93,14 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	jQuery('#loginuser').validate();
+	
+	var html='<div class="bodyoverlay"></div><div class="preloaderimg"></div>';
+	jQuery('body').append(html);
+	setTimeout(function(){
+		jQuery('body .bodyoverlay').remove();
+		jQuery('body .preloaderimg').remove();
+	},500);
+	
 	jQuery('#loginuser').submit( function(){	
 		
 		var user_login=jQuery('#username').val();
@@ -244,6 +253,7 @@ jQuery(document).ready(function(){
 		jQuery('.loginform').show();
 		
 	});
+	
 });
 
 </script>

@@ -44,7 +44,7 @@ jQuery(document).ready(function(){
 			swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
 				//console.log( direction );
 				if(direction=='up'){
-					jQuery(this).slideUp(1000,function(){
+					jQuery(this).slideUp(500,function(){
 						window.location ='category.html?uid='+uid+'&cid=0';
 					});
 					

@@ -35,11 +35,12 @@
 	<icon src="images/mobi_icon.jpg" gap:platform="android" gap:density="xxhdpi" />
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" />
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" gap:role="background" />
-	<icon src="images/mobi_icon.jpg" gap:platform="ios" width="57" height="57" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="72" height="72" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="114" height="114" />
-    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="144" height="144" />
-	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="320" height="480" />
+	<icon src="images/mobi_icon.jpg" gap:platform="ios" width="57" height="57" density="mdpi" />
+    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="72" height="72" density="mdpi" />
+    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="114" height="114" density="mdpi" />
+    <icon src="images/mobi_icon.jpg" gap:platform="ios" width="144" height="144" density="mdpi" />
+	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="50" height="50" density="mdpi" />
+	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="320" height="480" density="mdpi" />
 	
 	
     <access origin="*"/>

@@ -25,7 +25,7 @@ a:hover{text-decoration:none;}
 .source{ margin-top:45px;}
 .news_description{ padding-top:8px;}
 .footer_section hr{ position:absolute; width:100%; float:none; margin:0px; left:0px;}
-.source{ margin-top:0px; font-size:12px;}
+.source{ margin-top:0px; font-size:12px; color:#000;}
 .newsection .afterlogin{ height:40px;}
 .source{ top:13px;}
 .ftr_logo {
@@ -33,9 +33,9 @@ a:hover{text-decoration:none;}
 }
 .new_des_content{ margin-top:5px;}
 .shortby{ margin-top:5px;}
-.new_des_content{ line-height:18px;}
+.new_des_content{ line-height:20px;}
 
-.new_heading a{ color:#000; text-decoration:none; font-weight:bold; font-size:15px;}
+.new_heading a{ color:#000; text-decoration:none; font-weight:bold; font-size:16px;}
 .shortby{ font-size:11px; color:#919191;}
 
 .shortby strong{ color:#000;}
@@ -84,27 +84,38 @@ a:hover{text-decoration:none;}
    background: #ff0000 !important;
 }
 .popupbox.errorbox h1{color:#FF0000;}
-.bodyoverlay{position:fixed; height:100%; width:100%; background:#000000; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
+.bodyoverlay{position:fixed; height:100%; width:100%; background:#fff; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
 .preloader {
-   background: url(images/loading.gif) no-repeat #FFFFFF scroll 50px center;
+   background: url(images/ajax-loading.gif) no-repeat scroll center;
   margin: 0 auto;
-  width: 200px;
+  width: 40px;
   position:fixed;
   left:50%;
-  margin-left:-100px;
-  top:50px;
-  height:200px;
+  margin-left:-20px;
+  top:150px;
+  height:40px;
   z-index:999999;
   text-align:center;
   color:#0C5DC6;
   border-radius:50%;
+}
+.preloaderimg {
+   background: url(images/splash.png) no-repeat scroll center;
+  margin: 0 auto;
+  width: 100%;
+  position:fixed;
+  left:0px;
+  top:0px;
+  height:100%;
+  z-index:999999;
+  text-align:center;
 }
  @media only screen and (max-width: 767px) {
 	.new_video img{ height:210px;} 
  }
 
  @media only screen and (max-width: 350px) {
-	.new_video img{ height:140px;} 
+	.new_video img{ height:180px;} 
  }
  header.opened{opacity:1; background:#FFFFFF;}
  .menufooter{margin-top:40px;}
