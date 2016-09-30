@@ -108,4 +108,5 @@ a:hover{text-decoration:none;}
  }
  header.opened{opacity:1; background:#FFFFFF;}
  .menufooter{margin-top:40px;}
- 
+ a.bookmarks{text-decoration:none !important;}
+ a.bookedmarked{color:#F00020 !important;}
