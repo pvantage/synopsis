@@ -322,7 +322,7 @@ jQuery(document).ready(function(){
 						
 						bookmark = localStorage.getItem('bookmarked');
 						var bookmcls='';
-						if(bookmark!='null'){
+						if(bookmark!=null){
 							var bookmark2=bookmark.split(',');
 							var index=bookmark2.indexOf(res['news'][i]['id']);
 							if(parseInt(index)>=0)
@@ -470,9 +470,10 @@ jQuery(document).ready(function(){
 							liked=' liked';
 						}
 						
+						
 						bookmark = localStorage.getItem('bookmarked');
 						var bookmcls='';
-						if(bookmark!='null'){
+						if(bookmark!=null){
 							var bookmark2=bookmark.split(',');
 							var index=bookmark2.indexOf(res['news'][i]['id']);
 							if(parseInt(index)>=0)
