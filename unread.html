@@ -270,7 +270,7 @@ jQuery(document).ready(function(){
 			});
 		},
 		
-		loadnews=function(cid,page){
+		loadnews=function(page){
 			jQuery.ajax({ 
 			 type: 'POST',  
 			 url: url,  
@@ -287,14 +287,14 @@ jQuery(document).ready(function(){
 				page=parseInt(page)+1;	
 				if(page!='1'){
 				setTimeout(function(){
-				 loadnews(cid,page);
+				 loadnews(page);
 				},1000);
 				}
 				
 				
 			 },
 			 success: function(res) {  
-				if(typeof res['news']!='undefined')
+				if(typeof res['news'][0]['id']!='undefined')
 				{
 					var html='';
 					jQuery(res['news']).each(function(i){
@@ -387,7 +387,14 @@ jQuery(document).ready(function(){
 		
 		
 		
-		loadnews(cid,page);
+		if(cid_array!=null)
+		{
+			loadnews(page);
+		}
+		else
+		{
+			jQuery("header").show();
+		}
 		var th=jQuery('.activenews');
 		swipnews(th);
 	 },500);  
