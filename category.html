@@ -556,6 +556,8 @@ jQuery(document).ready(function(){
 					
 					
 					if(page==1){
+						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+						loadagainnews();
 						jQuery('.activenews a.speakthis').click(function(){
 							var sptext=jQuery(this).attr('data');
 							if(jQuery(this).hasClass('activespeach'))

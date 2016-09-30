@@ -512,8 +512,6 @@ header {
 
 .tab-content {
   float: left;
-  height: 460px;
-  overflow: auto;
   width: 100%;
 }
 header .wrapper {
@@ -568,7 +566,7 @@ header .wrapper {
 .login_boxes li{
   float: left;
   width: 100%;
-  padding: 5px ;
+  padding: 7px 5px;
  }
  .login_boxes .l-fb  span {
   border-right: 1px solid #2a4a7b;
@@ -596,7 +594,7 @@ header .wrapper {
 .l-g{background: #e14932;} 
 .l-tw{background: #00abf2;} 
  
-@media (min-width: 300px) and (max-width: 600px) {
+@media (min-width: 310px) and (max-width: 600px) {
 .skip a {
   font-size: 20px;
 }	
@@ -660,7 +658,6 @@ header .wrapper {
 .likebox a {
   color: #a9a9a9;
   font-size: 13px;
-  font-weight: 600;
 }
 
 .news_des_section .new_des_content {
@@ -750,7 +747,7 @@ header {
 }
 .sign_in {
   font-size: 21px;
-  padding: 6px;
+  padding: 9px;
   font-weight: 600;
 }
 .loginwith ul li {
@@ -761,9 +758,10 @@ header {
   padding: 0 15px 15px;
 }
 .login_section input {
-  height: 41px;
-  padding: 10px;
   font-size: 15px;
+  height: 47px;
+  padding: 10px;
+  border-radius: 0px;
 }
 .news_description{ padding-bottom:0px;}
 .login_section h1 {
@@ -820,5 +818,19 @@ header {
 header {
   border-bottom: 2px solid #ddd;
 }
+.new_des_content {
+  line-height: 19px;
+}
 
+.new_video img{ height:190px;} 
+.tab-content{ 
+display: block;
+    height: 77%;
+    overflow: scroll;
+    position: fixed;
+    top: 125px;
+}
+}
+@media (min-width: 300px) and (max-width: 320px) {
+	.new_video img{ height:180px;} 
 }
