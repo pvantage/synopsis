@@ -50,11 +50,12 @@ jQuery(document).ready(function(){
 
 	//var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
 	//jQuery('body').append(html);
-	
+	var cid_array = localStorage.getItem('unreadnews');
+	//alert(cid_array);
 	setTimeout(function(){
 		var device_id=jQuery('#device_id').val();
 		
-		var url=siteurl+'/api/category.php';
+		var url=siteurl+'/api/unread_news.php';
 		var uid=gup('uid');
 		var cid=gup('cid');
 		checkloggedin(uid);
@@ -152,7 +153,6 @@ jQuery(document).ready(function(){
 						   var unreadnews = jQuery(this).attr('news-id');		
 						}else{		
 							var unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).attr('news-id');
-							
 						}
 						localStorage.setItem('unreadnews', unreadnews);
 						if(jQuery(this).next('div').hasClass('newsection'))
@@ -222,147 +222,13 @@ jQuery(document).ready(function(){
 				window.plugins.socialsharing.share(dtext,title,dimg,durl);
 			});
 		},
-		latestnews=function(cid,page){
-			var lurl=siteurl+'/api/latest.php';
-			var loadedlatestnews=jQuery('#loadedlatestnews').val();
-			jQuery.ajax({ 
-			 type: 'POST',  
-			 url: lurl,  
-			 dataType: 'json',  
-			 data: {cid:cid,location:location,device_id:device_id,cid_array:loadedlatestnews},  
-			 crossDomain: true,  
-			 beforeSend: function() {
-			 },		
-			 complete: function() {
-				
-				jQuery('body .preloader').remove();
-				jQuery('body .bodyoverlay').remove();
-				page=parseInt(page)+1;
-				setTimeout(function(){
-				 latestnews(cid,page);
-				},5000);
-				
-				
-			 },
-			 success: function(res) {  
-				if(typeof res['news']!='undefined')
-				{
-					var html='';
-					jQuery(res['news']).each(function(i){
-						var img='null';
-						html+='<div class="newsection latestnews" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
-						if(res['news'][i]['video']!='')
-						{
-							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
-						}
-						else if(res['news'][i]['image']!='')
-						{
-							html+='<div class="new_video"><img src="'+res['news'][i]['image']+'"/></div>';
-							img=res['news'][i]['image'];
-						}
-						else
-						{
-							html+='<div class="new_video"><img src="images/aaa.png"/></div>';
-						}
-						
-						var mystring=res['news'][i]['summary'];
-						mystring = mystring.replace(/["']/g, "");
-						var mytitle=res['news'][i]['title'];
-						mytitle = mytitle.replace(/["']/g, "")+'. ';
-						var liked='';
-						if(res['news'][i]['like_status']){
-							liked=' liked';
-						}
-	
-						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">More at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
-						res['news'][i]['readed']=0;
-						//savenews(res['news'][i]);
-						loadedlatestnews=loadedlatestnews+','+res['news'][i]['id'];
-						jQuery('#loadedlatestnews').val(loadedlatestnews);
-					});
-					jQuery('.allnews').prepend(html);
-					if(!jQuery('.newsection').hasClass('activenews'))
-					{
-						jQuery('.newsection:first').addClass('activenews');
-					}
-					
-					var lastnewsid=jQuery('.allnews .latestnews:last').next('.newsection').attr('news-id');
-					var lastnewsid2=jQuery('.allnews .activenews').next('.newsection').attr('news-id');
-					var totalnews=jQuery('.allnews .latestnews').size();
-					if(lastnewsid!=lastnewsid2){
-						jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
-					}
-					else
-					{
-						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews">'+totalnews+' New <img src="images/221.png"></a>');
-						jQuery('a.loadnewnews').click(function(){
-							jQuery('.newsection').removeClass('latestnews');
-							jQuery('.newsection').removeClass('activenews');
-							jQuery('.newsection:first').addClass('activenews');
-							var th=jQuery('.activenews');
-							swipnews(th);
-							jQuery('.header_right_news').html('');
-						});
-					}
-					jQuery('a.gototopnews').click(function(){
-						jQuery("html, body").animate({ scrollTop: 0 }, 1000,function(){
-							jQuery('.allnews .latestnews:last').next('.newsection').addClass('activenews');
-							jQuery('.newsection').removeClass('activenews');
-							jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews">'+totalnews+' New <img src="images/221.png"></a>');
-							jQuery('a.loadnewnews').click(function(){
-								jQuery('.newsection').removeClass('latestnews');
-								jQuery('.newsection').removeClass('activenews');
-								jQuery('.newsection:first').addClass('activenews');
-								var th=jQuery('.activenews');
-								swipnews(th);
-								jQuery('.header_right_news').html('');
-							});
-						});
-					});
-					
-					if(page==1){
-						jQuery('.activenews a.speakthis').click(function(){
-							var sptext=jQuery(this).attr('data');
-							if(jQuery(this).hasClass('activespeach'))
-							{
-								responsiveVoice.cancel();
-								jQuery(this).removeClass('activespeach');
-							}
-							else
-							{
-								responsiveVoice.speak(sptext);
-								jQuery(this).addClass('activespeach');
-							}
-							return false;
-						});
-						jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
-							jQuery("header").toggle();
-						});
-						savetobookmark();
-						likenews();
-						sharenews();
-					}
-					
-				}
-				else
-				{
-					//
-				}
-				
-			 },  
-			 error: function(response, d, a){
-				
-			 } 
-		   });
-		   
-		},
+		
 		loadnews=function(cid,page){
-			var loadedlatestnews=jQuery('#loadedlatestnews').val();
 			jQuery.ajax({ 
 			 type: 'POST',  
 			 url: url,  
 			 dataType: 'json',  
-			 data: {cid:cid,location:location,device_id:device_id, page:page},  
+			 data: {cid_array:cid_array,location:location,device_id:device_id, page:page,news_action:'unread'},  
 			 crossDomain: true,  
 			 beforeSend: function() {
 			 },		
@@ -377,14 +243,11 @@ jQuery(document).ready(function(){
 				 loadnews(cid,page);
 				},1000);
 				}
-				else
-				{
-					latestnews(cid,page);
-				}
+				
 				
 			 },
 			 success: function(res) {  
-				if(res['news'][0])
+				if(typeof res['news']!='undefined')
 				{
 					var html='';
 					jQuery(res['news']).each(function(i){
@@ -416,8 +279,7 @@ jQuery(document).ready(function(){
 						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>Short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+res['news'][i]['news_like']+' Likes</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">More at: <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 						if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
 						//savenews(res['news'][i]);
-						loadedlatestnews=loadedlatestnews+','+res['news'][i]['id'];
-						jQuery('#loadedlatestnews').val(loadedlatestnews);
+						
 					});
 					jQuery('.allnews').append(html);
 					if(!jQuery('.newsection').hasClass('activenews'))
@@ -477,7 +339,6 @@ jQuery(document).ready(function(){
 </head>
 <body>
 <div class="wrapper">
-	<input type="hidden" id="loadedlatestnews" value="0">
   <header style="display:none;">
     <div class="header_box">
       <div class="header_logo_section">

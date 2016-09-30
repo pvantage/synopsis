@@ -25,6 +25,12 @@ body {
   padding-top: 20px !important;
   background: transparent;
 }
+.likebox a:hover {
+  text-decoration: none;
+  color:#a9a9a9;
+}
+.source a:hover{ text-decoration: none;
+  color:#00befd;}
 .fixedfooter {
   position: fixed;
   bottom: 0;
