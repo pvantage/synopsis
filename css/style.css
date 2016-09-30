@@ -594,7 +594,7 @@ header .wrapper {
 .l-g{background: #e14932;} 
 .l-tw{background: #00abf2;} 
  
-@media (min-width: 310px) and (max-width: 600px) {
+@media (min-width: 320px) and (max-width: 600px) {
 .skip a {
   font-size: 20px;
 }	
@@ -649,7 +649,7 @@ header .wrapper {
   font-size: 14px;
 }	
 .new_des_content {
-  font-size: 14px;
+  font-size: 16px;
 }
 .shortby {
   font-size: 13px;
@@ -819,10 +819,10 @@ header {
   border-bottom: 2px solid #ddd;
 }
 .new_des_content {
-  line-height: 19px;
+  line-height: 18px;
 }
 
-.new_video img{ height:190px;} 
+.new_video img{ height:220px;} 
 .tab-content{ 
 display: block;
     height: 77%;
@@ -833,4 +833,5 @@ display: block;
 }
 @media (min-width: 300px) and (max-width: 320px) {
 	.new_video img{ height:180px;} 
+
 }

@@ -35,6 +35,7 @@
 	<icon src="images/mobi_icon.jpg" gap:platform="android" gap:density="xxhdpi" />
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" />
 	<icon src="images/mobi_icon.jpg" gap:platform="winphone" gap:role="background" />
+	<icon src="images/mobi_icon.jpg" platform="ios" width="57" height="57" density="mdpi" />
 	<icon src="images/mobi_icon.jpg" gap:platform="ios" width="57" height="57" density="mdpi" />
     <icon src="images/mobi_icon.jpg" gap:platform="ios" width="72" height="72" density="mdpi" />
     <icon src="images/mobi_icon.jpg" gap:platform="ios" width="114" height="114" density="mdpi" />
