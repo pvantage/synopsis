@@ -42,7 +42,7 @@
     <icon src="images/mobi_icon.jpg" gap:platform="ios" width="144" height="144" density="mdpi" />
 	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="50" height="50" density="mdpi" />
 	<gap:splash src="images/mobi_icon.jpg" gap:platform="ios" width="320" height="480" density="mdpi" />
-	
+	<icon src="res/ios/icon.png" platform="ios" width="57" height="57" density="mdpi" />
 	
     <access origin="*"/>
     <!-- Added the following intents to support the removal of whitelist code from base cordova to a plugin -->
