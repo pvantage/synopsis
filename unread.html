@@ -126,8 +126,9 @@ jQuery(document).ready(function(){
 					
 				 },
 				 success: function(res) {  
-					if(res['total_like'][0]['count'])
+					if(parseInt(res['total_like'][0]['count'])>=0)
 					{
+						
 						if(res['total_like'][0]['news_like']){
 							jQuery($this).addClass('liked');
 						}else{jQuery($this).removeClass('liked');}
@@ -153,6 +154,12 @@ jQuery(document).ready(function(){
 						   var unreadnews = jQuery(this).attr('news-id');		
 						}else{		
 							var unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).attr('news-id');
+						}
+						unreadnews2=unreadnews.split(',');
+						var newxtnewsid=jQuery(this).next('div').attr('news-id');
+						if(parseInt(unreadnews2.indexOf(newxtnewsid))>=0)
+						{
+							unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).next('div').attr('news-id');
 						}
 						localStorage.setItem('unreadnews', unreadnews);
 						if(jQuery(this).next('div').hasClass('newsection'))

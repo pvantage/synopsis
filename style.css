@@ -39,7 +39,7 @@ a:hover{text-decoration:none;}
 .shortby{ font-size:11px; color:#919191;}
 
 .shortby strong{ color:#000;}
-.speakthis{ color:#888888;}
+.speakthis{ color:#888888; text-decoration:none !important;}
 
 .speakthis img{ height:26px;}
 .popupimg{ text-align:center; width:100%;}

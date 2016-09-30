@@ -125,7 +125,7 @@ jQuery(document).ready(function(){
 					
 				 },
 				 success: function(res) {  
-					if(res['total_like'][0]['count'])
+					if(parseInt(res['total_like'][0]['count'])>=0)
 					{
 						if(res['total_like'][0]['news_like']){
 							jQuery($this).addClass('liked');
@@ -140,6 +140,7 @@ jQuery(document).ready(function(){
 			   });
 			});
 		},
+		
 		swipnews=function(th){
 			jQuery(th).swipe( {
 				//Generic swipe handler for all directions
@@ -153,6 +154,12 @@ jQuery(document).ready(function(){
 						}else{		
 							var unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).attr('news-id');
 							
+						}
+						unreadnews2=unreadnews.split(',');
+						var newxtnewsid=jQuery(this).next('div').attr('news-id');
+						if(parseInt(unreadnews2.indexOf(newxtnewsid))>=0)
+						{
+							unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).next('div').attr('news-id');
 						}
 						localStorage.setItem('unreadnews', unreadnews);
 						if(jQuery(this).next('div').hasClass('newsection'))
