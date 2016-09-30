@@ -52,6 +52,7 @@ jQuery(document).ready(function(){
 	jQuery('body').append(html);
 	var cid_array = localStorage.getItem('unreadnews');
 	//alert(cid_array);
+	
 	setTimeout(function(){
 		var device_id=jQuery('#device_id').val();
 		
@@ -123,6 +124,11 @@ jQuery(document).ready(function(){
 					jQuery(this).removeClass('bookedmarked');
 				}
 				localStorage.setItem('bookmarked', bookmarked);
+				if(parseInt(jQuery('.allnews .newsection').size())<=0)
+				{
+					jQuery("header").show();
+					jQuery('.allnews').html('<div style="padding-top:55px; padding-left:5px;">There is no unread news.</div>');
+				}
 				
 				/*db.transaction(function (tx) {
 			
@@ -190,6 +196,20 @@ jQuery(document).ready(function(){
 			   });
 			});
 		},
+		loadagainnews=function(){
+			jQuery('a.loadnewnews').click(function(){
+				jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/ajax-loading.gif"></a>');
+					setTimeout(function(){
+						jQuery('.newsection').removeClass('latestnews');
+						jQuery('.newsection').removeClass('activenews');
+						jQuery('.newsection:first').addClass('activenews');
+						var th=jQuery('.activenews');
+						swipnews(th);
+						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+						loadagainnews();
+					},1000);
+			});
+		},
 		swipnews=function(th){
 			jQuery(th).swipe( {
 				//Generic swipe handler for all directions
@@ -220,6 +240,33 @@ jQuery(document).ready(function(){
 							});
 							
 						}
+						
+						var lastnewsid=jQuery('.allnews .newsection:first').attr('news-id');
+						var lastnewsid2=jQuery('.allnews .activenews').attr('news-id');
+						if(lastnewsid!=lastnewsid2){
+							jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews"><img src="images/toparrow.png"></a>');
+						}
+						else
+						{
+							jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+							loadagainnews();
+						}
+						jQuery('a.gototopnews').click(function(){
+							jQuery("html, body").animate({ scrollTop: 0 }, 1000,function(){
+								if(jQuery('.allnews .latestnews:last').next('div').hasClass('newsection'))
+								{
+									jQuery('.allnews .latestnews:last').next('.newsection').addClass('activenews');
+									jQuery('.newsection').removeClass('activenews');
+								}
+								else
+								{
+									jQuery('.newsection').removeClass('activenews');
+									jQuery('.allnews .newsection:first').addClass('activenews');
+								}
+								jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+								loadagainnews();
+							});
+						});
 					}
 					else if(direction=='down'){
 						if(jQuery(this).prev('div').hasClass('newsection'))
@@ -240,6 +287,12 @@ jQuery(document).ready(function(){
 								swipnews(th);
 							});*/
 							
+						}
+						var lastnewsid=jQuery('.allnews .newsection:first').attr('news-id');
+						var lastnewsid2=jQuery('.allnews .activenews').attr('news-id');
+						if(lastnewsid==lastnewsid2){
+							jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+							loadagainnews();
 						}
 					}
 					likenews();
@@ -299,6 +352,11 @@ jQuery(document).ready(function(){
 				},1000);
 				}
 				
+				if(parseInt(jQuery('.allnews .newsection').size())<=0)
+				{
+					jQuery("header").show();
+					jQuery('.allnews').html('<div style="padding-top:55px; padding-left:5px;">There is no unread news.</div>');
+				}
 				
 			 },
 			 success: function(res) {  
@@ -403,16 +461,13 @@ jQuery(document).ready(function(){
 		
 		
 		
-		if(cid_array!=null && cid_array!='0')
-		{
+		
 			loadnews(page);
-		}
-		else
-		{
-			jQuery('body .preloader').remove();
-			jQuery('body .bodyoverlay').remove();
-			jQuery("header").show();
-		}
+		
+		
+			
+			//jQuery("header").show();
+		
 		var th=jQuery('.activenews');
 		swipnews(th);
 	 },500);  
