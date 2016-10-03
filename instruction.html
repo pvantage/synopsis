@@ -11,9 +11,41 @@
 <script src="js/jquery.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css"/>
   <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
   <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+  
 <script>
+function savefile(){
+var url = 'http://www.synopsis.yantradigital.com/wp-content/uploads/2016/10/news_1475481289_48152.jpg';
+    var filePath = 'images';
+    var fileTransfer = new FileTransfer();
+    var uri = encodeURI(url);
+
+    fileTransfer.download(
+        uri,
+        filePath,
+        function(entry) {
+            //console.log("download complete: " + entry.fullPath);
+			alert("download complete: " + entry.fullPath);
+        },
+        function(error) {
+           // console.log("download error source " + error.source);
+			alert("download error source: " + error.source);
+           // console.log("download error target " + error.target);
+			alert("download error target: " + error.target);
+            //console.log("upload error code" + error.code);
+			alert("upload error code: " + error.target);
+        },
+        false,
+        {
+            headers: {
+                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+            }
+        }
+    );
+}
+savefile();
 /*document.addEventListener("deviceready", onDeviceReadyInt, false);
 
 // PhoneGap is ready
