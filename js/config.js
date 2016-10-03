@@ -212,6 +212,8 @@ jQuery(document).ready(function(){
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
 			window.location=hrf;
+			var ref = cordova.InAppBrowser.open(hrf, '_blank', 'location=yes');
+			//ref.close();
 			return false;
 		});
 	},
