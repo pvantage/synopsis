@@ -279,6 +279,23 @@ jQuery(document).ready(function(){
 				var $this=jQuery(this);
 				var url2=siteurl+'/api/like.php';
 				var id=jQuery(this).attr('coords');
+				var totallikes=jQuery(this).attr('data-like');
+				if(!jQuery(this).hasClass('liked')){
+					jQuery(this).addClass('liked');
+					totallikes=parseInt(totallikes)+1;
+				}else{
+					jQuery(this).removeClass('liked');
+					totallikes=parseInt(totallikes)-1;
+				}
+				var likes=' Like';
+				if(parseInt(totallikes)>0){
+					likes=totallikes+' Like';
+					if(parseInt(totallikes)>1){
+						likes=totallikes+' Likes';
+					}
+				}
+				jQuery($this).html('<img src="images/like.png"> '+likes);
+				jQuery(this).attr('data-like',totallikes);
 				jQuery.ajax({ 
 				 type: 'POST',  
 				 url: url2,  
@@ -293,18 +310,16 @@ jQuery(document).ready(function(){
 				 success: function(res) {  
 					if(parseInt(res['total_like'][0]['count'])>=0)
 					{
-						if(res['total_like'][0]['news_like']){
-							jQuery($this).addClass('liked');
-						}else{jQuery($this).removeClass('liked');}
-						var likes=' Like';
+						
+						/*var likes=' Like';
 						if(parseInt(res['total_like'][0]['count'])>0){
 							likes=res['total_like'][0]['count']+' Like';
 							if(parseInt(res['total_like'][0]['count'])>1){
 								likes=res['total_like'][0]['count']+' Likes';
 							}
-						}
+						}*/
 						
-						jQuery($this).html('<img src="images/like.png"> '+likes);
+						//jQuery($this).html('<img src="images/like.png"> '+likes);
 					}
 					
 				 },  
@@ -519,14 +534,16 @@ jQuery(document).ready(function(){
 						}
 						
 						var likes=' Like';
+						var totallike=0;
 						if(parseInt(res['news'][i]['news_like'])>0){
 							likes=res['news'][i]['news_like']+' Like';
 							if(parseInt(res['news'][i]['news_like'])>1){
 								likes=res['news'][i]['news_like']+' Likes';
+								totallike=res['news'][i]['news_like'];
 							}
 						}
 						
-						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 						res['news'][i]['readed']=0;
 						//savenews(res['news'][i]);
 						loadedlatestnews=loadedlatestnews+','+res['news'][i]['id'];
