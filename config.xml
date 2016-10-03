@@ -17,7 +17,7 @@
       Rinku Kamboj
     </author>
 	<preference name="orientation" value="portrait" />
-	<preference name="prerendered-icon" value="true" />
+	<preference name="prerendered-icon" value="false" />
 	<!--<preference name="phonegap-version" value="3.5.0" />-->
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<gap:plugin name="org.apache.cordova.device" />

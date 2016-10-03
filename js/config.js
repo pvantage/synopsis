@@ -255,7 +255,7 @@ jQuery(document).ready(function(){
 						//unreadnews = localStorage.getItem('bookmarked')+','+jQuery(this).next('div').attr('news-id');
 					}
 					jQuery(this).removeClass('bookedmarked');
-					jQuery('.activenews footer .source').append('<span class="msgnotification">Removeed bookmark</span>');
+					jQuery('.activenews footer .source').append('<span class="msgnotification">Bookmark removed</span>');
 					
 				}
 				localStorage.setItem('bookmarked', bookmarked);
@@ -412,12 +412,12 @@ jQuery(document).ready(function(){
 						if(jQuery(this).prev('div').hasClass('newsection'))
 						{
 							jQuery(this).prev('div').addClass('activenews');
-							jQuery(this).slideDown(1000,function(){
+							jQuery(this).slideDown('slow',function(){
 								jQuery('.newsection').removeAttr('style');
 								jQuery(this).removeClass('activenews');
 								th=jQuery('.activenews');
 								swipnews(th);
-							});
+							}).delay(1500);
 							/*jQuery(this).animate({
 								height: "100px"
 							}, 2000, "swing", function(){
