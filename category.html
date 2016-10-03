@@ -28,6 +28,7 @@ jQuery(document).ready(function(){
 <script type="text/javascript">
 document.addEventListener("deviceready", devicedetail, false);
 function devicedetail() {
+	alert('start');
 	alert(device.uuid);
 	jQuery('#device_id').val(device.uuid);
 }
