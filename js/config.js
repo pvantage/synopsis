@@ -100,9 +100,7 @@ setTimeout(function(){
 		}
 	});
 },1000);
-if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') != '1'){
-	jQuery('body').addClass('nightmode');	
-}
+
 /*window.addEventListener("orientationchange", function(){
     screen.lockOrientation('portrait');
 });*/
@@ -176,6 +174,10 @@ setTimeout(function(){
 },1000);
 
 jQuery(document).ready(function(){
+	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') != '1'){
+		jQuery('#nightmodeapp').attr('checked',true);
+		jQuery('body').addClass('nightmode');	
+	}
 	localStorage.removeItem("booked");
 	var bokmark='0';
 	savetobookmark=function(){
