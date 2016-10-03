@@ -94,13 +94,15 @@ jQuery(document).ready(function(){
 	jQuery.support.cors = true;
 	jQuery('#loginuser').validate();
 	
-	var html='<div class="bodyoverlay"></div><div class="preloaderimg"></div>';
-	jQuery('body').append(html);
-	setTimeout(function(){
-		jQuery('body .bodyoverlay').remove();
-		jQuery('body .preloaderimg').remove();
-	},2000);
-	
+	if(localStorage.getItem('launchimage') == null){
+		var html='<div class="bodyoverlay"></div><div class="preloaderimg"></div>';
+		jQuery('body').append(html);
+		setTimeout(function(){
+			jQuery('body .bodyoverlay').remove();
+			jQuery('body .preloaderimg').remove();
+			localStorage.setItem('launchimage', 1);
+		},2000);
+	}
 	jQuery('#loginuser').submit( function(){	
 		
 		var user_login=jQuery('#username').val();

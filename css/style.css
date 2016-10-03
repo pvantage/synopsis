@@ -320,7 +320,7 @@ span.setting_right_icon.lang img {
     float: left;
     width: 100%;
     font-size: 28px;
-    color: #000;
+    color: #4d4d4d;
     margin-top: 10px;
 }
 .shortby {
@@ -566,7 +566,7 @@ header .wrapper {
 .login_boxes li{
   float: left;
   width: 100%;
-  padding: 7px 5px;
+  padding: 9px 5px;
  }
  .login_boxes .l-fb  span {
   border-right: 1px solid #2a4a7b;
@@ -697,7 +697,7 @@ header .wrapper {
 }	
 img.mnu {
   float: left;
-  margin-top: 5px;
+  margin-top: 8px;
   width: 26px;
 }
 .logobox > img {
@@ -732,8 +732,9 @@ img.mnu {
 }
 
 header {
-  padding: 2px 20px;
+  padding: 4px 16px;
 }
+
 .header_right_news {
   font-size: 16px;
   margin-top: 9px;
@@ -828,10 +829,12 @@ display: block;
     height: 77%;
     overflow: scroll;
     position: fixed;
-    top: 125px;
+    top: 121px;
 }
+.category_section #menu1 .cat_links li a:hover{background:none;}
+.category_section .cat_links li a:hover{ background:#646663;}
 }
 @media (min-width: 300px) and (max-width: 320px) {
-	.new_video img{ height:180px;} 
+	.new_video img{ height:185px;} 
 
 }
