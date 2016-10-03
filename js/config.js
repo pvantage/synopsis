@@ -86,20 +86,7 @@ jQuery(document).ready(function(){
 		}
 	});
 });
-setTimeout(function(){
-	jQuery('#nightmodeapp').change(function(){
-		if(jQuery(this).is(':checked'))
-		{
-			localStorage.setItem('nightmodeapp', 1);
-			jQuery('body').addClass('nightmode');
-		}
-		else
-		{
-			localStorage.setItem('nightmodeapp', 0);
-			jQuery('body').removeClass('nightmode');
-		}
-	});
-},1000);
+
 
 /*window.addEventListener("orientationchange", function(){
     screen.lockOrientation('portrait');
@@ -174,6 +161,20 @@ setTimeout(function(){
 },1000);
 
 jQuery(document).ready(function(){
+    setTimeout(function(){
+		jQuery('#nightmodeapp').change(function(){
+			if(jQuery(this).is(':checked'))
+			{
+				localStorage.setItem('nightmodeapp', 1);
+				jQuery('body').addClass('nightmode');
+			}
+			else
+			{
+				localStorage.setItem('nightmodeapp', 0);
+				jQuery('body').removeClass('nightmode');
+			}
+		});
+	},1000);
 	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') != '1'){
 		jQuery('#nightmodeapp').attr('checked',true);
 		jQuery('body').addClass('nightmode');	
