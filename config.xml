@@ -20,7 +20,7 @@
 	<preference name="prerendered-icon" value="false" />
 	<!--<preference name="phonegap-version" value="3.5.0" />-->
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
-	<gap:plugin name="cordova-plugin-device" />
+	<gap:plugin name="cordova-plugin-device" source="pgb" />
 	
 	<icon gap:platform="webos" src="icons/ios/icon-180.png" />
 	<icon src="images/mobi_icon.jpg" gap:platform="android" gap:density="ldpi" />
