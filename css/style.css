@@ -826,7 +826,7 @@ header {
 .new_video img{ height:220px;} 
 .tab-content{ 
 display: block;
-    height: 77%;
+    height: 81%;
     overflow: scroll;
     position: fixed;
     top: 121px;
@@ -835,6 +835,16 @@ display: block;
 .category_section .cat_links li a:hover{ background:#646663;}
 }
 .msgnotification{ background:#000; margin-left:10px; border-radius:5px; padding:5px 5px; color:#fff !important;}
+.gototopnews {
+  color: #000;
+  text-decoration: none;
+}
+.menufooter {
+  margin-bottom: 40px;
+}
+}
+
+
 @media (min-width: 300px) and (max-width: 320px) {
 	.new_video img{ height:200px;} 
 

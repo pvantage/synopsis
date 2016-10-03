@@ -445,6 +445,145 @@ jQuery(document).ready(function(){
 				}
 				
 			});
+		},
+		latestnews=function(cid,page){
+			var lurl=siteurl+'/api/latest.php';
+			var loadedlatestnews=jQuery('#loadedlatestnews').val();
+			jQuery.ajax({ 
+			 type: 'POST',  
+			 url: lurl,  
+			 dataType: 'json',  
+			 data: {cid:cid,location:location,device_id:device_id,cid_array:loadedlatestnews},  
+			 crossDomain: true,  
+			 beforeSend: function() {
+			 },		
+			 complete: function() {
+				
+				jQuery('body .preloader').remove();
+				jQuery('body .bodyoverlay').remove();
+				page=parseInt(page)+1;
+				setTimeout(function(){
+				 latestnews(cid,page);
+				},5000);
+				
+				
+			 },
+			 success: function(res) {  
+				if(typeof res['news']!='undefined')
+				{
+					var html='';
+					jQuery(res['news']).each(function(i){
+						var img='null';
+						html+='<div class="newsection latestnews" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
+						if(res['news'][i]['video']!='')
+						{
+							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
+						}
+						else if(res['news'][i]['image']!='')
+						{
+							html+='<div class="new_video"><img src="'+res['news'][i]['image']+'"/></div>';
+							img=res['news'][i]['image'];
+						}
+						else
+						{
+							html+='<div class="new_video"><img src="images/aaa.png"/></div>';
+						}
+						
+						var mystring=res['news'][i]['summary'];
+						mystring = mystring.replace(/["']/g, "");
+						var mytitle=res['news'][i]['title'];
+						mytitle = mytitle.replace(/["']/g, "")+'. ';
+						var liked='';
+						if(res['news'][i]['like_status']){
+							liked=' liked';
+						}
+						
+						bookmark = localStorage.getItem('bookmarked');
+						var bookmcls='';
+						if(bookmark!=null){
+							var bookmark2=bookmark.split(',');
+							var index=bookmark2.indexOf(res['news'][i]['id']);
+							if(parseInt(index)>=0)
+							{
+								bookmcls=' bookedmarked';
+							}
+						}
+						
+						var likes=' Like';
+						if(parseInt(res['news'][i]['news_like'])>0){
+							likes=res['news'][i]['news_like']+' Like';
+							if(parseInt(res['news'][i]['news_like'])>1){
+								likes=res['news'][i]['news_like']+' Likes';
+							}
+						}
+						
+						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+						res['news'][i]['readed']=0;
+						//savenews(res['news'][i]);
+						loadedlatestnews=loadedlatestnews+','+res['news'][i]['id'];
+						jQuery('#loadedlatestnews').val(loadedlatestnews);
+					});
+					jQuery('.allnews').prepend(html);
+					if(!jQuery('.newsection').hasClass('activenews'))
+					{
+						jQuery('.newsection:first').addClass('activenews');
+					}
+					
+					var lastnewsid=jQuery('.allnews .latestnews:last').next('.newsection').attr('news-id');
+					var lastnewsid2=jQuery('.allnews .activenews').next('.newsection').attr('news-id');
+					var totalnews=jQuery('.allnews .latestnews').size();
+					if(lastnewsid!=lastnewsid2){
+						jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
+					}
+					else
+					{
+						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews">'+totalnews+' New <img src="images/221.png"></a>');
+						loadagainnews();
+					}
+					jQuery('a.gototopnews').click(function(){
+						jQuery("html, body").animate({ scrollTop: 0 }, 1000,function(){
+							jQuery('.allnews .latestnews:last').next('.newsection').addClass('activenews');
+							jQuery('.newsection').removeClass('activenews');
+							jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews">'+totalnews+' New <img src="images/221.png"></a>');
+							loadagainnews();
+						});
+					});
+					
+					if(page==1){
+						jQuery('.activenews a.speakthis').click(function(){
+							var sptext=jQuery(this).attr('data');
+							if(jQuery(this).hasClass('activespeach'))
+							{
+								responsiveVoice.cancel();
+								jQuery(this).removeClass('activespeach');
+							}
+							else
+							{
+								responsiveVoice.speak(sptext);
+								jQuery(this).addClass('activespeach');
+							}
+							return false;
+						});
+						jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+							jQuery("header").toggle();
+						});
+						savetobookmark();
+						likenews();
+						sharenews();
+					}
+					
+				}
+				else
+				{
+					//
+				}
+				
+			 },  
+			 error: function(response, d, a){
+				
+			 } 
+		   });
+		   
 		}
 		
 });
