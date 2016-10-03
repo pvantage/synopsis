@@ -212,7 +212,7 @@ jQuery(document).ready(function(){
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
 			//window.location=hrf;
-			var ref = window.open(hrf, '_self');
+			var ref = window.open(hrf, '_blank');
 			//ref.close();
 			return false;
 		});
