@@ -26,10 +26,12 @@ jQuery(document).ready(function(){
 });
 </script>
 <script type="text/javascript">
-
+document.addEventListener("deviceready", devicedetail, false);
+function devicedetail() {
+	jQuery('#device_id').val(device.uuid);
+}
 
 jQuery(document).ready(function(){
-	document.addEventListener("deviceready", function(){jQuery('#device_id').val(device.uuid); }, false);
 	
 	jQuery( document ).on( "mobileinit", function() {
 		jQuery.mobile.allowCrossDomainPages = true;
