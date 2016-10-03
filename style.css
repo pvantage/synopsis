@@ -6,7 +6,7 @@ a:hover{text-decoration:none;}
 .newsection.activenews{display:block;}
 
 
-.new_heading { height: 41px; line-height: normal; overflow: hidden;}
+.new_heading { height: 43px; line-height: normal; overflow: hidden;}
 
 .newsection  { position:relative;}
 
@@ -21,6 +21,7 @@ a:hover{text-decoration:none;}
     margin: 0;
     z-index: 2;
 }
+
 .likebox ul{ margin:0px;}
 .source{ margin-top:45px;}
 .news_description{ padding-top:8px;}
@@ -34,7 +35,7 @@ a:hover{text-decoration:none;}
 .new_des_content{ margin-top:5px;}
 .shortby{ margin-top:5px;}
 
-.new_heading a{ color:#000; text-decoration:none; font-weight:bold; font-size:16px;}
+.new_heading a{ color:#000; text-decoration:none; font-weight:500; font-size:18px;  line-height: 21px;}
 .shortby{ font-size:11px; color:#919191;}
 
 .shortby strong{ color:#000;}
@@ -85,14 +86,14 @@ a:hover{text-decoration:none;}
 .popupbox.errorbox h1{color:#FF0000;}
 .bodyoverlay{position:fixed; height:100%; width:100%; background:#fff; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
 .preloader {
-   background: url(images/loading.gif) no-repeat scroll center;
+   background: url(images/ajax-loading.gif) no-repeat scroll center;
   margin: 0 auto;
-  width: 50px;
+  width: 40px;
   position:fixed;
   left:50%;
-  margin-left:-25px;
+  margin-left:-20px;
   top:150px;
-  height:50px;
+  height:40px;
   z-index:999999;
   text-align:center;
   color:#0C5DC6;
