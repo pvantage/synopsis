@@ -174,13 +174,42 @@ jQuery(document).ready(function(){
 				jQuery('body').removeClass('nightmode');
 			}
 		});
+		jQuery('#hdimageapp').change(function(){
+			if(jQuery(this).is(':checked'))
+			{
+				localStorage.setItem('hdimageapp', 1);
+			}
+			else
+			{
+				localStorage.setItem('hdimageapp', 0);
+			}
+		});
 	},1000);
 	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') == '1'){
 		jQuery('#nightmodeapp').attr('checked',true);
 		jQuery('body').addClass('nightmode');	
 	}
+	if(localStorage.getItem('hdimageapp') != null && localStorage.getItem('hdimageapp') == '1'){
+		jQuery('#hdimageapp').attr('checked',true);
+	}
 	localStorage.removeItem("booked");
 	var bokmark='0';
+	newsspeach=function(){
+		jQuery('.activenews a.speakthis').click(function(){
+			var sptext=jQuery(this).attr('data');
+			if(jQuery(this).hasClass('activespeach'))
+			{
+				responsiveVoice.cancel();
+				jQuery(this).removeClass('activespeach');
+			}
+			else
+			{
+				responsiveVoice.speak(sptext);
+				jQuery(this).addClass('activespeach');
+			}
+			return false;
+		});
+	},
 	savetobookmark=function(){
 			jQuery('.newsection.activenews a.bookmarks').click(function(){
 				var $this=jQuery(this);
@@ -344,6 +373,7 @@ jQuery(document).ready(function(){
 									savetobookmark();
 									likenews();
 									sharenews();
+									newsspeach();
 								}
 								bokmark=bokmark+','+lastnewsid2;
 								localStorage.setItem("booked",bokmark);
@@ -411,20 +441,7 @@ jQuery(document).ready(function(){
 					jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
 						jQuery("header").toggle();
 					});
-					jQuery('.activenews a.speakthis').click(function(){
-						var sptext=jQuery(this).attr('data');
-						if(jQuery(this).hasClass('activespeach'))
-						{
-							responsiveVoice.cancel();
-							jQuery(this).removeClass('activespeach');
-						}
-						else
-						{
-							responsiveVoice.speak(sptext);
-							jQuery(this).addClass('activespeach');
-						}
-						return false;
-					});
+					
 				}
 				
 			});
