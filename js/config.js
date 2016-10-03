@@ -196,7 +196,9 @@ jQuery(document).ready(function(){
 	var bokmark='0';
 	newsspeach=function(){
 		jQuery('.activenews a.speakthis').click(function(){
+			
 			var sptext=jQuery(this).attr('data');
+			//alert(sptext);
 			if(jQuery(this).hasClass('activespeach'))
 			{
 				responsiveVoice.cancel();
