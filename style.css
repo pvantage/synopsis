@@ -85,14 +85,14 @@ a:hover{text-decoration:none;}
 .popupbox.errorbox h1{color:#FF0000;}
 .bodyoverlay{position:fixed; height:100%; width:100%; background:#fff; opacity:0.8; z-index:99999; top:0px; left:0px; display:block;}
 .preloader {
-   background: url(images/ajax-loading.gif) no-repeat scroll center;
+   background: url(images/loading.gif) no-repeat scroll center;
   margin: 0 auto;
-  width: 40px;
+  width: 50px;
   position:fixed;
   left:50%;
-  margin-left:-20px;
+  margin-left:-25px;
   top:150px;
-  height:40px;
+  height:50px;
   z-index:999999;
   text-align:center;
   color:#0C5DC6;
