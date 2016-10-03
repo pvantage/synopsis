@@ -265,8 +265,10 @@ jQuery(document).ready(function(){
 				},700);
 			});
 		},
-		likenews=function(){
-			jQuery('.activenews a.likethis').click(function(){
+		likenews=function(device_id){
+			var device_id=jQuery('#device_id').val();
+			jQuery('.newsection.activenews a.likethis').click(function(){
+			    //alert(device_id);						   
 				var $this=jQuery(this);
 				var url2=siteurl+'/api/like.php';
 				var id=jQuery(this).attr('coords');
@@ -331,7 +333,7 @@ jQuery(document).ready(function(){
 				window.plugins.socialsharing.share(dtext,title,dimg,durl);
 			});
 		},
-		swipnews=function(th){
+		swipnews=function(th,device_id){
 			jQuery(th).swipe( {
 				//Generic swipe handler for all directions
 				swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
@@ -371,7 +373,7 @@ jQuery(document).ready(function(){
 								if(parseInt(index)<0)
 								{
 									savetobookmark();
-									likenews();
+									likenews(device_id);
 									sharenews();
 									newsspeach();
 								}
@@ -446,7 +448,7 @@ jQuery(document).ready(function(){
 				
 			});
 		},
-		latestnews=function(cid,page){
+		latestnews=function(cid,page,device_id,location){
 			var lurl=siteurl+'/api/latest.php';
 			var loadedlatestnews=jQuery('#loadedlatestnews').val();
 			jQuery.ajax({ 
@@ -463,7 +465,7 @@ jQuery(document).ready(function(){
 				jQuery('body .bodyoverlay').remove();
 				page=parseInt(page)+1;
 				setTimeout(function(){
-				 latestnews(cid,page);
+				 latestnews(cid,page,device_id,location);
 				},5000);
 				
 				
@@ -568,7 +570,7 @@ jQuery(document).ready(function(){
 							jQuery("header").toggle();
 						});
 						savetobookmark();
-						likenews();
+						likenews(device_id);
 						sharenews();
 					}
 					
