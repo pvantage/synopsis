@@ -16,36 +16,11 @@
   <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
   
 <script>
-function savefile(){
-var url = 'http://www.synopsis.yantradigital.com/wp-content/uploads/2016/10/news_1475481289_48152.jpg';
-    var filePath = 'images';
-    var fileTransfer = new FileTransfer();
-    var uri = encodeURI(url);
 
-    fileTransfer.download(
-        uri,
-        filePath,
-        function(entry) {
-            //console.log("download complete: " + entry.fullPath);
-			alert("download complete: " + entry.fullPath);
-        },
-        function(error) {
-           // console.log("download error source " + error.source);
-			alert("download error source: " + error.source);
-           // console.log("download error target " + error.target);
-			alert("download error target: " + error.target);
-            //console.log("upload error code" + error.code);
-			alert("upload error code: " + error.target);
-        },
-        false,
-        {
-            headers: {
-                "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-            }
-        }
-    );
+function onDeviceReady() {
+	jQuery('#device_id').val(device.uuid);
 }
-savefile();
+document.addEventListener("deviceready", onDeviceReady, false);
 /*document.addEventListener("deviceready", onDeviceReadyInt, false);
 
 // PhoneGap is ready
@@ -85,79 +60,108 @@ jQuery(document).ready(function(){
 			}
 			
 		});
-	/*jQuery( document ).on( "mobileinit", function() {
-		jQuery.mobile.allowCrossDomainPages = true;
-	});
-	var contentType ="application/x-www-form-urlencoded; charset=utf-8";
-    if(window.XDomainRequest){contentType = "text/plain";}
-	jQuery.support.cors = true;
-	
-	
-
-	alert(location2);
-	var device_id = device.uuid;
-	alert(device_id);
-	
+	setTimeout(function(){
+		var device_id=jQuery('#device_id').val();
+	var location='';
 	var url=siteurl+'/api/category.php';
 	var page=1;
-	savenews=function(row){
-			db.transaction(function (tx) {
-		
-				tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
-				function(tx,results){
-					if(typeof results.rows.item(0).id == 'undefined'){
-						var sql="INSERT INTO NEWS (newid,title,summary,news_url,news_source,published_by,video,image,share_url,post_date,like,readed,bookmark) VALUES('"+row['id']+"','"+row['title']+"','"+row['summary']+"','"+row['news_url']+"','"+row['news_source']+"','"+row['published_by']+"','"+row['video']+"','"+row['image']+"','"+row['share_url']+"','"+row['post_date']+"','"+row['news_like']+"','"+row['readed']+"','0')";
-						tx.executeSql(sql,[],function(){alert('inserted');},errorCB);
-					}
+	var cid=0;
+	loadnews=function(cid,page){
+			jQuery.ajax({ 
+			 type: 'POST',  
+			 url: url,  
+			 dataType: 'json',  
+			 data: {cid:cid,location:location,device_id:device_id, page:page},  
+			 crossDomain: true,  
+			 beforeSend: function() {
+			 },		
+			 complete: function() {
+				
+				jQuery('body .preloader').remove();
+				jQuery('body .bodyoverlay').remove();
+				
+				page=parseInt(page)+1;	
+				if(page!='1'){
+				setTimeout(function(){
+				 loadnews(cid,page);
+				},1000);
+				}
+				
+				
+			 },
+			 success: function(res) {  
+				if(typeof res['news'][0]!='undefined')
+				{
+					
+					var html='';
+					jQuery(res['news']).each(function(i){
+						var img='null';
+						html+='<div class="newsection" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
+						if(res['news'][i]['video']!='')
+						{
+							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
+						}
+						else if(res['news'][i]['image']!='')
+						{
+							html+='<div class="new_video"><img src="'+res['news'][i]['image']+'"/></div>';
+							img=res['news'][i]['image'];
+						}
+						else
+						{
+							html+='<div class="new_video"><img src="images/aaa.png"/></div>';
+						}
+						
+						var mystring=res['news'][i]['summary'];
+						mystring = mystring.replace(/["']/g, "");
+						var mytitle=res['news'][i]['title'];
+						mytitle = mytitle.replace(/["']/g, "")+'. ';
+						var liked='';
+						if(res['news'][i]['like_status']){
+							liked=' liked';
+						}
+						
+						
+						bookmark = localStorage.getItem('bookmarked');
+						var bookmcls='';
+						if(bookmark!=null){
+							var bookmark2=bookmark.split(',');
+							var index=bookmark2.indexOf(res['news'][i]['id']);
+							if(parseInt(index)>=0)
+							{
+								bookmcls=' bookedmarked';
+							}
+						}
+						
+						var likes=' Like';
+						if(parseInt(res['news'][i]['news_like'])>0){
+							likes=res['news'][i]['news_like']+' Like';
+							if(parseInt(res['news'][i]['news_like'])>1){
+								likes=res['news'][i]['news_like']+' Likes';
+							}
+						}
+						
+						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
+						
+					});
+					//jQuery('.allnews').append(html);
+					localStorage.setItem('news_'+cid+'_'+page,html);
+					localStorage.setItem('lastpage_'+cid,page);
 					
 				}
-				, errorCB);
+				else
+				{
+					page=0;
+				}
 				
+			 },  
+			 error: function(response, d, a){
 				
-			});
-			
-	},
-	
-	loadnews=function(cid,page){
-		jQuery.ajax({ 
-		 type: 'POST',  
-		 url: url,  
-		 dataType: 'json',  
-		 data: {cid:cid,location:location2,device_id:device_id, page:page},  
-		 crossDomain: true,  
-		 beforeSend: function() {
-		 },		
-		 complete: function() {
-			
-		 },
-		 success: function(res) {  
-			if(res['news'][0])
-			{
-				var html='';
-				jQuery(res['news']).each(function(i){
-					
-					
-					
-					var mystring=res['news'][i]['summary'];
-					mystring = mystring.replace(/["']/g, "");
-					res['news'][i]['summary']=mystring;
-					
-					if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
-					savenews(res['news'][i]);
-				});
-				
-			}
-			
-			
-		 },  
-		 error: function(response, d, a){
-			
-		 } 
-	   });
-	   
-	}
-	
-	loadnews(cid,page);*/
+			 } 
+		   });
+		   
+		}
+		loadnews(cid,page);
+	},500);  
 	
 });
 </script>
@@ -173,7 +177,7 @@ jQuery(document).ready(function(){
 </div>
 
 </div>
-
+<input type="hidden" id="device_id" value="localhost">
 <script>
 jQuery(document).ready(function(){
     jQuery(".nav-tabs a").click(function(){
