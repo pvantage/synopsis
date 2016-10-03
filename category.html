@@ -20,8 +20,6 @@
 <script>
 
 	function onDeviceReady() {
-		alert('start');
-		alert(device.uuid);
 		jQuery('#device_id').val(device.uuid);
 	}
 	document.addEventListener("deviceready", onDeviceReady, false);
