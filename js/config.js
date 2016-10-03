@@ -175,7 +175,7 @@ jQuery(document).ready(function(){
 			}
 		});
 	},1000);
-	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') != '1'){
+	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') == '1'){
 		jQuery('#nightmodeapp').attr('checked',true);
 		jQuery('body').addClass('nightmode');	
 	}
