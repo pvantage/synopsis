@@ -209,6 +209,11 @@ jQuery(document).ready(function(){
 			}
 			return false;
 		});
+		jQuery('.activenews .source a').click(function(){
+			var hrf=jQuery(this).attr('href');
+			window.location=hrf;
+			return false;
+		});
 	},
 	savetobookmark=function(){
 			jQuery('.newsection.activenews a.bookmarks').click(function(){
