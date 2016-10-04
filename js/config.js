@@ -98,6 +98,7 @@ function init() {
 	localStorage.setItem('device_id', device.uuid);
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
 	document.querySelector("#starttwitterlogin").addEventListener("touchend", twitterlogedin, false);
+	document.querySelector("#startgplogin").addEventListener("touchend", gplogedin, false);
 	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	
 }
@@ -111,12 +112,78 @@ function applogout(){
 	  }
 	);
 }
+function gplogedin()
+{
+	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+	jQuery('body').append(html);
+		window.plugins.googleplus.login(
+		{
+		  'scopes': 'profile', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+		  'webClientId': '250337148939-7vsqs993mj2u3h1lfcqan7sk8a2or848.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+		  'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+		},
+		function (obj) {
+		  alert(JSON.stringify(obj)); // do something useful instead of alerting
+		  alert(obj.email);
+		},
+		function (msg) {
+		  alert('error: ' + msg);
+		}
+	);
+	/*TwitterConnect.login(
+	  function(result) {
+		 //alert(result['userName']);
+		var url=siteurl+'/api/register.php';
+		var location='';
+		if(localStorage.getItem('countrycode')!=null){
+			location=localStorage.getItem('countrycode');
+		}
+		$.ajax({
+			type: "POST",
+			 url: url,
+			data: {account_type:'twitter',email:result['userId'],first_name:result['userName'],location:location},
+			dataType: 'json',
+			success: function(res){                            
+				if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
+				{
+					
+					window.location ='instruction.html?uid='+res['success'][0]['user_id'];
+				
+					//localStorage.setItem('userInfo', res['success']['userid']);
+					//window.location ='category.html';
+				}else if(res['success'][0]['message']=='Invalid email or password'){				
+					jQuery('body .bodyoverlay').remove();
+					jQuery('body .popupbox').remove();
+					var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
+					jQuery('body').append(html);
+					
+					jQuery('.okbox').click(function(){
+						jQuery('body .bodyoverlay').remove();
+						jQuery('body .popupbox').remove();
+					});
+					
+				}
+				else
+				{
+					alert('Server error');
+				}
+				return false; 
+				
+			}
+		});
+	  }, function(error) {
+		alert('Twitter login error: '+error);
+	  }
+	);*/	
+}
 function twitterlogedin()
 {
 	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
 	jQuery('body').append(html);
 	TwitterConnect.login(
 	  function(result) {
+		jQuery('body .preloader').remove();
+		jQuery('body .bodyoverlay').remove();
 		 //alert(result['userName']);
 		var url=siteurl+'/api/register.php';
 		var location='';
