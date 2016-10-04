@@ -386,6 +386,7 @@ jQuery(document).ready(function(){
 		jQuery('.activenews a.speakthis').click(function(){
 			
 			var sptext=jQuery(this).attr('data');
+			var $tis=jQuery(this);
 			if(jQuery(this).hasClass('activespeach'))
 			{
 				responsiveVoice.cancel();
@@ -393,7 +394,10 @@ jQuery(document).ready(function(){
 			}
 			else
 			{
-				responsiveVoice.speak(sptext, "UK English Female",{onstart: function(){alert('start');}, onend: function(){jQuery(this).removeClass('activespeach');}});
+				responsiveVoice.speak(sptext, "UK English Female",{onstart: function(){alert('start');}, onend: function(){jQuery($tis).removeClass('activespeach');}});
+				if(responsiveVoice.isPlaying()) {
+				  alert("I hope you are listening");
+				}
 				jQuery(this).addClass('activespeach');
 			}
 			return false;
