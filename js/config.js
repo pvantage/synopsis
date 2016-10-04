@@ -241,7 +241,6 @@ jQuery(document).ready(function(){
 		jQuery('.activenews a.speakthis').click(function(){
 			
 			var sptext=jQuery(this).attr('data');
-			//alert(sptext);
 			if(jQuery(this).hasClass('activespeach'))
 			{
 				responsiveVoice.cancel();
@@ -379,9 +378,12 @@ jQuery(document).ready(function(){
 			jQuery('a.loadnewnews').click(function(){
 				jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/16px_grey.gif"></a>');
 					setTimeout(function(){
+						jQuery('.latestnews:first').addClass('firstload');
+						jQuery('.firstload').removeClass('latestnews');
+						jQuery('.firstload').addClass('activenews');
+						jQuery('.latestnews').removeClass('activenews');
 						jQuery('.newsection').removeClass('latestnews');
-						jQuery('.newsection').removeClass('activenews');
-						jQuery('.newsection:first').addClass('activenews');
+						
 						var th=jQuery('.activenews');
 						swipnews(th);
 						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
@@ -459,8 +461,12 @@ jQuery(document).ready(function(){
 									jQuery("html, body").animate({ scrollTop: 0 }, 1000,function(){
 										if(jQuery('.allnews .latestnews:last').next('div').hasClass('newsection'))
 										{
-											jQuery('.allnews .latestnews:last').next('.newsection').addClass('activenews');
-											jQuery('.newsection').removeClass('activenews');
+											jQuery('.latestnews:first').addClass('firstload');
+											jQuery('.firstload').removeClass('latestnews');
+											jQuery('.firstload').addClass('activenews');
+											jQuery('.latestnews').removeClass('activenews');
+											jQuery('.newsection').removeClass('latestnews');
+											newsspeach();
 										}
 										else
 										{
@@ -610,7 +616,7 @@ jQuery(document).ready(function(){
 					var lastnewsid2=jQuery('.allnews .activenews').next('.newsection').attr('news-id');
 					var totalnews=jQuery('.allnews .latestnews').size();
 					if(lastnewsid!=lastnewsid2){
-						jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
+						jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews loadnewnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
 					}
 					else
 					{
