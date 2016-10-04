@@ -119,14 +119,18 @@ function gplogedin()
 		window.plugins.googleplus.login(
 		{
 		  'scopes': 'profile', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-		  'webClientId': '250337148939-7vsqs993mj2u3h1lfcqan7sk8a2or848.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+		  'webClientId': '250337148939-2iq3in6at1687m1lhurgsev8db1l6m9b.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
 		  'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
 		},
 		function (obj) {
+		   jQuery('body .preloader').remove();
+		  jQuery('body .bodyoverlay').remove();
 		  alert(JSON.stringify(obj)); // do something useful instead of alerting
 		  alert(obj.email);
 		},
 		function (msg) {
+		  jQuery('body .preloader').remove();
+		  jQuery('body .bodyoverlay').remove();
 		  alert('error: ' + msg);
 		}
 	);
