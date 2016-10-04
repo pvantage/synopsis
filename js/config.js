@@ -125,8 +125,46 @@ function gplogedin()
 		function (obj) {
 		   jQuery('body .preloader').remove();
 		  jQuery('body .bodyoverlay').remove();
-		  alert(JSON.stringify(obj)); // do something useful instead of alerting
-		  alert(obj.email);
+		 // alert(JSON.stringify(obj)); // do something useful instead of alerting
+		  //alert(obj.email);
+		  var url=siteurl+'/api/register.php';
+			var location='';
+			if(localStorage.getItem('countrycode')!=null){
+				location=localStorage.getItem('countrycode');
+			}
+			$.ajax({
+				type: "POST",
+				 url: url,
+				data: {account_type:'google_plus',email:obj.email,first_name:obj.displayName,location:location},
+				dataType: 'json',
+				success: function(res){                            
+					if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
+					{
+						
+						window.location ='instruction.html?uid='+res['success'][0]['user_id'];
+					
+						//localStorage.setItem('userInfo', res['success']['userid']);
+						//window.location ='category.html';
+					}else if(res['success'][0]['message']=='Invalid email or password'){				
+						jQuery('body .bodyoverlay').remove();
+						jQuery('body .popupbox').remove();
+						var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
+						jQuery('body').append(html);
+						
+						jQuery('.okbox').click(function(){
+							jQuery('body .bodyoverlay').remove();
+							jQuery('body .popupbox').remove();
+						});
+						
+					}
+					else
+					{
+						alert('Server error');
+					}
+					return false; 
+					
+				}
+			});
 		},
 		function (msg) {
 		  jQuery('body .preloader').remove();
@@ -134,51 +172,7 @@ function gplogedin()
 		  alert('error: ' + msg);
 		}
 	);
-	/*TwitterConnect.login(
-	  function(result) {
-		 //alert(result['userName']);
-		var url=siteurl+'/api/register.php';
-		var location='';
-		if(localStorage.getItem('countrycode')!=null){
-			location=localStorage.getItem('countrycode');
-		}
-		$.ajax({
-			type: "POST",
-			 url: url,
-			data: {account_type:'twitter',email:result['userId'],first_name:result['userName'],location:location},
-			dataType: 'json',
-			success: function(res){                            
-				if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
-				{
-					
-					window.location ='instruction.html?uid='+res['success'][0]['user_id'];
-				
-					//localStorage.setItem('userInfo', res['success']['userid']);
-					//window.location ='category.html';
-				}else if(res['success'][0]['message']=='Invalid email or password'){				
-					jQuery('body .bodyoverlay').remove();
-					jQuery('body .popupbox').remove();
-					var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
-					jQuery('body').append(html);
-					
-					jQuery('.okbox').click(function(){
-						jQuery('body .bodyoverlay').remove();
-						jQuery('body .popupbox').remove();
-					});
-					
-				}
-				else
-				{
-					alert('Server error');
-				}
-				return false; 
-				
-			}
-		});
-	  }, function(error) {
-		alert('Twitter login error: '+error);
-	  }
-	);*/	
+		
 }
 function twitterlogedin()
 {
