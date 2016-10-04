@@ -296,6 +296,7 @@ jQuery(document).ready(function(){
 						likes=totallikes+' Likes';
 					}
 				}
+				//alert(totallikes);
 				jQuery($this).html('<img src="images/like.png"> '+likes);
 				jQuery(this).attr('data-like',totallikes);
 				jQuery.ajax({ 

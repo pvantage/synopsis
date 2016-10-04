@@ -72,7 +72,8 @@ jQuery(document).ready(function(){
 		
 		var page=1;
 		if(lastpage!=null){
-			page=lastpage;
+			page=parseInt(lastpage)+1;
+			
 			jQuery('body .preloader').remove();
 			jQuery('body .bodyoverlay').remove();
 			for(i=1;i<=lastpage;i++)
@@ -87,22 +88,7 @@ jQuery(document).ready(function(){
 				var th=jQuery('.activenews');
 				swipnews(th,device_id);
 				if(i==1){
-					jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
-					loadagainnews();
-					jQuery('.activenews a.speakthis').click(function(){
-						var sptext=jQuery(this).attr('data');
-						if(jQuery(this).hasClass('activespeach'))
-						{
-							responsiveVoice.cancel();
-							jQuery(this).removeClass('activespeach');
-						}
-						else
-						{
-							responsiveVoice.speak(sptext);
-							jQuery(this).addClass('activespeach');
-						}
-						return false;
-					});
+					
 					/*jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
 						jQuery("header").toggle();
 					});*/
@@ -111,6 +97,30 @@ jQuery(document).ready(function(){
 					//sharenews();/**/
 				}
 			}
+			jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+			loadagainnews();
+			jQuery('.activenews a.speakthis').click(function(){
+				var sptext=jQuery(this).attr('data');
+				if(jQuery(this).hasClass('activespeach'))
+				{
+					responsiveVoice.cancel();
+					jQuery(this).removeClass('activespeach');
+				}
+				else
+				{
+					responsiveVoice.speak(sptext);
+					jQuery(this).addClass('activespeach');
+				}
+				return false;
+			});
+			jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+				jQuery("header").toggle();
+			});
+			savetobookmark();
+			likenews(device_id);
+			sharenews();
+			jQuery('#loadedlatestnews').val(localStorage.getItem('loadedlatestnews_'+cid));
+			
 		}
 		
 		savenews=function(row){
@@ -209,8 +219,8 @@ jQuery(document).ready(function(){
 							likes=res['news'][i]['news_like']+' Like';
 							if(parseInt(res['news'][i]['news_like'])>1){
 								likes=res['news'][i]['news_like']+' Likes';
-								totallike=res['news'][i]['news_like'];
 							}
+							totallike=res['news'][i]['news_like'];
 						}
 						
 						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
