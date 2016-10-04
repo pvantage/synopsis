@@ -137,7 +137,7 @@ jQuery(document).ready(function(){
 				if(res['success'][0]['message']=='You have login successfully' || res['success'][0]['message']=='You have registered successfully')
 				{
 					
-					window.location ='category.html?uid='+res['success'][0]['user_id']+'&cid=0';
+					window.location ='instruction.html?uid='+res['success'][0]['user_id'];
 				
 					//localStorage.setItem('userInfo', res['success']['userid']);
 					//window.location ='category.html';
@@ -319,9 +319,9 @@ jQuery(document).ready(function(){
 		<ul class="login_boxes">
           <li class="l-fb"><a href="#" id="startfblogin"><span><img src="images/ac_fb.png"/></span>
 		  Connect with Facebook</a></li>
-          <li class="l-g"><a href="#" id="starttwitterlogin"><span><img src="images/ac_gplush.png"/></span>
+          <li class="l-g"><a href="#"><span><img src="images/ac_gplush.png"/></span>
 		  Connect with Google</a></li>
-          <li class="l-tw"><a href="#"><span><img src="images/ac_twitter.png"/></span>
+          <li class="l-tw"><a href="#" id="starttwitterlogin"><span><img src="images/ac_twitter.png"/></span>
 		  Connect with Twitter</a></li>
         </ul>
       </div>
