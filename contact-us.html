@@ -14,6 +14,8 @@
 <script type="text/javascript" src="js/config.js"></script>
 <script>
 jQuery(document).ready(function(){
+	var uid=gup('uid');
+	localStorage.setItem('lastpageaccess', 'contact-us.html?uid='+uid);
     jQuery(".menu_box").click(function(){
         jQuery(".menusection").toggle();
     });

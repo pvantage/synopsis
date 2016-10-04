@@ -44,8 +44,8 @@ jQuery(document).ready(function(){
 	if(localStorage.getItem('countrycode')!=null){
 		location=localStorage.getItem('countrycode');
 	}
-	
-
+	var uid=gup('uid');
+	localStorage.setItem('lastpageaccess', 'sacearticles.html?uid='+uid);
 	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
 	jQuery('body').append(html);
 	var cid_array = localStorage.getItem('bookmarked');

@@ -20,6 +20,8 @@ function onBackKeyDown() {
     //navigator.app.backHistory();
 }
 jQuery(document).ready(function(){
+	var uid=gup('uid');
+	localStorage.setItem('lastpageaccess', 'feedback.html?uid='+uid);
     jQuery(".menu_box").click(function(){
         jQuery(".menusection").toggle();
     });

@@ -19,7 +19,7 @@ function sitemenus()
 	var par='?uid='+uid;
 	var loginlink='<li><a href="index.html" class="closedaccountmenu"><div class="cat_img"><img src="images/accountimage.png"/></div>Account <span class="setting_right_icon"><img src="images/expendsarrow.png"/></span></a><ul class="social-media" style="display:none;"><li><a href="index.html"><div class="social_img gmail"><img src="images/ac_email.png"/></div>Connect with email</a></li><li><a href="index.html"><div class="social_img fb"><img src="images/ac_fb.png"/></div>Connect with facebook</a></li><li><a href="index.html"><div class="social_img gplus"><img src="images/ac_gplush.png"/></div>Connect with G+</a></li><li><a href="index.html"><div class="social_img twitter"><img src="images/ac_twitter.png"/></div>Connect with twitter</a></li></ul></li>';
 	if(uid!='undefined' && typeof uid!='undefined'){
-		loginlink='<li><a href="index.html"><div class="cat_img"><img src="images/accountimage.png"/></div>Logout <span class="setting_right_icon"><img src="images/nextarrow.png"/></span></a></li>';
+		loginlink='<li><a href="index.html" id="applogout"><div class="cat_img"><img src="images/accountimage.png"/></div>Logout <span class="setting_right_icon"><img src="images/nextarrow.png"/></span></a></li>';
 	}
 	var menu='<div id="home" class="tab-pane fade in active"><ul class="cat_links"><li><a href="category.html'+par+'&cid=0"><div class="cat_img"><img src="images/1.png"/></div>All News</a></li><li><a href="category.html'+par+'&cid=4"><div class="cat_img"><img src="images/2.png"/></div>Trending</a></li><li><a href="category.html'+par+'&cid=3"><div class="cat_img"><img src="images/3.png"/></div>Top Stories</a></li><li><a href="savearticles.html'+par+'"><div class="cat_img"><img src="images/4.png"/></div>Saved Article/Bookmarks</a></li><li><a href="unread.html'+par+'"><div class="cat_img"><img src="images/5.png"/></div>Unread</a></li><li><a href="category.html'+par+'&cid=2"><div class="cat_img"><img src="images/6.png"/></div>Local</a></li><li><a href="category.html'+par+'&cid=5"><div class="cat_img"><img src="images/7.png"/></div>International</a></li><li><a href="category.html'+par+'&cid=6"><div class="cat_img"><img src="images/8.png"/></div>Business and Finance </a></li><li><a href="category.html'+par+'&cid=7"><div class="cat_img"><img src="images/9.png"/></div>Politics</a></li><li><a href="category.html'+par+'&cid=8"><div class="cat_img"><img src="images/10.png"/></div>Sports</a></li><li><a href="category.html'+par+'&cid=9"><div class="cat_img"><img src="images/11.png"/></div>Property </a></li><li><a href="category.html'+par+'&cid=10"><div class="cat_img"><img src="images/12.png"/></div>Technology</a></li><li><a href="category.html'+par+'&cid=199"><div class="cat_img"><img src="images/13.png"/></div>Entertainment & Gossip </a></li><li><a href="category.html'+par+'&cid=200"><div class="cat_img"><img src="images/14.png"/></div>Movies and Series </a></li><li><a href="category.html'+par+'&cid=201"><div class="cat_img"><img src="images/15.png"/></div>Health/Science </a></li><li><a href="category.html'+par+'&cid=202"><div class="cat_img"><img src="images/16.png"/></div>Lifestyle</a></li><li><a href="category.html'+par+'&cid=203"><div class="cat_img"><img src="images/17.png"/></div>Trivia</a></li><li><a href="category.html'+par+'&cid=204"><div class="cat_img"><img src="images/18.png"/></div>Jobs</a></li><li><a href="contact-us.html'+par+'"><div class="cat_img"><img src="images/19.png"/></div>Contact us</a></li></ul></div>';
     menu+='<div id="menu1" class="tab-pane fade"><ul class="cat_links">'+loginlink+'<li><a href="#"><div class="cat_img"><img src="images/languageimage.png"/></div>Language<span class="setting_right_icon lang">English</span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/notificationimage.png"/></div>Notification<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="notificationapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/6.png"/></div>HD Image<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="hdimageapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/nightmode.png"/></div>Night Mode<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="nightmodeapp"><span></span></label></div></span></a></li><li><a href="#" class="invitefrnds"><div class="cat_img"><img src="images/inviteimage.png"/></div>Invite Friends</a></li><li><a href="javascript:;" id="ratingapp"><div class="cat_img"><img src="images/rateimage.png"/></div>Rate App</a></li><li><a href="feedback.html'+par+'"><div class="cat_img"><img src="images/feedbackimage.png"/></div>Feedback </a></li><li><a href="instruction.html'+par+'"><div class="cat_img"><img src="images/howitwork.png"/></div>How it works </a></li></ul></div>';
@@ -98,9 +98,23 @@ function init() {
 	localStorage.setItem('device_id', device.uuid);
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
 	document.querySelector("#starttwitterlogin").addEventListener("touchend", twitterlogedin, false);
+	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
+	
+}
+function applogout(){
+	TwitterConnect.logout(
+	  function() {
+		alert('Successful logout!');
+	  },
+	  function() {
+		alert('Error logging out');
+	  }
+	);
 }
 function twitterlogedin()
 {
+	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+	jQuery('body').append(html);
 	TwitterConnect.login(
 	  function(result) {
 		 //alert(result['userName']);

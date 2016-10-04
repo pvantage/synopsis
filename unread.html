@@ -40,11 +40,11 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	var location='';
-	var location='';
 	if(localStorage.getItem('countrycode')!=null){
 		location=localStorage.getItem('countrycode');
 	}
-	
+	var uid=gup('uid');
+	localStorage.setItem('lastpageaccess', 'unread.html?uid='+uid);
 	
 	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
 	jQuery('body').append(html);
