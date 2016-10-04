@@ -97,6 +97,19 @@ document.addEventListener("deviceready", init, false);
 function init() {
 	localStorage.setItem('device_id', device.uuid);
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
+	document.querySelector("#starttwitterlogin").addEventListener("touchend", twitterlogedin, false);
+}
+function twitterlogedin()
+{
+	TwitterConnect.login(
+	  function(result) {
+		alert('Successful login!');
+		alert(result);
+	  }, function(error) {
+		alert('Error logging in');
+		alert(error);
+	  }
+	);	
 }
 function startfblogin()
 {
@@ -108,6 +121,7 @@ function startfblogin()
 		}
 	);
 }
+
 var fbLoginSuccess = function (userData) {
     facebookConnectPlugin.getAccessToken(function(token) {
         //alert("Token: " + token);

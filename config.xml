@@ -57,11 +57,12 @@
   <!-- <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
 		<param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
-	</plugin>
+	</plugin>-->
 	<plugin name="twitter-connect-plugin" spec="0.5.0"> source="pgb">
-		<param name="FABRIC_KEY" value="..." />
+		<param name="FABRIC_KEY" value="f129d07855c8a8cf08ff0aff7b8e5f51d9040808" />
 	</gap:plugin>
-	-->
+	
+	  
 	
 	
 </widget>
