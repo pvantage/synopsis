@@ -395,9 +395,6 @@ jQuery(document).ready(function(){
 			else
 			{
 				responsiveVoice.speak(sptext, "UK English Female",{onstart: function(){}, onend: function(){jQuery($tis).removeClass('activespeach');}});
-				if(responsiveVoice.isPlaying()) {
-				  alert("I hope you are listening");
-				}
 				jQuery(this).addClass('activespeach');
 			}
 			return false;
