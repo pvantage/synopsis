@@ -103,7 +103,7 @@ function twitterlogedin()
 {
 	TwitterConnect.login(
 	  function(result) {
-		 alert(result['userName']);
+		 //alert(result['userName']);
 		var url=siteurl+'/api/register.php';
 		var location='';
 		if(localStorage.getItem('countrycode')!=null){
