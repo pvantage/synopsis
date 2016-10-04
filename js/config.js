@@ -99,8 +99,9 @@ function init() {
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
 	document.querySelector("#starttwitterlogin").addEventListener("touchend", twitterlogedin, false);
 	document.querySelector("#startgplogin").addEventListener("touchend", gplogedin, false);
-	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
-	
+	setTimeout(function(){
+		document.querySelector("#applogout").addEventListener("touchend", applogout, false);
+	},1000);
 }
 function applogout(){
 	TwitterConnect.logout(
@@ -392,7 +393,7 @@ jQuery(document).ready(function(){
 			}
 			else
 			{
-				responsiveVoice.speak(sptext);
+				responsiveVoice.speak(sptext, "UK English Female",{onstart: function(){alert('start');}, onend: function(){jQuery(this).removeClass('activespeach');}});
 				jQuery(this).addClass('activespeach');
 			}
 			return false;
