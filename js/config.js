@@ -22,7 +22,7 @@ function sitemenus()
 		loginlink='<li><a href="index.html"><img src="images/accountimage.png"/>Logout <span class="setting_right_icon"><img src="images/nextarrow.png"/></span></a></li>';
 	}
 	var menu='<div id="home" class="tab-pane fade in active"><ul class="cat_links"><li><a href="category.html'+par+'&cid=0"><div class="cat_img"><img src="images/1.png"/></div>All News</a></li><li><a href="category.html'+par+'&cid=4"><div class="cat_img"><img src="images/2.png"/></div>Trending</a></li><li><a href="category.html'+par+'&cid=3"><div class="cat_img"><img src="images/3.png"/></div>Top Stories</a></li><li><a href="savearticles.html'+par+'"><div class="cat_img"><img src="images/4.png"/></div>Saved Article/Bookmarks</a></li><li><a href="unread.html'+par+'"><div class="cat_img"><img src="images/5.png"/></div>Unread</a></li><li><a href="category.html'+par+'&cid=2"><div class="cat_img"><img src="images/6.png"/></div>Local</a></li><li><a href="category.html'+par+'&cid=5"><div class="cat_img"><img src="images/7.png"/></div>International</a></li><li><a href="category.html'+par+'&cid=6"><div class="cat_img"><img src="images/8.png"/></div>Business and Finance </a></li><li><a href="category.html'+par+'&cid=7"><div class="cat_img"><img src="images/9.png"/></div>Politics</a></li><li><a href="category.html'+par+'&cid=8"><div class="cat_img"><img src="images/10.png"/></div>Sports</a></li><li><a href="category.html'+par+'&cid=9"><div class="cat_img"><img src="images/11.png"/></div>Property </a></li><li><a href="category.html'+par+'&cid=10"><div class="cat_img"><img src="images/12.png"/></div>Technology</a></li><li><a href="category.html'+par+'&cid=199"><div class="cat_img"><img src="images/13.png"/></div>Entertainment & Gossip </a></li><li><a href="category.html'+par+'&cid=200"><div class="cat_img"><img src="images/14.png"/></div>Movies and Series </a></li><li><a href="category.html'+par+'&cid=201"><div class="cat_img"><img src="images/15.png"/></div>Health/Science </a></li><li><a href="category.html'+par+'&cid=202"><div class="cat_img"><img src="images/16.png"/></div>Lifestyle</a></li><li><a href="category.html'+par+'&cid=203"><div class="cat_img"><img src="images/17.png"/></div>Trivia</a></li><li><a href="category.html'+par+'&cid=204"><div class="cat_img"><img src="images/18.png"/></div>Jobs</a></li><li><a href="contact-us.html'+par+'"><div class="cat_img"><img src="images/19.png"/></div>Contact us</a></li></ul></div>';
-    menu+='<div id="menu1" class="tab-pane fade"><ul class="cat_links">'+loginlink+'<li><a href="#"><div class="cat_img"><img src="images/languageimage.png"/></div>Language<span class="setting_right_icon lang">English</span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/notificationimage.png"/></div>Notification<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="notificationapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/6.png"/></div>HD Image<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="hdimageapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/nightmode.png"/></div>Night Mode<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="nightmodeapp"><span></span></label></div></span></a></li><li><a href="#" class="invitefrnds"><div class="cat_img"><img src="images/inviteimage.png"/></div>Invite Friends</a></li><li><a href="http://www.apple.com"><div class="cat_img"><img src="images/rateimage.png"/></div>Rate App</a></li><li><a href="feedback.html'+par+'"><div class="cat_img"><img src="images/feedbackimage.png"/></div>Feedback </a></li><li><a href="instruction.html'+par+'"><div class="cat_img"><img src="images/howitwork.png"/></div>How it works </a></li></ul></div>';
+    menu+='<div id="menu1" class="tab-pane fade"><ul class="cat_links">'+loginlink+'<li><a href="#"><div class="cat_img"><img src="images/languageimage.png"/></div>Language<span class="setting_right_icon lang">English</span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/notificationimage.png"/></div>Notification<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="notificationapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/6.png"/></div>HD Image<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="hdimageapp"><span></span></label></div></span></a></li><li><a href="javascript:;"><div class="cat_img"><img src="images/nightmode.png"/></div>Night Mode<span class="setting_right_icon"><div class="checkbox checkbox-slider--c checkbox-slider-lg"><label><input type="checkbox" id="nightmodeapp"><span></span></label></div></span></a></li><li><a href="#" class="invitefrnds"><div class="cat_img"><img src="images/inviteimage.png"/></div>Invite Friends</a></li><li><a href="javascript:;" id="ratingapp"><div class="cat_img"><img src="images/rateimage.png"/></div>Rate App</a></li><li><a href="feedback.html'+par+'"><div class="cat_img"><img src="images/feedbackimage.png"/></div>Feedback </a></li><li><a href="instruction.html'+par+'"><div class="cat_img"><img src="images/howitwork.png"/></div>How it works </a></li></ul></div>';
 	
 	menu+='<footer class="afterlogin menufooter"><div class="footer_section"><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div></div></footer>';
 	return menu;
@@ -95,6 +95,7 @@ jQuery(document).ready(function(){
 
 document.addEventListener("deviceready", init, false);
 function init() {
+	localStorage.setItem('device_id', device.uuid);
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
 }
 function startfblogin()
@@ -158,6 +159,10 @@ setTimeout(function(){
 		var durl='http://synopsis.yantradigital.com';
 		window.plugins.socialsharing.share(null,null,null,durl);									 
 	});
+	jQuery('.cat_links #ratingapp').click(function(){
+		window.location='iframe.html?url=http://www.goople.com';
+		return false;
+	});
 },1000);
 
 jQuery(document).ready(function(){
@@ -184,7 +189,45 @@ jQuery(document).ready(function(){
 				localStorage.setItem('hdimageapp', 0);
 			}
 		});
+		jQuery('#notificationapp').change(function(){
+			if(jQuery(this).is(':checked'))
+			{
+				localStorage.setItem('notificationapp', 1);
+				var notification=1;
+			}
+			else
+			{
+				localStorage.setItem('notificationapp', 0);
+				var notification=0;
+			}
+			var $this=jQuery(this);
+			var url2=siteurl+'/api/notification.php';
+			var device_id=localStorage.getItem('device_id');
+			jQuery.ajax({ 
+			 type: 'POST',  
+			 url: url2,  
+			 dataType: 'json',  
+			 data: {device_id:device_id,notification:notification},  
+			 crossDomain: true,  
+			 beforeSend: function() {
+			 },		
+			 complete: function() {
+				
+			 },
+			 success: function(res) {  
+				
+				
+			 },  
+			 error: function(response, d, a){
+				
+			 } 
+		   });
+		});
+		
 	},1000);
+	if(localStorage.getItem('notificationapp') != null && localStorage.getItem('notificationapp') == '1'){
+		jQuery('#notificationapp').attr('checked',true);
+	}
 	if(localStorage.getItem('nightmodeapp') != null && localStorage.getItem('nightmodeapp') == '1'){
 		jQuery('#nightmodeapp').attr('checked',true);
 		jQuery('body').addClass('nightmode');	
@@ -213,7 +256,8 @@ jQuery(document).ready(function(){
 		});
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
-			window.location=hrf;
+			window.location='iframe.html?url='+hrf;
+			
 			//var ref = window.open(hrf, '_blank');
 			//ref.close();
 			return false;
@@ -222,7 +266,6 @@ jQuery(document).ready(function(){
 	savetobookmark=function(){
 			jQuery('.newsection.activenews a.bookmarks').click(function(){
 				var $this=jQuery(this);
-				var url2=siteurl+'/api/like.php';
 				var id=jQuery(this).attr('coords');
 				var bookmarked = '';
 				if(localStorage.getItem('bookmarked') != null){	   
@@ -542,8 +585,9 @@ jQuery(document).ready(function(){
 							likes=res['news'][i]['news_like']+' Like';
 							if(parseInt(res['news'][i]['news_like'])>1){
 								likes=res['news'][i]['news_like']+' Likes';
-								totallike=res['news'][i]['news_like'];
+								
 							}
+							totallike=res['news'][i]['news_like'];
 						}
 						
 						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
@@ -553,6 +597,10 @@ jQuery(document).ready(function(){
 						jQuery('#loadedlatestnews').val(loadedlatestnews);
 					});
 					jQuery('.allnews').prepend(html);
+					var oldhtml=localStorage.getItem('news_'+cid+'_'+page);
+					if(oldhtml!=null){
+						localStorage.setItem('news_'+cid+'_'+page,html+oldhtml);
+					}
 					if(!jQuery('.newsection').hasClass('activenews'))
 					{
 						jQuery('.newsection:first').addClass('activenews');
@@ -616,3 +664,23 @@ jQuery(document).ready(function(){
 		}
 		
 });
+function getcountrycode(){
+	var requestUrl = "http://ip-api.com/json";
+	jQuery.ajax({
+	  url: requestUrl,
+	  type: 'GET',
+	  success: function(json)
+	  {
+		  var countrycode=json.countryCode;
+		  localStorage.setItem('countrycode',countrycode);
+		
+	  },
+	  error: function(err)
+	  {
+		  
+	  }
+	});
+}
+if(localStorage.getItem('countrycode')==null){
+	getcountrycode();
+}

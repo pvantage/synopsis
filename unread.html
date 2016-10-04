@@ -40,15 +40,10 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	var location='';
-	/*db.transaction(function (tx) {
-		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
-			function(tx,results){
-				if(typeof results.rows.item(0).meta_value != 'undefined'){
-					location=results.rows.item(0).meta_value;
-				}
-			
-		}, errorCB);
-	});*/
+	var location='';
+	if(localStorage.getItem('countrycode')!=null){
+		location=localStorage.getItem('countrycode');
+	}
 	
 	
 	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
