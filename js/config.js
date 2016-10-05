@@ -709,8 +709,9 @@ jQuery(document).ready(function(){
 			 success: function(res) {  
 				if(typeof res['news']!='undefined')
 				{
-					var html='';
+					var html2='';
 					jQuery(res['news']).each(function(i){
+						var html='';
 						var img='null';
 						html+='<div class="newsection latestnews" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
 						if(res['news'][i]['video']!='')
@@ -769,11 +770,30 @@ jQuery(document).ready(function(){
 							loadedlatestnews =0;
 						}
 						localStorage.setItem('loadedlatestnews_'+cid,loadedlatestnews);
+						if(allnewsids!=null){
+							if(allnewsids!=0){
+								var allnewsids2=allnewsids.split(',');
+								if(allnewsids2.indexOf(res['news'][i]['id'])<0){
+									allnewsids =allnewsids+','+res['news'][i]['id'];
+									localStorage.setItem('unreadednews_'+res['news'][i]['id'],html);
+								}
+							}
+							else
+							{
+								allnewsids =allnewsids+','+res['news'][i]['id'];
+							}
+						}
+						else
+						{
+							allnewsids =0;
+						}
+						localStorage.setItem('allnewsids',allnewsids);
+						html2=html2+html;
 					});
-					jQuery('.allnews').prepend(html);
+					jQuery('.allnews').prepend(html2);
 					var oldhtml=localStorage.getItem('news_'+cid+'_'+page);
 					if(oldhtml!=null){
-						localStorage.setItem('news_'+cid+'_'+page,html+oldhtml);
+						localStorage.setItem('news_'+cid+'_'+page,html2+oldhtml);
 					}
 					if(!jQuery('.newsection').hasClass('activenews'))
 					{
@@ -784,7 +804,8 @@ jQuery(document).ready(function(){
 					var lastnewsid2=jQuery('.allnews .activenews').next('.newsection').attr('news-id');
 					var totalnews=jQuery('.allnews .latestnews').size();
 					if(lastnewsid!=lastnewsid2){
-						jQuery('.header_right_news').html('<a href="javascript:;" class="gototopnews loadnewnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
+						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews">'+totalnews+' New <img src="images/toparrow.png"></a>');
+						loadagainnews();
 					}
 					else
 					{
