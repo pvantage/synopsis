@@ -272,46 +272,31 @@ jQuery(document).ready(function(){
 	  
     </div>
     <div class="skip"><a href="instruction.html">Skip</a></div>
-	<script>
-        function loginUser() {   
-			alert('test'); 
-            FB.login(function(response) { }, {scope:'email'});     
-        }
-    </script>
-  <script>
-      (function() {
-        var e = document.createElement('script'); e.async = true;
-            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-            document.getElementById('fb-root').appendChild(e);
-            }());
-    </script>
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({ appId: '144342512690789', 
-          status: true, 
-          cookie: true,
-          xfbml: true,
-          oauth: true});
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 
-          FB.Event.subscribe('auth.authResponseChange', handleResponseChange);  
-        };
-    </script>
-    <script>
-        function handleReponseChange(response) {
-            document.body.className = response.authResponse ? 'connected' : 'not_connected';
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-            if (response.authResponse) {
-                alert(response);
-            }
-        }
-    </script>
-	<div id="fb-root"></div>
-    <div id="login">
-        <p><button onClick="loginUser();">Login</button></p>
-    </div>
-    <div id="logout">
-        <p><button  onClick="FB.logout();">Logout</button></p>
-    </div>
+<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+<script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
+<script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>
+<script type="text/javascript">
+function login()
+{
+    facebookLogin(window.cordovaOauth, window.http);
+}
+
+function facebookLogin($cordovaOauth, $http)
+{
+    $cordovaOauth.facebook("1633195863589792", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"}).then(function(result){
+        displayData($http, result.access_token);
+    },  function(error){
+            alert("Error: " + error);
+    });
+}
+</script>
+<a target="_blank" href="#" onclick="login()" style="text-decoration: none"><button>Login using Facebook</button></a>-->
+ 
 
     
   </div>

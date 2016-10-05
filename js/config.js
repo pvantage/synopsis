@@ -681,6 +681,7 @@ jQuery(document).ready(function(){
 			});
 		},
 		latestnews=function(cid,page,device_id,location){
+			var allnewsids =localStorage.getItem('allnewsids');
 			var device_id=jQuery('#device_id').val();
 			var lurl=siteurl+'/api/latest.php';
 			var loadedlatestnews =localStorage.getItem('loadedlatestnews_'+cid);
