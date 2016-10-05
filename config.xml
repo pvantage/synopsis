@@ -63,7 +63,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
 	<allow-navigation href="*" />
-   <plugin source="https://github.com/Wizcorp/phonegap-facebook-plugin.git">
+   <plugin name="phonegap-facebook-plugin" source="https://github.com/Wizcorp/phonegap-facebook-plugin.git">
 		<param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
 	</plugin>
