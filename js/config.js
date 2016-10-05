@@ -421,10 +421,11 @@ jQuery(document).ready(function(){
 					}
 					
 					jQuery(this).addClass('bookedmarked');
-					jQuery('.activenews footer .source').append('<span class="msgnotification">News bookmarked</span>');
 					var nws=jQuery('.newsection.activenews').html();
 					nws='<div class="newsection" news-id="'+id+'">'+nws+'</div>';
 					localStorage.setItem('bookmarked_news_'+id, nws);
+					jQuery('.activenews footer .source').append('<span class="msgnotification">News bookmarked</span>');
+					
 				}
 				else
 				{
