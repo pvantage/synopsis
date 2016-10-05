@@ -17,7 +17,7 @@
       Rinku Kamboj
     </author>
 	<preference name="orientation" value="portrait" />
-	<preference name="prerendered-icon" value="false" />
+	<preference name="prerendered-icon" value="true" />
 	<preference name="deployment-target" value="7.0" />
 	<preference name="TwitterConsumerKey" value="xKkDmAKdJirhY8SeWvZS0HIOS" />
     <preference name="TwitterConsumerSecret" value="KsaTBlms3Ri0frc4DJtIIAW4qRMebbno5zNIjKPWn4rHmAJRTm" />
