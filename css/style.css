@@ -604,6 +604,12 @@ header .wrapper {
   width: 100%;
 }
 .iframebtn{ margin-top:0px;}
+.header_right_news a:focus, .header_right_news a:hover {
+  text-decoration: none;
+  color:#000;
+}
+.header_right_news a{ color:#000;}
+
  @media only screen and (max-width: 330px) 
 {
 .new_video img{ height:200px;} 
@@ -669,7 +675,7 @@ header .wrapper {
   font-size: 14px;
 }	
 .new_des_content {
-  font-size: 16px;
+  font-size: 15px;
 }
 .shortby {
   font-size: 13px;
@@ -863,7 +869,7 @@ display: block;
   margin-bottom: 40px;
 }
 .new_des_content {
-  line-height: 21px;
+  line-height: 20px;
 }
 }
 

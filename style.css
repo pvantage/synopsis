@@ -116,4 +116,4 @@ header.opened{opacity:1; background:#FFFFFF;}
  a.bookedmarked{color:#F00020 !important;}
 .msgnotification{color:#000000; font-size:12px;} 
 .nightmode .msgnotification{color:#ffffff; font-size:12px;}
- 
+.category_section .cat_links li a.active{background:#646663 none repeat scroll 0 0;}

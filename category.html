@@ -317,10 +317,13 @@ jQuery(document).ready(function(){
     jQuery(".nav-tabs a").click(function(){
         jQuery(this).tab('show');
     });
-	/*jQuery('.new_detail_section, .new_des_content').click(function(){
-        jQuery("header").toggle();
-		
-    });*/
+	var cid=gup('cid');
+	jQuery('#home ul.cat_links li a').each(function(){
+		if(jQuery(this).attr('href')=='category.html?uid='+uid+'&cid='+cid)
+		{
+			jQuery(this).addClass('active');
+		}
+	});
 });
 </script>
 <input type="hidden" id="device_id" value="localhost">
