@@ -63,11 +63,11 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
 	<allow-navigation href="*" />
-  <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
+ <!--  <plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
 		<param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
 	</plugin>
-	<!-- <gap:plugin name="com.phonegap.plugins.okaybmd.facebookconnect" version="1.4.5" source="npm">
+	<gap:plugin name="com.phonegap.plugins.okaybmd.facebookconnect" version="1.4.5" source="npm">
    	 <param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
 	</gap:plugin>-->
