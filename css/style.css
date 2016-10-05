@@ -524,7 +524,7 @@ header .wrapper {
   float: left;
   font-size: 17px;
   font-weight: 300;
-  padding-top: 25px;
+  padding-top: 27px;
 }
 .contactus {
   padding-top: 64px;
@@ -870,6 +870,36 @@ display: block;
 }
 .new_des_content {
   line-height: 20px;
+}
+.login_boxes a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.login_boxes a:focus {
+  color: #fff;
+  text-decoration: none;
+}
+.wrapper .tab-content .social-media.activeprofile a {
+  float: right;
+  padding: 0;
+  width: auto;
+  color: #000;
+}
+.social-media.activeprofile .social_img.gmail {
+  background: none;
+  color: #000;
+  float: left;
+  width: auto;
+  font-size: 17px;
+}
+.social-media.activeprofile .social_img.gmail > img {
+  float: left;
+  width: auto;
+}
+.social-media.activeprofile {
+  float: left;
+  padding: 12px 16px;
+  width: 100%;
 }
 }
 
