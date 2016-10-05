@@ -79,6 +79,7 @@ jQuery(document).ready(function(){
 				if(res['success'][0]['message']=='You have login successfully' || res['success'][0]['message']=='You have registered successfully')
 				{
 					localStorage.setItem('displayname',user_login);
+					localStorage.setItem('displayimg','');
 					window.location ='instruction.html?uid='+res['success'][0]['user_id'];
 				
 					//localStorage.setItem('userInfo', res['success']['userid']);
