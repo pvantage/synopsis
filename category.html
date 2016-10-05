@@ -238,7 +238,7 @@ jQuery(document).ready(function(){
 					});
 					localStorage.setItem('news_'+cid+'_'+page,html2);
 					localStorage.setItem('lastpage_'+cid,page);
-					jQuery('.allnews').append(html);
+					jQuery('.allnews').append(html2);
 					if(!jQuery('.newsection').hasClass('activenews'))
 					{
 						jQuery('.newsection:first').addClass('activenews');
