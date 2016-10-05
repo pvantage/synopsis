@@ -61,7 +61,7 @@ jQuery(document).ready(function(){
 		});*/
 		array=unique(array);
 		allnewsids2=array.join(',');
-		console.log(allnewsids2);
+		//console.log(allnewsids2);
 		localStorage.setItem('allnewsids',allnewsids2);
 	}
 	
@@ -89,7 +89,7 @@ jQuery(document).ready(function(){
 		if(parseInt(bookmarked2.length)>0){
 			for(i=0;i<bookmarked2.length;i++)
 			{
-				console.log(bookmarked2[i]);
+				//console.log(bookmarked2[i]);
 				var html=localStorage.getItem('unreadednews_'+bookmarked2[i]);
 				if(html!=null){shownonews=false;}
 				jQuery('.allnews').append(html);
