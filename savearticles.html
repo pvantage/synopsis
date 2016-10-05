@@ -40,175 +40,52 @@ jQuery(document).ready(function(){
     if(window.XDomainRequest){contentType = "text/plain";}
 	jQuery.support.cors = true;
 	var location='';
-	var location='';
 	if(localStorage.getItem('countrycode')!=null){
 		location=localStorage.getItem('countrycode');
 	}
 	var uid=gup('uid');
 	localStorage.setItem('lastpageaccess', 'sacearticles.html?uid='+uid);
-	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
-	jQuery('body').append(html);
-	var cid_array = localStorage.getItem('bookmarked');
-	
-	setTimeout(function(){
+	var shownonews=true;
+	var bookmarked = localStorage.getItem('bookmarked');
+	if(bookmarked!=null){
 		var device_id=jQuery('#device_id').val();
+		var bookmarked2=bookmarked.split(',');
 		
-		var url=siteurl+'/api/bookmarked.php';
-		var uid=gup('uid');
-		var cid=gup('cid');
-		checkloggedin(uid);
-		var page=1;
-		
-		savenews=function(row){
-				db.transaction(function (tx) {
+		if(parseInt(bookmarked2.length)>0){
+			for(i=0;i<bookmarked2.length;i++)
+			{
+				
+				var html=localStorage.getItem('bookmarked_news_'+bookmarked2[i]);
+				if(html!=null){shownonews=false;}
+				jQuery('.allnews').append(html);
+				if(!jQuery('.newsection').hasClass('activenews'))
+				{
+					jQuery('.newsection:first').addClass('activenews');
+				}
+				
+				var th=jQuery('.activenews');
+				swipnews(th,device_id);
+				
+			}
+			localStorage.removeItem('unreadednews_'+jQuery('.activenews').attr('news-id'));
+			jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+			loadagainnews();
 			
-					tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
-					function(tx,results){
-						if(typeof results.rows.item(0).id == 'undefined'){
-							var sql="INSERT INTO NEWS (newid,title,summary,news_url,news_source,published_by,video,image,share_url,post_date,like,readed,bookmark) VALUES('"+row['id']+"','"+row['title']+"','"+row['summary']+"','"+row['news_url']+"','"+row['news_source']+"','"+row['published_by']+"','"+row['video']+"','"+row['image']+"','"+row['share_url']+"','"+row['post_date']+"','"+row['news_like']+"','"+row['readed']+"','0')";
-							tx.executeSql(sql,[],function(){},errorCB);
-						}
-						
-					}
-					, errorCB);
-					
-					
-				});
-				
-		},
-		
-		
-		
-		loadnews=function(page){
-			jQuery.ajax({ 
-			 type: 'POST',  
-			 url: url,  
-			 dataType: 'json',  
-			 data: {cid_array:cid_array,location:location,device_id:device_id, page:page,news_action:'unread'},  
-			 crossDomain: true,  
-			 beforeSend: function() {
-			 },		
-			 complete: function() {
-				
-				jQuery('body .preloader').remove();
-				jQuery('body .bodyoverlay').remove();
-				
-				page=parseInt(page)+1;	
-				if(page!='1'){
-				setTimeout(function(){
-				 loadnews(page);
-				},1000);
-				}
-				
-				
-			 },
-			 success: function(res) {  
-				if(typeof res['news'][0]['id']!='undefined')
-				{
-					var html='';
-					jQuery(res['news']).each(function(i){
-						var img='null';
-						html+='<div class="newsection" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
-						if(res['news'][i]['video']!='')
-						{
-							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
-						}
-						else if(res['news'][i]['image']!='')
-						{
-							html+='<div class="new_video"><img src="'+res['news'][i]['image']+'"/></div>';
-							img=res['news'][i]['image'];
-						}
-						else
-						{
-							html+='<div class="new_video"><img src="images/aaa.png"/></div>';
-						}
-						
-						var mystring=res['news'][i]['summary'];
-						mystring = mystring.replace(/["']/g, "");
-						var mytitle=res['news'][i]['title'];
-						mytitle = mytitle.replace(/["']/g, "")+'. ';
-						var liked='';
-						if(res['news'][i]['like_status']){
-							liked=' liked';
-						}
-						
-						bookmark = localStorage.getItem('bookmarked');
-						var bookmcls='';
-						if(bookmark!=null){
-							var bookmark2=bookmark.split(',');
-							var index=bookmark2.indexOf(res['news'][i]['id']);
-							if(parseInt(index)>=0)
-							{
-								bookmcls=' bookedmarked';
-							}
-						}
-						
-						var likes=' Like';
-						var totallike=0;
-						if(parseInt(res['news'][i]['news_like'])>0){
-							likes=res['news'][i]['news_like']+' Like';
-							if(parseInt(res['news'][i]['news_like'])>1){
-								likes=res['news'][i]['news_like']+' Likes';
-								
-							}
-							totallike=res['news'][i]['news_like'];
-						}
-						
-						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
-						if(page==1){res['news'][i]['readed']=1;}else{res['news'][i]['readed']=0;}
-						//savenews(res['news'][i]);
-						
-					});
-					jQuery('.allnews').append(html);
-					if(!jQuery('.newsection').hasClass('activenews'))
-					{
-						jQuery('.newsection:first').addClass('activenews');
-					}
-					
-					var th=jQuery('.activenews');
-					swipnews(th,device_id);
-					
-					
-					if(page==1){
-						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
-						loadagainnews();
-						
-						jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
-							jQuery("header").toggle();
-						});
-						savetobookmark();
-						likenews(device_id);
-						sharenews();
-						newsspeach();
-					}
-				}
-				else
-				{
-					page=0;
-				}
-				
-			 },  
-			 error: function(response, d, a){
-				
-			 } 
-		   });
-		   
+			jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+				jQuery("header").toggle();
+			});
+			savetobookmark();
+			likenews(device_id);
+			sharenews();
+			newsspeach();
 		}
-		
-		if(cid_array!=null && cid_array!='0')
-		{
-			loadnews(page);
-		}
-		else
-		{
-			jQuery('body .preloader').remove();
-			jQuery('body .bodyoverlay').remove();
-			jQuery("header").show();
-			jQuery('.allnews').html('<div style="padding-top:55px; padding-left:5px;">There is no saved news.</div>');
-		}
-		var th=jQuery('.activenews');
-		swipnews(th,device_id);
-	 },500);  
+	}	
+	if(shownonews){
+		jQuery('body .preloader').remove();
+		jQuery('body .bodyoverlay').remove();
+		jQuery("header").show();
+		jQuery('.allnews').html('<div style="padding-top:55px; padding-left:5px;">There is no saved news.</div>');
+	}
 });		
 </script>
 <title>Synopsis</title>

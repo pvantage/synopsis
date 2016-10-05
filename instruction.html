@@ -62,49 +62,67 @@ jQuery(document).ready(function(){
 		});
 	setTimeout(function(){
 		var device_id=jQuery('#device_id').val();
-	var location='';
-	var location='';
-	if(localStorage.getItem('countrycode')!=null){
-		location=localStorage.getItem('countrycode');
-	}
-	var url=siteurl+'/api/category.php';
-	var page=1;
-	var cid=0;
-	loadnews=function(cid,page){
+		var location='';
+		var location='';
+		if(localStorage.getItem('countrycode')!=null){
+			location=localStorage.getItem('countrycode');
+		}
+		var url=siteurl+'/api/category.php';
+		var page=1;
+		var cid=0;
 		var loadedlatestnews =localStorage.getItem('loadedlatestnews_'+cid);
-			jQuery.ajax({ 
-			 type: 'POST',  
-			 url: url,  
-			 dataType: 'json',  
-			 data: {cid:cid,location:location,device_id:device_id, page:page},  
-			 crossDomain: true,  
-			 beforeSend: function() {
-			 },		
-			 complete: function() {
-				
-				jQuery('body .preloader').remove();
-				jQuery('body .bodyoverlay').remove();
-				
-				page=parseInt(page)+1;	
-				if(page!='1'){
-				setTimeout(function(){
-				 loadnews(cid,page);
-				},1000);
-				}
-				
-				
-			 },
-			 success: function(res) {  
+		if(loadedlatestnews!=null){
+			var cid_array = localStorage.getItem('loadedlatestnews_'+cid);
+			//alert(cid_array);
+			var array=cid_array.split(',');
+			array = array.filter (function (value, index, array) { 
+				return array.indexOf (value) == index;
+			});
+			cid_array=array.join(',');
+			localStorage.setItem('loadedlatestnews_'+cid,cid_array);
+			var loadedlatestnews =localStorage.getItem('loadedlatestnews_'+cid);
+		}
+		
+		var allnewsids =localStorage.getItem('allnewsids');
+		
+		
+		loadnews=function(cid,page){
+			
+				jQuery.ajax({ 
+				 type: 'POST',  
+				 url: url,  
+				 dataType: 'json',  
+				 data: {cid:cid,location:location,device_id:device_id, page:page},  
+				 crossDomain: true,  
+				 beforeSend: function() {
+				 },		
+				 complete: function() {
+					
+					jQuery('body .preloader').remove();
+					jQuery('body .bodyoverlay').remove();
+					
+					page=parseInt(page)+1;	
+					if(page!='1'){
+					setTimeout(function(){
+					 loadnews(cid,page);
+					},1000);
+					}
+					
+					
+				 },
+				 success: function(res) {  
 				if(typeof res['news'][0]!='undefined')
 				{
 					
-					var html='';
+					
+					var html2='';
 					jQuery(res['news']).each(function(i){
+						var html='';
 						var img='null';
 						html+='<div class="newsection" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
 						if(res['news'][i]['video']!='')
 						{
-							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
+							html+='<div class="new_video"><video loop autoplay width="100%" height="100%" src="'+res['news'][i]['video']+'" type="video/mp4"></video></div>';
 						}
 						else if(res['news'][i]['image']!='')
 						{
@@ -149,19 +167,39 @@ jQuery(document).ready(function(){
 						}
 						
 						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
-						
-					});
+							if(loadedlatestnews!=null){
+								loadedlatestnews =loadedlatestnews+','+res['news'][i]['id'];
+							}
+							else
+							{
+								loadedlatestnews =0;
+							}
+							localStorage.setItem('loadedlatestnews_'+cid,loadedlatestnews);
+							if(allnewsids!=null){
+								if(allnewsids!=0){
+									var allnewsids2=allnewsids.split(',');
+									if(allnewsids2.indexOf(res['news'][i]['id'])<0){
+										allnewsids =allnewsids+','+res['news'][i]['id'];
+										localStorage.setItem('unreadednews_'+res['news'][i]['id'],html);
+									}
+								}
+								else
+								{
+									allnewsids =allnewsids+','+res['news'][i]['id'];
+								}
+							}
+							else
+							{
+								allnewsids =0;
+							}
+							localStorage.setItem('allnewsids',allnewsids);
+							html2=html2+html;
+							
+						});
 					//jQuery('.allnews').append(html);
-					localStorage.setItem('news_'+cid+'_'+page,html);
+					localStorage.setItem('news_'+cid+'_'+page,html2);
 					localStorage.setItem('lastpage_'+cid,page);
-					if(loadedlatestnews!=null){
-						loadedlatestnews =loadedlatestnews+','+localStorage.getItem('loadedlatestnews_'+cid);
-					}
-					else
-					{
-						loadedlatestnews =0;
-					}
-					localStorage.setItem('loadedlatestnews_'+cid,loadedlatestnews);
+					
 					
 				}
 				else

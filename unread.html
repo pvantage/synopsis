@@ -30,7 +30,13 @@ function onDeviceReady() {
 	jQuery('#device_id').val(device.uuid);
 }
 document.addEventListener("deviceready", onDeviceReady, false);
-
+function unique(list) {
+  var result = [];
+  jQuery.each(list, function(i, e) {
+    if (jQuery.inArray(e, result) == -1) result.push(e);
+  });
+  return result;
+}
 jQuery(document).ready(function(){
 	
 	jQuery( document ).on( "mobileinit", function() {
@@ -46,44 +52,85 @@ jQuery(document).ready(function(){
 	var uid=gup('uid');
 	localStorage.setItem('lastpageaccess', 'unread.html?uid='+uid);
 	
-	var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
-	jQuery('body').append(html);
-	var cid_array = localStorage.getItem('unreadnews');
-	//alert(cid_array);
-	var array=cid_array.split(',');
-	array = array.filter (function (value, index, array) { 
-		return array.indexOf (value) == index;
-	});
-	cid_array=array.join(',');
-	localStorage.setItem('unreadnews',cid_array);
-	//cid_array=0;
-	setTimeout(function(){
+	var allnewsids2 = localStorage.getItem('allnewsids');
+	if(allnewsids2!=null){
+		//alert(cid_array);
+		var array=allnewsids2.split(',');
+		/*array = array.filter (function (value, index, array) { 
+			return array.indexOf (value);
+		});*/
+		array=unique(array);
+		allnewsids2=array.join(',');
+		console.log(allnewsids2);
+		localStorage.setItem('allnewsids',allnewsids2);
+	}
+	
+	var device_id=jQuery('#device_id').val();
+	/*var cid_array = localStorage.getItem('unreadnews');
+	if(cid_array!=null){
+		var array=cid_array.split(',');
+		array = array.filter (function (value, index, array) { 
+			return array.indexOf (value) == index;
+		});
+		cid_array=array.join(',');
+		localStorage.setItem('unreadnews',cid_array);
+	}*/
+	var shownonews=true;
+	
+	
+	var bookmarked=localStorage.getItem('allnewsids');
+	
+	//alert(bookmarked);
+	if(bookmarked!=null)
+	{
+	
+		var bookmarked2=bookmarked.split(',');
+		
+		if(parseInt(bookmarked2.length)>0){
+			for(i=0;i<bookmarked2.length;i++)
+			{
+				console.log(bookmarked2[i]);
+				var html=localStorage.getItem('unreadednews_'+bookmarked2[i]);
+				if(html!=null){shownonews=false;}
+				jQuery('.allnews').append(html);
+				if(!jQuery('.newsection').hasClass('activenews'))
+				{
+					jQuery('.newsection:first').addClass('activenews');
+				}
+				var th=jQuery('.activenews');
+				swipnews(th,device_id);
+				
+			}
+			localStorage.removeItem('unreadednews_'+jQuery('.activenews').attr('news-id'));
+			jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+			loadagainnews();
+			
+			jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
+				jQuery("header").toggle();
+			});
+			savetobookmark();
+			likenews(device_id);
+			sharenews();
+			newsspeach();
+		}
+	}	
+	if(shownonews){
+		jQuery('body .preloader').remove();
+		jQuery('body .bodyoverlay').remove();
+		jQuery("header").show();
+		jQuery('.allnews').html('<div style="padding-top:55px; padding-left:5px;">There is no unread news.</div>');
+	}
+	
+	/*setTimeout(function(){
 		var device_id=jQuery('#device_id').val();
 		
 		var url=siteurl+'/api/unread_news.php';
 		var uid=gup('uid');
 		var cid=gup('cid');
 		checkloggedin(uid);
-		var page=1;
 		
 		
-		savenews=function(row){
-				db.transaction(function (tx) {
-			
-					tx.executeSql("SELECT * FROM NEWS where newid='"+id+"'", [],
-					function(tx,results){
-						if(typeof results.rows.item(0).id == 'undefined'){
-							var sql="INSERT INTO NEWS (newid,title,summary,news_url,news_source,published_by,video,image,share_url,post_date,like,readed,bookmark) VALUES('"+row['id']+"','"+row['title']+"','"+row['summary']+"','"+row['news_url']+"','"+row['news_source']+"','"+row['published_by']+"','"+row['video']+"','"+row['image']+"','"+row['share_url']+"','"+row['post_date']+"','"+row['news_like']+"','"+row['readed']+"','0')";
-							tx.executeSql(sql,[],function(){},errorCB);
-						}
-						
-					}
-					, errorCB);
-					
-					
-				});
-				
-		},
+		
 		
 		
 		loadnews=function(page){
@@ -218,7 +265,7 @@ jQuery(document).ready(function(){
 		
 		var th=jQuery('.activenews');
 		swipnews(th,device_id);
-	 },500);  
+	 },500); */ 
 });		
 </script>
 <title>Synopsis</title>

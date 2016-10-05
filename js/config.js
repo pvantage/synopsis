@@ -58,16 +58,10 @@ function checkloggedin(uid)
 		return false;
 	 },  
 	 error: function(response, d, a){
-		jQuery('body .bodyoverlay').remove();
-		jQuery('body .popupbox').remove();
-		var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="../images/error.png" /></div><h1 class="success">ERROR</h1><h1>Server Error.</h1><button class="okbox">OK</button></div>';
-		jQuery('body').append(html);
-		
-		jQuery('.okbox').click(function(){
-			jQuery('body .bodyoverlay').remove();
-			jQuery('body .popupbox').remove();
-		}); 
-		
+		jQuery('footer .source').append('<span class="msgnotification">Server error</span>');
+		setTimeout(function(){
+			jQuery('footer .source span.msgnotification').remove();
+		},700);
 	 } 
    });
 		
@@ -420,13 +414,17 @@ jQuery(document).ready(function(){
 				if(!jQuery(this).hasClass('bookedmarked'))
 				{
 					if(localStorage.getItem('bookmarked') == null){	   
-					   var bookmarked = id;		
+					   var bookmarked = id;	
+					   
 					}else{		
 						var bookmarked = localStorage.getItem('bookmarked')+','+id;
 					}
+					
 					jQuery(this).addClass('bookedmarked');
 					jQuery('.activenews footer .source').append('<span class="msgnotification">News bookmarked</span>');
-					
+					var nws=jQuery('.newsection.activenews').html();
+					nws='<div class="newsection" news-id="'+id+'">'+nws+'</div>';
+					localStorage.setItem('bookmarked_news_'+id, nws);
 				}
 				else
 				{
@@ -453,6 +451,7 @@ jQuery(document).ready(function(){
 					}
 					jQuery(this).removeClass('bookedmarked');
 					jQuery('.activenews footer .source').append('<span class="msgnotification">Bookmark removed</span>');
+					localStorage.removeItem('bookmarked_news_'+id);
 					
 				}
 				localStorage.setItem('bookmarked', bookmarked);
@@ -534,6 +533,7 @@ jQuery(document).ready(function(){
 						swipnews(th);
 						jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
 						loadagainnews();
+						localStorage.removeItem('unreadednews_'+jQuery('.allnews .activenews').attr('news-id'));
 					},1000);
 			});
 		},
@@ -550,6 +550,7 @@ jQuery(document).ready(function(){
 			});
 		},
 		swipnews=function(th,device_id){
+			var device_id=jQuery('#device_id').val();
 			jQuery(th).swipe( {
 				//Generic swipe handler for all directions
 				swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
@@ -570,6 +571,7 @@ jQuery(document).ready(function(){
 							unreadnews = localStorage.getItem('unreadnews')+','+jQuery(this).next('div').attr('news-id');
 						}
 						localStorage.setItem('unreadnews', unreadnews);
+						localStorage.removeItem('unreadednews_'+jQuery(this).attr('news-id'));
 						if(jQuery(this).next('div').hasClass('newsection'))
 						{
 							jQuery(this).next('div').addClass('activenews');
@@ -584,6 +586,7 @@ jQuery(document).ready(function(){
 								{
 									bokmark=localStorage.getItem("booked");
 								}
+								localStorage.removeItem('unreadednews_'+lastnewsid2);
 								var bookmarked2=bokmark.split(',');
 								var index=bookmarked2.indexOf(lastnewsid2);
 								if(parseInt(index)<0)
@@ -621,6 +624,7 @@ jQuery(document).ready(function(){
 										}
 										jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
 										loadagainnews();
+										localStorage.removeItem('unreadednews_'+jQuery('.allnews .activenews').attr('news-id'));
 									});
 								});
 							});
@@ -640,14 +644,7 @@ jQuery(document).ready(function(){
 								th=jQuery('.activenews');
 								swipnews(th);
 							}).delay(1500);
-							/*jQuery(this).animate({
-								height: "100px"
-							}, 2000, "swing", function(){
-								jQuery('.newsection').removeAttr('style');
-								jQuery(this).removeClass('activenews');
-								th=jQuery('.activenews');
-								swipnews(th);
-							});*/
+							
 							
 						}
 						var lastnewsid=jQuery('.allnews .newsection:first').attr('news-id');
@@ -657,9 +654,7 @@ jQuery(document).ready(function(){
 							loadagainnews();
 						}
 					}
-					//likenews();
-					//savetobookmark();
-					//sharenews();
+					localStorage.removeItem('unreadednews_'+jQuery('.allnews .activenews').attr('news-id'));
 					jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
 						jQuery("header").toggle();
 					});
@@ -669,8 +664,12 @@ jQuery(document).ready(function(){
 			});
 		},
 		latestnews=function(cid,page,device_id,location){
+			var device_id=jQuery('#device_id').val();
 			var lurl=siteurl+'/api/latest.php';
-			var loadedlatestnews=jQuery('#loadedlatestnews').val();
+			var loadedlatestnews =localStorage.getItem('loadedlatestnews_'+cid);
+			if(loadedlatestnews==null){
+				loadedlatestnews=0;	
+			}
 			jQuery.ajax({ 
 			 type: 'POST',  
 			 url: lurl,  
@@ -699,7 +698,7 @@ jQuery(document).ready(function(){
 						html+='<div class="newsection latestnews" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
 						if(res['news'][i]['video']!='')
 						{
-							html+='<div class="new_video"><img src="images/new_img.png"/></div><div class="new_video_icon"><a href="#"><img src="images/video_icon.png"/></a></div>';
+							html+='<div class="new_video"><video loop autoplay width="100%" height="100%" src="'+res['news'][i]['video']+'" type="video/mp4"></video></div>';
 						}
 						else if(res['news'][i]['image']!='')
 						{
@@ -745,8 +744,14 @@ jQuery(document).ready(function(){
 						html+='</div><div class="news_description"><div class="news_des_section"><div class="new_heading"><a href="javascript:;" class="bookmarks'+bookmcls+'" coords="'+res['news'][i]['id']+'">'+res['news'][i]['title']+'</a></div><div class="volume_box"><a href="javascript:;" class="speakthis" data="'+mytitle+mystring+'"> <img src="images/volume.png"/> Listen </a></div></div><div class="new_des_content">'+res['news'][i]['summary']+'<div class="shortby"><strong>short</strong> <span>by Synopsis Team</span></div></div></div></div><footer class="afterlogin"><div class="footer_section"><div class="likebox"><ul><li><a class="likethis'+liked+'" href="javascript:;" coords="'+res['news'][i]['id']+'" data-like="'+totallike+'"><img src="images/like.png"/>'+likes+'</a></li><li><a href="javascript:;" class="sharenews" data-title="'+res['news'][i]['title']+'" data-url="'+res['news'][i]['share_url']+'" data-img="'+img+'" data-text="'+mystring+'"><img src="images/share.png"/> Share</a></li></ul></div><hr><div class="ftr_logo"><img src="images/footerlogo.png"/></div><div class="source">more at <a href="'+res['news'][i]['news_url']+'">'+res['news'][i]['news_source']+'</a></div></div></footer><div class="clearfix"></div></div>';
 						res['news'][i]['readed']=0;
 						//savenews(res['news'][i]);
-						loadedlatestnews=loadedlatestnews+','+res['news'][i]['id'];
-						jQuery('#loadedlatestnews').val(loadedlatestnews);
+						if(loadedlatestnews!=null){
+							loadedlatestnews =loadedlatestnews+','+res['news'][i]['id'];
+						}
+						else
+						{
+							loadedlatestnews =0;
+						}
+						localStorage.setItem('loadedlatestnews_'+cid,loadedlatestnews);
 					});
 					jQuery('.allnews').prepend(html);
 					var oldhtml=localStorage.getItem('news_'+cid+'_'+page);
