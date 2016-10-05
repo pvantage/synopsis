@@ -67,7 +67,7 @@
 		<param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
 	</plugin>-->
-	<gap:plugin name="com.phonegap.plugins.okaybmd.facebookconnect" version="1.4.5">
+	<gap:plugin name="com.phonegap.plugins.okaybmd.facebookconnect" version="1.4.5" source="npm">
    	 <param name="APP_ID" value="144342512690789" />
 		<param name="APP_NAME" value="synopsis" />
 	</gap:plugin>
