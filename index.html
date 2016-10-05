@@ -13,10 +13,11 @@
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/validate.js"></script>
-<!--<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
 <script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
-<script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>-->
+<script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<script type="text/javascript" src="cordova_plugins.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script>
 
@@ -285,7 +286,7 @@ function login()
 
 function facebookLogin($cordovaOauth, $http)
 {
-    $cordovaOauth.facebook("144342512690789", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"}).then(function(result){
+    $cordovaOauth.facebook("144342512690789", ["email", "public_profile"], {redirect_uri: "http://synopsis.yantradigital.com"}).then(function(result){
         displayData($http, result.access_token);
     },  function(error){
             alert("Error: " + error);
