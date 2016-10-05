@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="css/bootstrap.min.css"/>
 <script src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/validate.js"></script>
+<!--<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+<script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
+<script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>-->
 <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
 <script>
@@ -272,14 +275,8 @@ jQuery(document).ready(function(){
 	  
     </div>
     <div class="skip"><a href="instruction.html">Skip</a></div>
-	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-<script src="http://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
-<script src="https://cdn.rawgit.com/driftyco/ng-cordova/master/dist/ng-cordova.min.js"></script>
-<script src="https://cdn.rawgit.com/nraboy/ng-cordova-oauth/master/dist/ng-cordova-oauth.min.js"></script>
 <script type="text/javascript">
 function login()
 {
@@ -288,14 +285,14 @@ function login()
 
 function facebookLogin($cordovaOauth, $http)
 {
-    $cordovaOauth.facebook("1633195863589792", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"}).then(function(result){
+    $cordovaOauth.facebook("144342512690789", ["email", "public_profile"], {redirect_uri: "http://localhost/callback"}).then(function(result){
         displayData($http, result.access_token);
     },  function(error){
             alert("Error: " + error);
     });
 }
 </script>
-<a target="_blank" href="#" onclick="login()" style="text-decoration: none"><button>Login using Facebook</button></a>-->
+<a href="#" onclick="login()" style="text-decoration: none"><button>Login using Facebook</button></a>
  
 
     
