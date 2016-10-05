@@ -272,6 +272,46 @@ jQuery(document).ready(function(){
 	  
     </div>
     <div class="skip"><a href="instruction.html">Skip</a></div>
+	<div id="fb-root"></div>
+    <div id="login">
+        <p><button onClick="loginUser();">Login</button></p>
+    </div>
+    <div id="logout">
+        <p><button  onClick="FB.logout();">Logout</button></p>
+    </div>
+
+    <script>
+        function loginUser() {    
+            FB.login(function(response) { }, {scope:'email'});     
+        }
+    </script>
+  <script>
+      (function() {
+        var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+            }());
+    </script>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({ appId: '144342512690789', 
+          status: true, 
+          cookie: true,
+          xfbml: true,
+          oauth: true});
+
+          FB.Event.subscribe('auth.authResponseChange', handleResponseChange);  
+        };
+    </script>
+    <script>
+        function handleReponseChange(response) {
+            document.body.className = response.authResponse ? 'connected' : 'not_connected';
+
+            if (response.authResponse) {
+                alert(response);
+            }
+        }
+    </script>
   </div>
   <!--<footer>
     <div class="footer_section">
