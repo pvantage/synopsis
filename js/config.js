@@ -106,9 +106,7 @@ function init() {
 	document.querySelector("#startfblogin").addEventListener("touchend", startfblogin, false);
 	document.querySelector("#starttwitterlogin").addEventListener("touchend", twitterlogedin, false);
 	document.querySelector("#startgplogin").addEventListener("touchend", gplogedin, false);
-	setTimeout(function(){
-		document.querySelector("#applogout").addEventListener("touchend", applogout, false);
-	},1000);
+	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	
 }
 function applogout(){
@@ -120,6 +118,11 @@ function applogout(){
 		alert('Error logging out');
 	  }
 	);
+	CordovaFacebook.logout({
+	   onSuccess: function() {
+		  alert("The user is now logged out");
+	   }
+	});
 }
 function gplogedin()
 {
@@ -248,8 +251,8 @@ function startfblogin()
 			 alert("The User declined something!");
 		  }
 		  //alert(result);
-		  alert(result.public_profile.name);
-		  alert(result['public_profile']['name']);
+		  alert(result.userID);
+		  alert(result['name']);
 		  /* ... */
 	   },
 	   onFailure: function(result) {
