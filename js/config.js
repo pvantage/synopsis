@@ -327,51 +327,6 @@ function startfblogin()
 	});
 }
 
-var fbLoginSuccess = function (userData) {
-    facebookConnectPlugin.getAccessToken(function(token) {
-        //alert("Token: " + token);
-    }, function(err) {
-        alert("Could not get access token: " + err);
-    });
-	facebookConnectPlugin.api('/me?fields=email,name,id', null,
-	 function(response) {
-		
-		var url=siteurl+'/api/fb.php';
-		$.ajax({
-			type: "POST",
-			 url: url,
-			data: response,
-			dataType: 'json',
-			success: function(res){                            
-				if(res['success'][0]['message']=='You have login successfully' || res['success'][0]['message']=='You have registered successfully')
-				{
-					
-					window.location ='category.html?uid='+res['success'][0]['user_id']+'&cid=0';
-				
-					//localStorage.setItem('userInfo', res['success']['userid']);
-					//window.location ='category.html';
-				}else if(res['success'][0]['message']=='Invalid email or password'){				
-					jQuery('body .bodyoverlay').remove();
-					jQuery('body .popupbox').remove();
-					var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
-					jQuery('body').append(html);
-					
-					jQuery('.okbox').click(function(){
-						jQuery('body .bodyoverlay').remove();
-						jQuery('body .popupbox').remove();
-					});
-					
-				}
-				else
-				{
-					alert('Server error');
-				}
-				return false; 
-				
-			}
-		});
-	 });
-}
 
 setTimeout(function(){
 	jQuery('.cat_links .invitefrnds').click(function(){
