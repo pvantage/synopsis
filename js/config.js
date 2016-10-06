@@ -108,34 +108,33 @@ function init() {
 	document.querySelector("#startgplogin").addEventListener("touchend", gplogedin, false);
 	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	
-	parsePlugin.initialize(appId, clientKey, function() {
-        alert('success');
-    }, function(e) {
-        alert('error');
+	var push = PushNotification.init({
+            "android": {
+                    "senderID": "XXXXXXXX"
+            },
+            "ios": {
+                    "sound": true,
+                    "vibration": true,
+                    "badge": true
+            },
+            "windows": {}
     });
+	push.on('registration', function(data) {
+        alert('registration event: ' + data.registrationId);
 
-    parsePlugin.getInstallationId(function(id) {
-        alert(id);
-    }, function(e) {
-        alert('error');
-    });
+        var oldRegId = localStorage.getItem('registrationId');
+        if (oldRegId !== data.registrationId) {
+            // Save new registration ID
+            localStorage.setItem('registrationId', data.registrationId);
+            // Post registrationId to your app server as the value has changed
+        }
 
-    parsePlugin.getSubscriptions(function(subscriptions) {
-        alert(subscriptions);
-    }, function(e) {
-        alert('error');
-    });
+        var parentElement = document.getElementById('registration');
+        var listeningElement = parentElement.querySelector('.waiting');
+        var receivedElement = parentElement.querySelector('.received');
 
-    parsePlugin.subscribe('SampleChannel', function() {
-        alert('OK');
-    }, function(e) {
-        alert('error');
-    });
-
-    parsePlugin.unsubscribe('SampleChannel', function(msg) {
-        alert('OK2');
-    }, function(e) {
-        alert('error');
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
     });
 }
 function applogout(){

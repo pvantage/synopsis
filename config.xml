@@ -34,7 +34,6 @@
 		<param name="FACEBOOK_APP_ID" value="144342512690789" />
 		<param name="FACEBOOK_DISPLAY_NAME" value="synopsis" />
 	</gap:plugin>
-	<plugin name="com.mitchelsellers.iospushplugin" spec="0.1.4" source="pgb" />
 	<!--<plugin name="com.parse.cordova.core.pushplugin" spec="0.1.0" source="pgb" />
 	<plugin name="com.performanceactive.iospushplugin" spec="0.1.1" source="pgb" />
 	<plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />
