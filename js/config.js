@@ -108,6 +108,35 @@ function init() {
 	document.querySelector("#startgplogin").addEventListener("touchend", gplogedin, false);
 	document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	
+	parsePlugin.initialize(appId, clientKey, function() {
+        alert('success');
+    }, function(e) {
+        alert('error');
+    });
+
+    parsePlugin.getInstallationId(function(id) {
+        alert(id);
+    }, function(e) {
+        alert('error');
+    });
+
+    parsePlugin.getSubscriptions(function(subscriptions) {
+        alert(subscriptions);
+    }, function(e) {
+        alert('error');
+    });
+
+    parsePlugin.subscribe('SampleChannel', function() {
+        alert('OK');
+    }, function(e) {
+        alert('error');
+    });
+
+    parsePlugin.unsubscribe('SampleChannel', function(msg) {
+        alert('OK2');
+    }, function(e) {
+        alert('error');
+    });
 }
 function applogout(){
 	TwitterConnect.logout(
