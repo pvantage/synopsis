@@ -266,9 +266,12 @@ function startfblogin()
 					var name = res.name;
 					var email = res.email;
 	            	var gender = res.gender;
-	            	var location = res.location;
 	            	var picture = res.picture;
-					alert(picture);
+					var url = res.url;
+					alert(name);
+					alert(url);
+					var picture2 = res.data.picture;
+					alert(picture2);
 					if(typeof email =='undefined')
 					{
 						email=result.userID ;	
