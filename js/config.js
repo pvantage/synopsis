@@ -248,8 +248,8 @@ function startfblogin()
 			 alert("The User declined something!");
 		  }
 		  //alert(result);
-		  alert(result.name);
-		  alert(result['name']);
+		  alert(result.public_profile.name);
+		  alert(result['public_profile']['name']);
 		  /* ... */
 	   },
 	   onFailure: function(result) {
