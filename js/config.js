@@ -273,13 +273,13 @@ function startfblogin()
 					{
 						email=result.userID ;	
 					}
-					$.ajax({
+					/*$.ajax({
 						type: "POST",
 						 url: url,
 						data: {account_type:'facebook',email:email,first_name:name,location:location},
 						dataType: 'json',
 						success: function(res){                            
-							/*if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
+							if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
 							{
 								localStorage.setItem('displayname',name);
 								localStorage.setItem('displayimg','<img src="https://pbs.twimg.com/profile_images/'+result['userId']+'/buddy_normal.jpg" />');
@@ -303,11 +303,11 @@ function startfblogin()
 							else
 							{
 								alert('Server error');
-							}*/
+							}
 							return false; 
 							
 						}
-					});
+					});*/
 					
 				}
 			});  
