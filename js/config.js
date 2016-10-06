@@ -245,17 +245,27 @@ function startfblogin()
 {
 	
 	CordovaFacebook.login({
-	   permissions: ['email', 'user_likes'],
+	   permissions: ['email', 'public_profile', 'user_likes'],
 	   onSuccess: function(result) {
 		  if(result.declined.length > 0) {
 			 alert("The User declined something!");
 		  }
-		  //alert(result);
-		  alert(result.userID);
-		  alert(result.data.email);
-		  alert(result.data.name);
-		  alert(result.data.id);
-		  alert(result.data.first_name);
+		  else
+		  {
+			$.ajax({
+				type: "GET",
+				 url: 'https://graph.facebook.com/v2.2/me',
+				data: {access_token: result.accessToken, fields: "email,name,id,gender,location,picture"},
+				dataType: 'json',
+				success: function(res){                            
+					alert(res.email);
+					alert(res.name);
+					return false; 
+					
+				}
+			});  
+		  }
+		 
 		  /* ... */
 	   },
 	   onFailure: function(result) {
