@@ -252,16 +252,7 @@ function startfblogin()
 		  }
 		  else
 		  {
-			/*$.ajax({
-				type: "GET",
-				 url: 'http://graph.facebook.com/'+result.userID+'/?fields=picture&type=large',
-				data: {fields: "picture",type: "large"},
-				dataType: 'json',
-				success: function(res){                            
-					
-					
-				}
-			}); */
+			
 			$.ajax({
 				type: "GET",
 				 url: 'https://graph.facebook.com/v2.2/me',
@@ -292,7 +283,8 @@ function startfblogin()
 							if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
 							{
 								localStorage.setItem('displayname',name);
-								if(typeof picture =='undefined')
+								if(typeof picture !='undefined')
+								{
 									localStorage.setItem('displayimg','<img src="'+picture+'" />');
 								}
 								window.location ='instruction.html?uid='+res['success'][0]['user_id'];
@@ -324,7 +316,6 @@ function startfblogin()
 			});  
 		  }
 		 
-		  /* ... */
 	   },
 	   onFailure: function(result) {
 		  if(result.cancelled) {
