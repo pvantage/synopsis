@@ -266,12 +266,10 @@ function startfblogin()
 					var name = res.name;
 					var email = res.email;
 	            	var gender = res.gender;
-	            	var picture = res.picture;
+	            	var picture = res.picture.url;
 					var url = res.url;
 					alert(name);
-					alert(url);
-					var picture2 = res.data.picture;
-					alert(picture2);
+					alert(picture);
 					if(typeof email =='undefined')
 					{
 						email=result.userID ;	
