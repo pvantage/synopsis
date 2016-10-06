@@ -109,6 +109,13 @@ function init() {
 	setTimeout(function(){
 		document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	},1000);
+	parsePlugin.initialize(appId, clientKey, function() {
+		alert(appId);
+	   alert('success');
+	
+	}, function(e) {
+		alert('error');
+	});
 }
 function applogout(){
 	TwitterConnect.logout(
@@ -345,13 +352,7 @@ jQuery(document).ready(function(){
 			}
 		});
 		jQuery('#notificationapp').change(function(){
-			parsePlugin.initialize(appId, clientKey, function() {
-				alert(appId);
-			   alert('success');
 			
-			}, function(e) {
-				alert('error');
-			});
 			if(jQuery(this).is(':checked'))
 			{
 				localStorage.setItem('notificationapp', 1);
