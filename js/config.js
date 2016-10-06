@@ -258,9 +258,56 @@ function startfblogin()
 				data: {access_token: result.accessToken, fields: "email,name,id,gender,location,picture"},
 				dataType: 'json',
 				success: function(res){                            
-					alert(res.email);
-					alert(res.name);
-					return false; 
+					var url=siteurl+'/api/register.php';
+					var location='';
+					if(localStorage.getItem('countrycode')!=null){
+						location=localStorage.getItem('countrycode');
+					}
+					var name = res.name;
+					var email = res.email;
+	            	var gender = res.gender;
+	            	var location = res.location;
+	            	var picture = res.picture;
+					alert(picture);
+					if(typeof email =='undefined')
+					{
+						email=result.userID ;	
+					}
+					$.ajax({
+						type: "POST",
+						 url: url,
+						data: {account_type:'facebook',email:email,first_name:name,location:location},
+						dataType: 'json',
+						success: function(res){                            
+							/*if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
+							{
+								localStorage.setItem('displayname',name);
+								localStorage.setItem('displayimg','<img src="https://pbs.twimg.com/profile_images/'+result['userId']+'/buddy_normal.jpg" />');
+								
+								window.location ='instruction.html?uid='+res['success'][0]['user_id'];
+							
+								//localStorage.setItem('userInfo', res['success']['userid']);
+								//window.location ='category.html';
+							}else if(res['success'][0]['message']=='Invalid email or password'){				
+								jQuery('body .bodyoverlay').remove();
+								jQuery('body .popupbox').remove();
+								var html='<div class="bodyoverlay"></div><div class="popupbox errorbox"><div class="popupimg"><img src="images/error.png" /></div><h1 class="success">ERROR</h1><h1>'+res['checklogin']['error']+'</h1><button class="okbox">OK</button></div>';
+								jQuery('body').append(html);
+								
+								jQuery('.okbox').click(function(){
+									jQuery('body .bodyoverlay').remove();
+									jQuery('body .popupbox').remove();
+								});
+								
+							}
+							else
+							{
+								alert('Server error');
+							}*/
+							return false; 
+							
+						}
+					});
 					
 				}
 			});  
