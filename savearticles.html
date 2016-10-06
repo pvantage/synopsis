@@ -32,7 +32,7 @@ function onDeviceReady() {
 }
 document.addEventListener("deviceready", onDeviceReady, false);
 jQuery(document).ready(function(){
-	
+	responsiveVoice.cancel();
 	jQuery( document ).on( "mobileinit", function() {
 		jQuery.mobile.allowCrossDomainPages = true;
 	});
