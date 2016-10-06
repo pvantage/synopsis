@@ -109,13 +109,7 @@ function init() {
 	setTimeout(function(){
 		document.querySelector("#applogout").addEventListener("touchend", applogout, false);
 	},1000);
-	parsePlugin.initialize(appId, clientKey, function() {
-		alert(appId);
-	   alert('success');
 	
-	}, function(e) {
-		alert('error');
-	});
 }
 function applogout(){
 	TwitterConnect.logout(
