@@ -252,7 +252,9 @@ function startfblogin()
 		  }
 		  //alert(result);
 		  alert(result.userID);
-		  alert(result['name']);
+		  alert(result.name);
+		  alert(result.id);
+		  alert(result.first_name);
 		  /* ... */
 	   },
 	   onFailure: function(result) {
