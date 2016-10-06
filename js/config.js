@@ -277,13 +277,13 @@ function startfblogin()
 					var email = res.email;
 	            	var gender = res.gender;
 	            	var picture = res.picture.data.url;
-					alert(name);
-					alert(picture);
+					//alert(name);
+					//alert(picture);
 					if(typeof email =='undefined')
 					{
 						email=result.userID ;	
 					}
-					/*$.ajax({
+					$.ajax({
 						type: "POST",
 						 url: url,
 						data: {account_type:'facebook',email:email,first_name:name,location:location},
@@ -292,8 +292,9 @@ function startfblogin()
 							if(res['success'][0]['message']=='Login successfully' || res['success'][0]['message']=='You have registered successfully')
 							{
 								localStorage.setItem('displayname',name);
-								localStorage.setItem('displayimg','<img src="https://pbs.twimg.com/profile_images/'+result['userId']+'/buddy_normal.jpg" />');
-								
+								if(typeof picture =='undefined')
+									localStorage.setItem('displayimg','<img src="'+picture+'" />');
+								}
 								window.location ='instruction.html?uid='+res['success'][0]['user_id'];
 							
 								//localStorage.setItem('userInfo', res['success']['userid']);
@@ -317,7 +318,7 @@ function startfblogin()
 							return false; 
 							
 						}
-					});*/
+					});
 					
 				}
 			});  
