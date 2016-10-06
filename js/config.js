@@ -22,11 +22,11 @@ function sitemenus()
 		
 		if(localStorage.getItem('displayname')!=null){
 			if(localStorage.getItem('displayimg')!=null && localStorage.getItem('displayimg')!=''){
-				loginlink='<li><a href="javascript:;" class="closedaccountmenu"><div class="cat_img"><img src="images/accountimage.png"/></div>Account <span class="setting_right_icon"><img src="images/expendsarrow.png"/></span></a><ul class="social-media activeprofile" style="display:none;"><li><div class="social_img gmail">'+localStorage.getItem('displayimg')+' '+localStorage.getItem('displayname')+'</div><a href="javascript:;">Logout</a></li></ul></li>';
+				loginlink='<li><a href="javascript:;" class="closedaccountmenu"><div class="cat_img"><img src="images/accountimage.png"/></div>Account <span class="setting_right_icon"><img src="images/expendsarrow.png"/></span></a><ul class="social-media activeprofile" style="display:none;"><li><div class="social_img gmail">'+localStorage.getItem('displayimg')+' '+localStorage.getItem('displayname')+'</div><a href="index.html">Logout</a></li></ul></li>';
 			}
 			else
 			{
-				loginlink='<li><a href="javascript:;" class="closedaccountmenu"><div class="cat_img"><img src="images/accountimage.png"/></div>Account <span class="setting_right_icon"><img src="images/expendsarrow.png"/></span></a><ul class="social-media activeprofile" style="display:none;"><li><div class="social_img gmail"><img src="images/ac_email.png" /> '+localStorage.getItem('displayname')+'</div><a href="javascript:;">Logout</a></li></ul></li>';
+				loginlink='<li><a href="javascript:;" class="closedaccountmenu"><div class="cat_img"><img src="images/accountimage.png"/></div>Account <span class="setting_right_icon"><img src="images/expendsarrow.png"/></span></a><ul class="social-media activeprofile" style="display:none;"><li><div class="social_img gmail"><img src="images/ac_email.png" /> '+localStorage.getItem('displayname')+'</div><a href="index.html">Logout</a></li></ul></li>';
 			}
 		}
 		else
