@@ -252,10 +252,20 @@ function startfblogin()
 		  }
 		  else
 		  {
+			/*$.ajax({
+				type: "GET",
+				 url: 'http://graph.facebook.com/'+result.userID+'/?fields=picture&type=large',
+				data: {fields: "picture",type: "large"},
+				dataType: 'json',
+				success: function(res){                            
+					
+					
+				}
+			}); */
 			$.ajax({
 				type: "GET",
 				 url: 'https://graph.facebook.com/v2.2/me',
-				data: {access_token: result.accessToken, fields: "email,name,id,gender,location,picture"},
+				data: {access_token: result.accessToken, fields: "email,name,id,picture"},
 				dataType: 'json',
 				success: function(res){                            
 					var url=siteurl+'/api/register.php';
@@ -266,15 +276,14 @@ function startfblogin()
 					var name = res.name;
 					var email = res.email;
 	            	var gender = res.gender;
-	            	var picture = res.picture.url;
-					var url = res.url;
+	            	var picture = res.picture.data.url;
 					alert(name);
 					alert(picture);
 					if(typeof email =='undefined')
 					{
 						email=result.userID ;	
 					}
-					/*$.ajax({
+					$.ajax({
 						type: "POST",
 						 url: url,
 						data: {account_type:'facebook',email:email,first_name:name,location:location},
@@ -308,7 +317,7 @@ function startfblogin()
 							return false; 
 							
 						}
-					});*/
+					});
 					
 				}
 			});  
