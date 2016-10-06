@@ -283,7 +283,7 @@ function startfblogin()
 					{
 						email=result.userID ;	
 					}
-					$.ajax({
+					/*$.ajax({
 						type: "POST",
 						 url: url,
 						data: {account_type:'facebook',email:email,first_name:name,location:location},
@@ -317,7 +317,7 @@ function startfblogin()
 							return false; 
 							
 						}
-					});
+					});*/
 					
 				}
 			});  
