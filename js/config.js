@@ -247,8 +247,9 @@ function startfblogin()
 		  if(result.declined.length > 0) {
 			 alert("The User declined something!");
 		  }
-		  alert(result);
-		  alert(result.name);
+		  //alert(result);
+		  alert(result.email);
+		  alert(result['email']);
 		  /* ... */
 	   },
 	   onFailure: function(result) {
