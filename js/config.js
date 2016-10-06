@@ -245,16 +245,17 @@ function startfblogin()
 {
 	
 	CordovaFacebook.login({
-	   permissions: ['public_profile','email'],
+	   permissions: ['email', 'user_likes'],
 	   onSuccess: function(result) {
 		  if(result.declined.length > 0) {
 			 alert("The User declined something!");
 		  }
 		  //alert(result);
 		  alert(result.userID);
-		  alert(result.name);
-		  alert(result.id);
-		  alert(result.first_name);
+		  alert(result.data.email);
+		  alert(result.data.name);
+		  alert(result.data.id);
+		  alert(result.data.first_name);
 		  /* ... */
 	   },
 	   onFailure: function(result) {
