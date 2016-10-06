@@ -319,13 +319,7 @@ setTimeout(function(){
 		return false;
 	});
 },1000);
-parsePlugin.initialize(appId, clientKey, function() {
-	alert(appId);
-   alert('success');
 
-}, function(e) {
-    alert('error');
-});
 jQuery(document).ready(function(){
     setTimeout(function(){
 		jQuery('#nightmodeapp').change(function(){
@@ -351,7 +345,13 @@ jQuery(document).ready(function(){
 			}
 		});
 		jQuery('#notificationapp').change(function(){
-												   parsePlugin.initialize();
+			parsePlugin.initialize(appId, clientKey, function() {
+				alert(appId);
+			   alert('success');
+			
+			}, function(e) {
+				alert('error');
+			});
 			if(jQuery(this).is(':checked'))
 			{
 				localStorage.setItem('notificationapp', 1);
