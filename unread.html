@@ -49,6 +49,7 @@ jQuery(document).ready(function(){
 	if(localStorage.getItem('countrycode')!=null){
 		location=localStorage.getItem('countrycode');
 	}
+	var lastpageaccess=localStorage.getItem('lastpageaccess');
 	var uid=gup('uid');
 	localStorage.setItem('lastpageaccess', 'unread.html?uid='+uid);
 	
@@ -100,6 +101,11 @@ jQuery(document).ready(function(){
 				var th=jQuery('.activenews');
 				swipnews(th,device_id);
 				
+			}
+			if(localStorage.getItem('setnid')!=null && lastpageaccess=='iframe.html')
+			{
+				jQuery('.newsection').removeClass('activenews');
+				jQuery('.newsection.newsid_'+localStorage.getItem('setnid')+'').addClass('activenews');
 			}
 			localStorage.removeItem('unreadednews_'+jQuery('.activenews').attr('news-id'));
 			jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');

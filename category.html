@@ -49,6 +49,7 @@ jQuery(document).ready(function(){
 	if(localStorage.getItem('countrycode')!=null){
 		location=localStorage.getItem('countrycode');
 	}
+	var lastpageaccess=localStorage.getItem('lastpageaccess');
 	/*db.transaction(function (tx) {
 		tx.executeSql("SELECT * FROM NEWSSETTINGS where meta_key='countrycode'", [],
 			function(tx,results){
@@ -72,10 +73,13 @@ jQuery(document).ready(function(){
 		cid_array=array.join(',');
 		localStorage.setItem('loadedlatestnews_'+cid,cid_array);
 		loadedlatestnews =localStorage.getItem('loadedlatestnews_'+cid);
+		
 	}
 	else
 	{
 		loadedlatestnews=0;
+		var html='<div class="bodyoverlay"></div><div class="preloader"></div>';
+		jQuery('body').append(html);
 	}
 	
 	var allnewsids =localStorage.getItem('allnewsids');
@@ -103,6 +107,11 @@ jQuery(document).ready(function(){
 				
 			}
 			jQuery('.header_right_news').html('<a href="javascript:;" class="loadnewnews"><img src="images/221.png"></a>');
+			if(localStorage.getItem('setnid')!=null && lastpageaccess=='iframe.html')
+			{
+				jQuery('.newsection').removeClass('activenews');
+				jQuery('.newsection.newsid_'+localStorage.getItem('setnid')+'').addClass('activenews');
+			}
 			loadagainnews();
 			
 			jQuery('.activenews .new_detail_section, .activenews .new_des_content').click(function(){
@@ -114,6 +123,7 @@ jQuery(document).ready(function(){
 			newsspeach();
 			var activeid=jQuery('.activenews').attr('news-id');;
 			localStorage.removeItem('unreadednews_'+activeid);
+			
 		}
 	
 	setTimeout(function(){
@@ -158,7 +168,7 @@ jQuery(document).ready(function(){
 					jQuery(res['news']).each(function(i){
 						var html='';
 						var img='null';
-						html+='<div class="newsection" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
+						html+='<div class="newsection newsid_'+res['news'][i]['id']+'" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
 						if(res['news'][i]['video']!='')
 						{
 							html+='<div class="new_video"><video loop autoplay width="100%" height="100%" src="'+res['news'][i]['video']+'" type="video/mp4"></video></div>';
@@ -279,7 +289,8 @@ jQuery(document).ready(function(){
 		loadnews(cid,page);
 		var th=jQuery('.activenews');
 		swipnews(th,device_id);
-	 },500);  
+	 },700);  
+	 
 });		
 </script>
 <title>Synopsis</title>

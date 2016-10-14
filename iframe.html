@@ -18,6 +18,9 @@ function onBackKeyDown() {
     history.go(-1);
     //navigator.app.backHistory();
 }
+var nid=gup('nid');
+localStorage.setItem('setnid',nid);
+localStorage.setItem('lastpageaccess', 'iframe.html');
 jQuery(document).ready(function(){
     jQuery(".menu_box").click(function(){
         jQuery(".menusection").toggle();

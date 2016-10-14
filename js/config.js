@@ -469,14 +469,15 @@ jQuery(document).ready(function(){
 			}
 			else
 			{
-				responsiveVoice.speak(sptext, "UK English Female",{onstart: function(){}, onend: function(){jQuery($tis).removeClass('activespeach');}});
+				responsiveVoice.speak(sptext, "US English Female",{onstart: function(){}, onend: function(){jQuery($tis).removeClass('activespeach');}});
 				jQuery(this).addClass('activespeach');
 			}
 			return false;
 		});
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
-			window.location='iframe.html?url='+hrf;
+			var nid=jQuery(this).parents('.activenews').attr('news-id');
+			window.location='iframe.html?url='+hrf+'&nid='+nid;
 			
 			//var ref = window.open(hrf, '_blank');
 			//ref.close();
@@ -503,7 +504,7 @@ jQuery(document).ready(function(){
 					
 					jQuery(this).addClass('bookedmarked');
 					var nws=jQuery('.newsection.activenews').html();
-					nws='<div class="newsection" news-id="'+id+'">'+nws+'</div>';
+					nws='<div class="newsection newsid_'+id+'" news-id="'+id+'">'+nws+'</div>';
 					localStorage.setItem('bookmarked_news_'+id, nws);
 					jQuery('.activenews footer .source').append('<span class="msgnotification">News bookmarked</span>');
 					
@@ -554,15 +555,18 @@ jQuery(document).ready(function(){
 				if(!jQuery(this).hasClass('liked')){
 					jQuery(this).addClass('liked');
 					totallikes=parseInt(totallikes)+1;
+					jQuery('.activenews footer .source').append('<span class="msgnotification">Liked</span>');
 				}else{
 					jQuery(this).removeClass('liked');
 					totallikes=parseInt(totallikes)-1;
+					jQuery('.activenews footer .source').append('<span class="msgnotification">Unliked</span>');
 				}
 				var likes=' Like';
 				if(parseInt(totallikes)>0){
 					likes=totallikes+' Like';
 					if(parseInt(totallikes)>1){
 						likes=totallikes+' Likes';
+						
 					}
 				}
 				//alert(totallikes);
@@ -582,7 +586,7 @@ jQuery(document).ready(function(){
 				 success: function(res) {  
 					if(parseInt(res['total_like'][0]['count'])>=0)
 					{
-						
+						jQuery('.newsection footer .source span.msgnotification').remove();
 						/*var likes=' Like';
 						if(parseInt(res['total_like'][0]['count'])>0){
 							likes=res['total_like'][0]['count']+' Like';
@@ -627,7 +631,7 @@ jQuery(document).ready(function(){
 				var dtext=jQuery(this).attr('data-text');
 				var dimg=jQuery(this).attr('data-img');
 				dtext="Save time. Download Synopsis,It's highest rated news app, to read news in 80 words.";
-				//alert(dtext);
+				console.log('Sharing');
 				window.plugins.socialsharing.share(dtext,title,dimg,durl);
 			});
 		},
@@ -779,7 +783,7 @@ jQuery(document).ready(function(){
 					jQuery(res['news']).each(function(i){
 						var html='';
 						var img='null';
-						html+='<div class="newsection latestnews" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
+						html+='<div class="newsection latestnews newsid_'+res['news'][i]['id']+'" news-id="'+res['news'][i]['id']+'"><div class="container"><div class="new_detail_section">';
 						if(res['news'][i]['video']!='')
 						{
 							html+='<div class="new_video"><video loop autoplay width="100%" height="100%" src="'+res['news'][i]['video']+'" type="video/mp4"></video></div>';
