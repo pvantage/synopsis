@@ -478,14 +478,14 @@ jQuery(document).ready(function(){
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
 			var atext=jQuery(this).text();
-			if(atext=='Daily Mail'){
+			/*if(atext=='Daily Mail'){
 				window.location=hrf;
 			}
 			else
-			{
+			{*/
 				var nid=jQuery(this).parents('.activenews').attr('news-id');
 				window.location='iframe.html?url='+hrf+'&nid='+nid;
-			}
+			//}
 			//var ref = window.open(hrf, '_blank');
 			//ref.close();
 			return false;
