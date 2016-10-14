@@ -31,6 +31,24 @@ jQuery(document).ready(function(){
 });
 </script>
 <title>Synopsis</title>
+<style type="text/css">
+.iframe_container {
+position: relative;
+padding-top: 30px;
+height: 0;
+overflow: auto; 
+-webkit-overflow-scrolling:touch;
+border: solid black 1px;
+height:700px;
+} 
+.iframe_container iframe {
+position: absolute;
+top: 30px;
+left: 0;
+width: 100%;
+height: 100%;
+}
+</style>
 </head>
 
 <body>
@@ -43,8 +61,8 @@ jQuery(document).ready(function(){
 
 
 <div class="container">
-<div class="iframe_container">
-<iframe id="myiframe" src="http://vantagewebtech.com/"></iframe>
+<div class="iframe_container" style="background:url(images/ajax-loading.gif) center center no-repeat;">
+<iframe id="myiframe" src="images/ajax-loading.gif"></iframe>
 
 </div>
 </div>
