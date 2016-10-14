@@ -479,8 +479,7 @@ jQuery(document).ready(function(){
 			var hrf=jQuery(this).attr('href');
 			var atext=jQuery(this).text();
 			if(atext=='Daily Mail'){
-				var ref = window.open(hrf, '_blank');
-				ref.close();
+				window.location=hrf;
 			}
 			else
 			{
