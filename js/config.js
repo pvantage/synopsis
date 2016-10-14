@@ -477,9 +477,16 @@ jQuery(document).ready(function(){
 		});
 		jQuery('.activenews .source a').click(function(){
 			var hrf=jQuery(this).attr('href');
-			var nid=jQuery(this).parents('.activenews').attr('news-id');
-			window.location='iframe.html?url='+hrf+'&nid='+nid;
-			
+			var atext=jQuery(this).text();
+			if(atext=='Daily Mail'){
+				var ref = window.open(hrf, '_blank');
+				ref.close();
+			}
+			else
+			{
+				var nid=jQuery(this).parents('.activenews').attr('news-id');
+				window.location='iframe.html?url='+hrf+'&nid='+nid;
+			}
 			//var ref = window.open(hrf, '_blank');
 			//ref.close();
 			return false;
