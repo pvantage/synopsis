@@ -461,6 +461,7 @@ jQuery(document).ready(function(){
 		jQuery('.activenews a.speakthis').click(function(){
 			
 			var sptext=jQuery(this).attr('data');
+			//alert(sptext);
 			var $tis=jQuery(this);
 			if(jQuery(this).hasClass('activespeach'))
 			{
@@ -631,7 +632,10 @@ jQuery(document).ready(function(){
 				var dtext=jQuery(this).attr('data-text');
 				var dimg=jQuery(this).attr('data-img');
 				dtext="Save time. Download Synopsis,It's highest rated news app, to read news in 80 words.";
-				console.log('Sharing');
+				jQuery('.activenews footer .source').append('<span class="msgnotification">Sharing</span>');
+				setTimeout(function(){
+					jQuery('.newsection footer .source span.msgnotification').remove();
+				},700);
 				window.plugins.socialsharing.share(dtext,title,dimg,durl);
 			});
 		},

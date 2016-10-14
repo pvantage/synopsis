@@ -175,6 +175,15 @@ jQuery(document).ready(function(){
 								loadedlatestnews =0;
 							}
 							localStorage.setItem('loadedlatestnews_'+cid,loadedlatestnews);
+							
+							/*var cids=res['news'][i]['related_category'];
+							if(cids!=''){
+								cids2=cids.split(',');
+								jQuery(cids2).each(function(j){
+									localStorage.setItem('loadedlatestnews_'+cids2[j],loadedlatestnews);
+								});
+							}*/
+							
 							if(allnewsids!=null){
 								if(allnewsids!=0){
 									var allnewsids2=allnewsids.split(',');
