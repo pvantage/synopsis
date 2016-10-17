@@ -484,7 +484,14 @@ jQuery(document).ready(function(){
 			else
 			{*/
 				var nid=jQuery(this).parents('.activenews').attr('news-id');
-				window.location='iframe.html?url='+hrf+'&nid='+nid;
+				OpenUrlExt.open(hrf+'&nid='+nid,
+                    function(){ 
+                        console.log("ok");
+                    }, 
+                    function(){ 
+                        window.location='iframe.html?url='+hrf+'&nid='+nid;
+                    });
+				
 			//}
 			//var ref = window.open(hrf, '_blank');
 			//ref.close();
