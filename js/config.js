@@ -364,7 +364,7 @@ setTimeout(function(){
 		window.plugins.socialsharing.share(null,null,null,durl);									 
 	});
 	jQuery('.cat_links #ratingapp').click(function(){
-		window.location='iframe.html?url=http://www.goople.com';
+		cordova.InAppBrowser.open('http://www.goople.com','location=no');
 		return false;
 	});
 	jQuery('.cat_links .closedaccountmenu').click(function(){
