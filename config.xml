@@ -20,7 +20,7 @@
 	<preference name="deployment-target" value="7.0" />
 	<preference name="TwitterConsumerKey" value="xKkDmAKdJirhY8SeWvZS0HIOS" />
     <preference name="TwitterConsumerSecret" value="KsaTBlms3Ri0frc4DJtIIAW4qRMebbno5zNIjKPWn4rHmAJRTm" />
-	<!--<preference name="phonegap-version" value="3.5.0" />-->
+	<preference name="stay-in-webview" value="true" />
 	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" />
 	<plugin name="cordova-plugin-device" spec="1.0.1" source="pgb" />
 	<plugin name="twitter-connect-plugin" spec="0.5.0" source="pgb">
