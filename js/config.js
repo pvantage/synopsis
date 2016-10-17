@@ -484,6 +484,10 @@ jQuery(document).ready(function(){
 			else
 			{*/
 				var nid=jQuery(this).parents('.activenews').attr('news-id');
+				
+				localStorage.setItem('setnid',nid);
+				localStorage.setItem('lastpageaccess', 'iframe.html');
+				
 				window.open(hrf+'&nid='+nid,'_system','location=yes');
 				/*OpenUrlExt.open(hrf+'&nid='+nid,
                     function(){ 
