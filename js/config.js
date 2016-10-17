@@ -484,7 +484,7 @@ jQuery(document).ready(function(){
 			else
 			{*/
 				var nid=jQuery(this).parents('.activenews').attr('news-id');
-				window.open(hrf+'&nid='+nid,'_self','location=yes');
+				window.open(hrf+'&nid='+nid,'_system','location=yes');
 				/*OpenUrlExt.open(hrf+'&nid='+nid,
                     function(){ 
                         console.log("ok");
