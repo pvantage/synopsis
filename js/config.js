@@ -488,7 +488,7 @@ jQuery(document).ready(function(){
 				localStorage.setItem('setnid',nid);
 				localStorage.setItem('lastpageaccess', 'iframe.html');
 				
-				window.open(hrf+'&nid='+nid,'_blank','location=yes');
+				cordova.InAppBrowser.open(hrf+'&nid='+nid,'_blank','location=yes');
 				/*OpenUrlExt.open(hrf+'&nid='+nid,
                     function(){ 
                         console.log("ok");
