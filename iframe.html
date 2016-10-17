@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <link href="css/style.css" type="text/css" rel="stylesheet" />
 <link href="css/main.css" type="text/css" rel="stylesheet" />
 <link href="style.css" type="text/css" rel="stylesheet" />
@@ -27,29 +27,44 @@ jQuery(document).ready(function(){
     });
 	
 	var url=gup('url');
-	jQuery('#myiframe').attr('src',url);
+	//jQuery('#myiframe').attr('src',url);
+	
+	
+	var iframe = document.getElementById('myiframe');
+	var tags = '';
+	tags += '';
+	// Send a message to the iframe only if it contains content from
+	// https://frame.example.net.
+	iframe.contentWindow.postMessage(tags, 'https://frame.example.net');
+	
+// Iframe
+function listener(event) {
+  // Only listen to events from the top-level page.
+  if (event.origin !== "http://example.com" &&
+      event.origin !== "https://example.com" &&
+      event.origin !== "http://dev.example.com" &&
+      event.origin !== "https://dev.example.com"
+  ) {
+    return;
+  }
+  jQuery('head').append(event.data);
+}
+// We attach this differently for older versions of IE.
+if (window.addEventListener) {
+  addEventListener("message", listener, false);
+}
+else {
+  attachEvent("onmessage", listener);
+}
 });
+
+
+
 </script>
 <title>Synopsis</title>
-<!--<style type="text/css">
-.iframe_container {
-position: relative;
-height: 0;
-overflow: auto; 
-border: solid black 1px;
--webkit-overflow-scrolling:touch;
-height:700px;
-width:400px;
-} 
-.iframe_container iframe {
-position: absolute;
-top:28px;
-left: 0;
-width: 100%;
-height: 100%;
-background:#ffffff;
-}
-</style>-->
+<style type="text/css">
+
+</style>
 </head>
 
 <body>
@@ -63,7 +78,7 @@ background:#ffffff;
 
 <div class="container">
 <div class="iframe_container">
-<iframe id="myiframe" src="images/ajax-loading.gif"></iframe>
+<iframe id="myiframe" src="http://example.com/widget" width="300" height="500"> </iframe>
 
 </div>
 </div>
