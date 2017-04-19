@@ -1,4 +1,4 @@
-var siteurl = "http://www.synopsis.yantradigital.com";
+var siteurl = "http://vantagewebtech.com/synopsis";
 
 function gup(sParam) {
   var sPageURL = decodeURIComponent(window.location.search.substring(1)),
